@@ -1,2 +1,4 @@
-# MeteoraDesigner
-Project with the primary objective to implements the personal designer for every day and to practice the hard skills.
+# Welcome to the MeteoraDesigner wiki!
+### [Project documentation](https://github.com/MeteoraProjects/MeteoraDesigner/wiki/Project-documentation)
+### [Project members](https://github.com/MeteoraProjects/MeteoraDesigner/wiki/Project-management-plan#projectMembers)
+### [Project deadlines](https://github.com/MeteoraProjects/MeteoraDesigner/wiki/Project-management-plan#projectDeadlines)
