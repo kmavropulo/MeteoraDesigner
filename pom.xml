@@ -22,6 +22,12 @@
         <maven.compiler.version>3.2</maven.compiler.version>
         <maven-war-plugin.version>3.2.0</maven-war-plugin.version>
         <lombok.version>1.16.18</lombok.version>
+        <commons-lang3.version>3.6</commons-lang3.version>
+
+
+        <!--Spring-->
+        <spring-data-jpa.version>1.11.6.RELEASE</spring-data-jpa.version>
+        <spring.version>4.3.10.RELEASE</spring.version>
 
         <!--Logging -->
         <logback.version>1.2.2</logback.version>
@@ -34,6 +40,13 @@
 
         <!--Db-->
         <h2.version>1.4.196</h2.version>
+
+        <!--ORM-->
+        <hibernate.version>5.2.12.Final</hibernate.version>
+
+        <!--Validation-->
+        <hibernate-validator.version>6.0.7.Final</hibernate-validator.version>
+        <javax-el.version>3.0.1-b08</javax-el.version>
 
     </properties>
 
@@ -61,12 +74,38 @@
     </build>
 
     <dependencies>
+
         <!--Basic-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+
+        <!--Spring-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>${spring.version}</version>
         </dependency>
 
         <!--Testing-->
@@ -131,10 +170,30 @@
         </dependency>
 
         <!--DB-->
+
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
+        </dependency>
+
+        <!--ORM-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <!--Validation-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.0.7.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${javax-el.version}</version>
         </dependency>
 
     </dependencies>
