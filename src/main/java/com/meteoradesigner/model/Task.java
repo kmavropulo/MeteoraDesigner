@@ -12,18 +12,21 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
+/**
+ * Class implements task to do.
+ */
 @Getter
 @Setter
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class Task extends AbstractBaseEntity {
 
     @NotNull
     private User user;
 
     @NotBlank
-    @Size(min = 1, max = 1000000)
+    @Size(min = 1, max = 6400000)
     private String description;
 
     @NotNull
@@ -68,7 +71,7 @@ public class Task extends AbstractBaseEntity {
     }
 
     /**
-     * The common constructor implementation.
+     * The all-args constructor implementation.
      */
     public Task(Integer id, User user, String description, LocalDateTime
             plannedStartTaskTimestamp, LocalDateTime plannedStopTaskTimestamp, LocalDateTime

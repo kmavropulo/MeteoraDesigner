@@ -8,17 +8,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Class - abstract base entity, part of Entity Relationships (ER) model.
+ * Class - abstract base entity, part of implementation of Enhanced Entity Relationships (EER)
+ * model.
  *
- * @see <a href=http://cs-exhibitions.uni-klu.ac.at/index.php?id=431>ER</a>
- * Core semantic is extending the ability of keeping of the ID.
+ * @see <a href=http://cs-exhibitions.uni-klu.ac.at/index.php?id=431>EER</a>
  */
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-
-//Overriding here.
+//Overriding id methods.
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractBaseEntity implements HasId {
     private Integer id = null;
 

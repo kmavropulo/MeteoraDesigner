@@ -7,24 +7,31 @@ import lombok.Setter;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Class - abstract named entity, part of implementation of Enhanced Entity Relationships (EER)
+ * model.
+ *
+ * @see <a href=http://cs-exhibitions.uni-klu.ac.at/index.php?id=431>EER</a>
+ * Named entity core is using to extend the semantic of the AbstractBaseEntity.
+ */
 //TODO protected or private
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 
     @NotNull
     @Size(min = 1, max = 333)
-    private String name;
+    private String displayName;
 
     protected AbstractNamedEntity(Integer idToSet, String nameToSet) {
         super(idToSet);
-        this.name = nameToSet;
+        this.displayName = nameToSet;
     }
 
     @Override
     public String toString() {
         return String.format("NamedEntity{%s" +
-                "(name=%s)}" + getClass().getName(), name);
+                "(displayName=%s)}" + getClass().getName(), displayName);
     }
 }
