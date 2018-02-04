@@ -1,9 +1,13 @@
 package com.meteoradesigner;
 
-public interface HasId {
+import java.io.Serializable;
+
+public interface HasId extends Serializable {
     Integer getId();
+
     void setId(Integer idToSet);
-    default boolean isNew(){
-        return getId()==null;
+
+    default boolean isNew() {
+        return getId() == null;
     }
 }
