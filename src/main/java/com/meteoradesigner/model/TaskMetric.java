@@ -1,5 +1,6 @@
 package com.meteoradesigner.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class TaskMetric implements Serializable {
 
     @NotNull
@@ -25,17 +27,12 @@ public class TaskMetric implements Serializable {
     private Long urgency;
     private Long stability;
 
+    /**
+     * Copy constructor.
+     */
     public TaskMetric(TaskMetric taskMetricToCopy) {
         this(taskMetricToCopy.getDescription(), taskMetricToCopy.getImportance(),
                 taskMetricToCopy.getUrgency(), taskMetricToCopy.getStability());
-    }
-
-    public TaskMetric(@NotNull @Size(min = 1, max = 6400) String description, Long importance,
-                      Long urgency, Long stability) {
-        this.description = description;
-        this.importance = importance;
-        this.urgency = urgency;
-        this.stability = stability;
     }
 
     @Override

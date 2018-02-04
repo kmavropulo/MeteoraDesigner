@@ -57,7 +57,7 @@ public class Task extends AbstractBaseEntity {
     private InternalExecutionState internalExecutionState;
 
     /**
-     * The deep copying constructor implementation.
+     * The deep copying constructor.
      */
     public Task(Task taskToCopy) {
         Task taskCopy = SerializationUtils.clone(taskToCopy);
@@ -71,7 +71,7 @@ public class Task extends AbstractBaseEntity {
     }
 
     /**
-     * The all-args constructor implementation.
+     * The all-args constructor.
      */
     public Task(Integer id, User user, String description, LocalDateTime
             plannedStartTaskTimestamp, LocalDateTime plannedStopTaskTimestamp, LocalDateTime

@@ -29,7 +29,7 @@ public class TaskContext extends AbstractBaseEntity {
     private Set<TaskContext> internalContext;
 
     /**
-     * The deep copying constructor implementation.
+     * The deep copying constructor.
      */
     public TaskContext(TaskContext taskContextToCopy) {
         TaskContext taskContextCopy = SerializationUtils.clone(taskContextToCopy);
@@ -40,7 +40,7 @@ public class TaskContext extends AbstractBaseEntity {
     }
 
     /**
-     * The all-args constructor implementation.
+     * The all-args constructor.
      */
     public TaskContext(Integer id, @NotNull User user, @NotNull @Size(min = 1, max = 6400) String
             description, Set<TaskContext> externalContext, Set<TaskContext> internalContext) {
