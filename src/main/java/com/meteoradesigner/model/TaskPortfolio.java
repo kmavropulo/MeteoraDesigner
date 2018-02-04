@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 /**
- * Class implements the task portfolio.
+ * Class implements the task portfolio entity.
  */
 @Getter
 @Setter

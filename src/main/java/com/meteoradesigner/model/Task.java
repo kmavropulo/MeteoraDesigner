@@ -14,7 +14,7 @@ import java.util.Set;
 
 
 /**
- * Class implements task to do.
+ * Class implements task entity.
  */
 @Getter
 @Setter

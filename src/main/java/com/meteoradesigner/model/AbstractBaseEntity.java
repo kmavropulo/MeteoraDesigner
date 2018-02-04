@@ -16,8 +16,8 @@ import lombok.Setter;
 //Overriding id methods.
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public abstract class AbstractBaseEntity implements HasId {
     private Integer id = null;
 

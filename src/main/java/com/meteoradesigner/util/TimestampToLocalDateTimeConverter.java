@@ -8,7 +8,11 @@ import javax.persistence.Converter;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-//For all entities in auto mode, spring-context's Asserts.
+/**
+ * Class-converter from/to db data (<code>Timestamp</code>) to/from attribute
+ * (<code>LocalDateTime</code>).
+ * For all entities in enabled below auto mode; spring-context's asserts using for checking.
+ */
 @Converter(autoApply = true)
 public class TimestampToLocalDateTimeConverter implements AttributeConverter<LocalDateTime
         , Timestamp> {
