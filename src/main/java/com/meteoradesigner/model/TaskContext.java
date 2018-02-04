@@ -25,7 +25,10 @@ public class TaskContext extends AbstractBaseEntity {
     private String description;
 
     private Set<TaskContext> externalContext;
+
     private Set<TaskContext> internalContext;
+
+    private Set<Task> tasks;
 
     /**
      * The deep copying constructor.
@@ -35,19 +38,21 @@ public class TaskContext extends AbstractBaseEntity {
         taskContextCopy.setId(0);
         new TaskContext(taskContextCopy.getId(), taskContextCopy.getUser(), taskContextCopy
                 .getDescription(), taskContextCopy.getExternalContext(), taskContextCopy
-                .getInternalContext());
+                .getInternalContext(), taskContextCopy.getTasks());
     }
 
     /**
      * The all-args constructor.
      */
     public TaskContext(Integer id, @NotNull User user, @NotNull @Size(min = 1, max = 6400) String
-            description, Set<TaskContext> externalContext, Set<TaskContext> internalContext) {
+            description, Set<TaskContext> externalContext, Set<TaskContext> internalContext,
+                       Set<Task> tasks) {
         super(id);
         this.user = user;
         this.description = description;
         this.externalContext = externalContext;
         this.internalContext = internalContext;
+        this.tasks = tasks;
     }
 
     @Override
@@ -57,6 +62,7 @@ public class TaskContext extends AbstractBaseEntity {
                 ", description='" + description + '\'' +
                 ", externalContext=" + externalContext +
                 ", internalContext=" + internalContext +
+                ", tasks=" + tasks +
                 '}';
     }
 }

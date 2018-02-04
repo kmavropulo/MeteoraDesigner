@@ -44,9 +44,16 @@ public class Task extends AbstractBaseEntity {
     private TaskPortfolio portfolio;
 
     private Set<Task> externalTasks;
+
     private Set<Task> internalTasks;
+
+    private Set<Task> tasksBlockedByTheTask;
+
+    private Set<Task> tasksBlockingTheTask;
+
     private Set<TaskContext> contexts;
-    private Set<TaskMetric> metrics;
+
+    private TaskMetric metrics;
 
     @NotNull
     private SelfCompletionState selfCompletionState;
@@ -66,20 +73,24 @@ public class Task extends AbstractBaseEntity {
                 .getPlannedStartTaskTimestamp(), taskCopy.getPlannedStopTaskTimestamp(), taskCopy
                 .getActualStartTaskTimestamp(), taskCopy.getActualStopTaskTimestamp(), taskCopy
                 .getPortfolio(), taskCopy.getExternalTasks(), taskCopy.getInternalTasks(),
+                taskCopy.getTasksBlockedByTheTask(), taskCopy.getTasksBlockedByTheTask(),
                 taskCopy.getContexts(), taskCopy.getMetrics(), taskCopy.getSelfCompletionState(),
                 taskCopy.getPointedCompletionStates(), taskCopy.getInternalExecutionState());
     }
 
+
     /**
      * The all-args constructor.
      */
-    public Task(Integer id, User user, String description, LocalDateTime
-            plannedStartTaskTimestamp, LocalDateTime plannedStopTaskTimestamp, LocalDateTime
-                        actualStartTaskTimestamp, LocalDateTime actualStopTaskTimestamp,
+    public Task(Integer id, @NotNull User user, @NotBlank @Size(min = 1, max = 6400000) String
+            description, @NotNull LocalDateTime plannedStartTaskTimestamp, @NotNull LocalDateTime
+                        plannedStopTaskTimestamp, @NotNull LocalDateTime
+                        actualStartTaskTimestamp, @NotNull LocalDateTime actualStopTaskTimestamp,
                 TaskPortfolio portfolio, Set<Task> externalTasks, Set<Task> internalTasks,
-                Set<TaskContext> contexts, Set<TaskMetric> metrics, SelfCompletionState
+                Set<Task> tasksBlockedByTheTask, Set<Task> tasksBlockingTheTask, Set<TaskContext>
+                        contexts, TaskMetric metrics, @NotNull SelfCompletionState
                         selfCompletionState, Set<PointedCompletionState> pointedCompletionStates,
-                InternalExecutionState internalExecutionState) {
+                @NotNull InternalExecutionState internalExecutionState) {
         super(id);
         this.user = user;
         this.description = description;
@@ -90,6 +101,8 @@ public class Task extends AbstractBaseEntity {
         this.portfolio = portfolio;
         this.externalTasks = externalTasks;
         this.internalTasks = internalTasks;
+        this.tasksBlockedByTheTask = tasksBlockedByTheTask;
+        this.tasksBlockingTheTask = tasksBlockingTheTask;
         this.contexts = contexts;
         this.metrics = metrics;
         this.selfCompletionState = selfCompletionState;
@@ -109,6 +122,8 @@ public class Task extends AbstractBaseEntity {
                 ", portfolio=" + portfolio +
                 ", externalTasks=" + externalTasks +
                 ", internalTasks=" + internalTasks +
+                ", tasksBlockedByTheTask=" + tasksBlockedByTheTask +
+                ", tasksBlockingTheTask=" + tasksBlockingTheTask +
                 ", contexts=" + contexts +
                 ", metrics=" + metrics +
                 ", selfCompletionState=" + selfCompletionState +
