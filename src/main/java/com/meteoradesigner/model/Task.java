@@ -25,8 +25,7 @@ public class Task extends AbstractBaseEntity {
     @NotNull
     private User user;
 
-    @NotBlank
-    @Size(min = 1, max = 6400000)
+    @Size(max = 6400000)
     private String description;
 
     @NotNull

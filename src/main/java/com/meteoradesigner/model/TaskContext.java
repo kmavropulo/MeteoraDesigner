@@ -15,13 +15,12 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TaskContext extends AbstractBaseEntity {
+public class TaskContext extends AbstractNamedEntity {
 
     @NotNull
     private User user;
 
-    @NotNull
-    @Size(min = 1, max = 6400)
+    @Size(max = 6400)
     private String description;
 
     private Set<TaskContext> externalContext;
@@ -36,18 +35,18 @@ public class TaskContext extends AbstractBaseEntity {
     public TaskContext(TaskContext taskContextToCopy) {
         TaskContext taskContextCopy = SerializationUtils.clone(taskContextToCopy);
         taskContextCopy.setId(0);
-        new TaskContext(taskContextCopy.getId(), taskContextCopy.getUser(), taskContextCopy
-                .getDescription(), taskContextCopy.getExternalContext(), taskContextCopy
-                .getInternalContext(), taskContextCopy.getTasks());
+        new TaskContext(taskContextCopy.getId(), taskContextCopy.getDisplayName(), taskContextCopy
+                .getUser(), taskContextCopy.getDescription(), taskContextCopy.getExternalContext(),
+                taskContextCopy.getInternalContext(), taskContextCopy.getTasks());
     }
 
     /**
      * The all-args constructor.
      */
-    public TaskContext(Integer id, @NotNull User user, @NotNull @Size(min = 1, max = 6400) String
-            description, Set<TaskContext> externalContext, Set<TaskContext> internalContext,
-                       Set<Task> tasks) {
-        super(id);
+    public TaskContext(Integer idToSet, String nameToSet, @NotNull User user, @NotNull @Size(
+            min = 1, max = 6400) String description, Set<TaskContext> externalContext,
+                       Set<TaskContext> internalContext, Set<Task> tasks) {
+        super(idToSet, nameToSet);
         this.user = user;
         this.description = description;
         this.externalContext = externalContext;

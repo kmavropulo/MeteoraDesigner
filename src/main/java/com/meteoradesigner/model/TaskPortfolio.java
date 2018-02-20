@@ -15,13 +15,12 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TaskPortfolio extends AbstractBaseEntity {
+public class TaskPortfolio extends AbstractNamedEntity {
 
     @NotNull
     private User user;
 
-    @NotNull
-    @Size(min = 1, max = 6400)
+    @Size(max = 6400)
     private String description;
 
     private Set<Task> tasks;
@@ -32,16 +31,17 @@ public class TaskPortfolio extends AbstractBaseEntity {
     public TaskPortfolio(TaskPortfolio taskPortfolio) {
         TaskPortfolio taskPortfolioCopy = SerializationUtils.clone(taskPortfolio);
         taskPortfolioCopy.setId(0);
-        new TaskPortfolio(taskPortfolioCopy.getId(), taskPortfolioCopy.getUser(), taskPortfolioCopy
-                .getDescription(), taskPortfolioCopy.getTasks());
+        new TaskPortfolio(taskPortfolioCopy.getId(), taskPortfolioCopy.getDisplayName(),
+                taskPortfolioCopy.getUser(), taskPortfolioCopy.getDescription(),
+                taskPortfolioCopy.getTasks());
     }
 
     /**
      * The all-args constructors.
      */
-    public TaskPortfolio(Integer id, @NotNull User user, @NotNull @Size(min = 1, max = 6400)
-            String description, Set<Task> tasks) {
-        super(id);
+    public TaskPortfolio(Integer idToSet, String nameToSet, @NotNull User user, @NotNull @Size
+            (min = 1, max = 6400) String description, Set<Task> tasks) {
+        super(idToSet, nameToSet);
         this.user = user;
         this.description = description;
         this.tasks = tasks;

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
@@ -20,7 +20,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 333)
     private String displayName;
 

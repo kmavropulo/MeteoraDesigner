@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -19,8 +18,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class TaskMetric implements Serializable {
 
-    @NotNull
-    @Size(min = 1, max = 6400)
+    @Size(max = 6400)
     private String description;
 
     private Long importance;
