@@ -6,7 +6,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.SerializationUtils;
 
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -16,51 +31,113 @@ import java.util.Set;
 /**
  * Class implements task entity.
  */
-@Getter
-@Setter
+@Entity
+@Table(name = "tasks", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id",
+        "display_name"}, name = "tasks_unique_user_id_display_name")})
 @NoArgsConstructor
 @AllArgsConstructor
-public class Task extends AbstractBaseEntity {
+@Getter
+@Setter
+public class Task extends AbstractNamedEntity {
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     private User user;
 
+    @Column(name = "description")
     @Size(max = 6400000)
     private String description;
 
+    @Column(name = "planned_start_task_time_stamp", nullable = false)
     @NotNull
     private LocalDateTime plannedStartTaskTimestamp;
 
+    @Column(name = "planned_stop_task_time_stamp", nullable = false)
     @NotNull
     private LocalDateTime plannedStopTaskTimestamp;
 
-    @NotNull
+    @Column(name = "actual_start_task_time_stamp")
     private LocalDateTime actualStartTaskTimestamp;
 
-    @NotNull
+    @Column(name = "actual_stop_task_time_stamp")
     private LocalDateTime actualStopTaskTimestamp;
 
+    @ManyToOne
+    @JoinColumn(name = "portfolio_id")
     private TaskPortfolio portfolio;
 
-    private Set<Task> externalTasks;
-
-    private Set<Task> internalTasks;
-
-    private Set<Task> tasksBlockedByTheTask;
-
-    private Set<Task> tasksBlockingTheTask;
-
+    //TODO table with columns
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "tasks_contexts",
+            joinColumns = {@JoinColumn(name = "task_id",
+                    referencedColumnName = "id",
+                    nullable = false),
+            },
+            inverseJoinColumns = {@JoinColumn(name = "context_id",
+                    referencedColumnName = "id",
+                    nullable = false)})
     private Set<TaskContext> contexts;
 
+    //TODO serializable will be good practice, where is the clue?
     private TaskMetric metrics;
 
+    //TODO ?
+    @NotNull
+    private InternalExecutionState internalExecutionState;
+
+    //TODO ?
     @NotNull
     private SelfCompletionState selfCompletionState;
 
+    @NotEmpty
+    //TODO table with columns
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "tasks_pointed_completion_states",
+            joinColumns = @JoinColumn(
+                    name = "task_id"))
+    @Column(name = "pointed_completion_state")
+    //TODO lazy?
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<PointedCompletionState> pointedCompletionStates;
 
-    @NotNull
-    private InternalExecutionState internalExecutionState;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "internalTasks")
+    private Set<Task> externalTasks;
+
+    //TODO check save and delete
+    //TODO table with columns?!
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "external_tasks_internal_tasks",
+            joinColumns = {@JoinColumn(
+                    name = "external_task_id",
+                    referencedColumnName = "id",
+                    nullable = false)},
+            inverseJoinColumns = {@JoinColumn(
+                    name = "internal_task_id",
+                    referencedColumnName = "id",
+                    nullable = false)})
+    private Set<Task> internalTasks;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "tasksBlockingTheTask")
+    private Set<Task> tasksBlockedByTheTask;
+
+    //TODO check save and delete
+    //TODO table with columns?!
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tasks_blocked_by_the_task_tasks_blocking_the_task",
+            joinColumns = {@JoinColumn(
+                    name = "tasks_blocked_by_the_task",
+                    referencedColumnName = "id",
+                    nullable = false)},
+            inverseJoinColumns = {@JoinColumn(
+                    name = "tasks_blocking_the_task",
+                    referencedColumnName = "id",
+                    nullable = false)})
+    private Set<Task> tasksBlockingTheTask;
 
     /**
      * The deep copying constructor.
@@ -68,29 +145,30 @@ public class Task extends AbstractBaseEntity {
     public Task(Task taskToCopy) {
         Task taskCopy = SerializationUtils.clone(taskToCopy);
         taskCopy.setId(0);
-        new Task(taskCopy.getId(), taskCopy.getUser(), taskCopy.getDescription(), taskCopy
-                .getPlannedStartTaskTimestamp(), taskCopy.getPlannedStopTaskTimestamp(), taskCopy
-                .getActualStartTaskTimestamp(), taskCopy.getActualStopTaskTimestamp(), taskCopy
-                .getPortfolio(), taskCopy.getExternalTasks(), taskCopy.getInternalTasks(),
-                taskCopy.getTasksBlockedByTheTask(), taskCopy.getTasksBlockedByTheTask(),
-                taskCopy.getContexts(), taskCopy.getMetrics(), taskCopy.getSelfCompletionState(),
-                taskCopy.getPointedCompletionStates(), taskCopy.getInternalExecutionState());
+        new Task(taskCopy.getId(), taskCopy.getDisplayName(), taskCopy.getUser(), taskCopy
+                .getDescription(), taskCopy.getPlannedStartTaskTimestamp(), taskCopy
+                .getPlannedStopTaskTimestamp(), taskCopy.getActualStartTaskTimestamp(), taskCopy
+                .getActualStopTaskTimestamp(), taskCopy.getPortfolio(), taskCopy.getExternalTasks
+                (), taskCopy.getInternalTasks(), taskCopy.getTasksBlockedByTheTask(), taskCopy
+                .getTasksBlockedByTheTask(), taskCopy.getContexts(), taskCopy.getMetrics(),
+                taskCopy.getSelfCompletionState(), taskCopy.getPointedCompletionStates(),
+                taskCopy.getInternalExecutionState());
     }
 
 
     /**
      * The all-args constructor.
      */
-    public Task(Integer id, @NotNull User user, @NotBlank @Size(min = 1, max = 6400000) String
-            description, @NotNull LocalDateTime plannedStartTaskTimestamp, @NotNull LocalDateTime
-                        plannedStopTaskTimestamp, @NotNull LocalDateTime
-                        actualStartTaskTimestamp, @NotNull LocalDateTime actualStopTaskTimestamp,
+    public Task(Integer id, String displayNameToSet, @NotNull User user, @NotBlank @Size(min = 1,
+            max = 6400000) String description, @NotNull LocalDateTime plannedStartTaskTimestamp,
+                @NotNull LocalDateTime plannedStopTaskTimestamp, LocalDateTime
+                        actualStartTaskTimestamp, LocalDateTime actualStopTaskTimestamp,
                 TaskPortfolio portfolio, Set<Task> externalTasks, Set<Task> internalTasks,
                 Set<Task> tasksBlockedByTheTask, Set<Task> tasksBlockingTheTask, Set<TaskContext>
                         contexts, TaskMetric metrics, @NotNull SelfCompletionState
                         selfCompletionState, Set<PointedCompletionState> pointedCompletionStates,
                 @NotNull InternalExecutionState internalExecutionState) {
-        super(id);
+        super(id, displayNameToSet);
         this.user = user;
         this.description = description;
         this.plannedStartTaskTimestamp = plannedStartTaskTimestamp;

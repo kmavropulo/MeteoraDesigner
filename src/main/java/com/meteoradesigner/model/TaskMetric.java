@@ -12,10 +12,10 @@ import java.io.Serializable;
 /**
  * TaskMetric - not the entity, default parameters set for a task.
  */
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class TaskMetric implements Serializable {
 
     @Size(max = 6400)

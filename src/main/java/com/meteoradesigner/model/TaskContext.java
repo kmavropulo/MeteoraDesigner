@@ -5,6 +5,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.SerializationUtils;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
@@ -12,22 +22,42 @@ import java.util.Set;
 /**
  * Class implements task context entity.
  */
+@Entity
+@Table(name = "contexts", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id",
+        "display_name"}, name = "contexts_unique_user_id_display_name")})
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
 public class TaskContext extends AbstractNamedEntity {
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     private User user;
 
+    @Column(name = "description")
     @Size(max = 6400)
     private String description;
 
-    private Set<TaskContext> externalContext;
-
-    private Set<TaskContext> internalContext;
-
+    @ManyToMany(mappedBy = "contexts", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Task> tasks;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "internalContexts")
+    private Set<TaskContext> externalContexts;
+
+    //TODO check save and delete
+    //TODO table with columns?!
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "external_contexts_internal_contexts",
+            joinColumns = {@JoinColumn(
+                    name = "external_context_id",
+                    referencedColumnName = "id",
+                    nullable = false)},
+            inverseJoinColumns = {@JoinColumn(
+                    name = "internal_context_id",
+                    referencedColumnName = "id",
+                    nullable = false)})
+    private Set<TaskContext> internalContexts;
 
     /**
      * The deep copying constructor.
@@ -36,21 +66,21 @@ public class TaskContext extends AbstractNamedEntity {
         TaskContext taskContextCopy = SerializationUtils.clone(taskContextToCopy);
         taskContextCopy.setId(0);
         new TaskContext(taskContextCopy.getId(), taskContextCopy.getDisplayName(), taskContextCopy
-                .getUser(), taskContextCopy.getDescription(), taskContextCopy.getExternalContext(),
-                taskContextCopy.getInternalContext(), taskContextCopy.getTasks());
+                .getUser(), taskContextCopy.getDescription(), taskContextCopy.getExternalContexts(),
+                taskContextCopy.getInternalContexts(), taskContextCopy.getTasks());
     }
 
     /**
      * The all-args constructor.
      */
     public TaskContext(Integer idToSet, String nameToSet, @NotNull User user, @NotNull @Size(
-            min = 1, max = 6400) String description, Set<TaskContext> externalContext,
-                       Set<TaskContext> internalContext, Set<Task> tasks) {
+            min = 1, max = 6400) String description, Set<TaskContext> externalContexts,
+                       Set<TaskContext> internalContexts, Set<Task> tasks) {
         super(idToSet, nameToSet);
         this.user = user;
         this.description = description;
-        this.externalContext = externalContext;
-        this.internalContext = internalContext;
+        this.externalContexts = externalContexts;
+        this.internalContexts = internalContexts;
         this.tasks = tasks;
     }
 
@@ -59,8 +89,8 @@ public class TaskContext extends AbstractNamedEntity {
         return "TaskContext{" +
                 "user=" + user +
                 ", description='" + description + '\'' +
-                ", externalContext=" + externalContext +
-                ", internalContext=" + internalContext +
+                ", externalContexts=" + externalContexts +
+                ", internalContexts=" + internalContexts +
                 ", tasks=" + tasks +
                 '}';
     }
