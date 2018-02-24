@@ -50,3 +50,52 @@ CREATE TABLE tasks
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (portfolio_id) REFERENCES portfolios (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+//ON DELETE?!
+CREATE TABLE users_roles (
+  user_id INTEGER NOT NULL,
+  role    VARCHAR NOT NULL,
+  CONSTRAINT user_id_role UNIQUE (user_id, role),
+  FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+//test M
+CREATE TABLE external_contexts_internal_contexts (
+  external_context_id INTEGER NOT NULL,
+  internal_context_id VARCHAR NOT NULL,
+  CONSTRAINT external_context_id_internal_context_id UNIQUE (external_context_id,
+                                                             internal_context_id),
+  FOREIGN KEY (external_context_id) REFERENCES contexts (id),
+  FOREIGN KEY (internal_context_id) REFERENCES contexts (id),
+);
+
+CREATE TABLE tasks_contexts (
+  task_id    INTEGER NOT NULL,
+  context_id INTEGER NOT NULL,
+  CONSTRAINT task_id_context_id UNIQUE (task_id, context_id),
+  FOREIGN KEY (task_id) REFERENCES tasks (id),
+  FOREIGN KEY (context_id) REFERENCES contexts (id),
+);
+
+CREATE TABLE tasks_pointed_completion_states (
+  task_id                  INTEGER NOT NULL,
+  pointed_completion_state VARCHAR NOT NULL,
+  CONSTRAINT task_id_pointed_completion_state UNIQUE (task_id, pointed_completion_state),
+  FOREIGN KEY (task_id) REFERENCES tasks (id),
+);
+
+CREATE TABLE external_tasks_internal_tasks (
+  external_task_id INTEGER NOT NULL,
+  internal_task_id VARCHAR NOT NULL,
+  CONSTRAINT external_task_id_internal_task_id UNIQUE (external_task_id, internal_task_id),
+  FOREIGN KEY (external_task_id) REFERENCES tasks (id),
+  FOREIGN KEY (internal_task_id) REFERENCES tasks (id),
+);
+
+CREATE TABLE tasks_blocked_by_the_task_tasks_blocking_the_task (
+  task_blocked_by_the_task_id INTEGER NOT NULL,
+  task_blocking_the_task_id   VARCHAR NOT NULL,
+  CONSTRAINT external_task_id_internal_task_id UNIQUE (task_blocked_by_the_task_id,
+                                                       task_blocking_the_task_id),
+  FOREIGN KEY (task_blocked_by_the_task_id) REFERENCES tasks (id),
+  FOREIGN KEY (task_blocked_by_the_task_id) REFERENCES tasks (id)
+);

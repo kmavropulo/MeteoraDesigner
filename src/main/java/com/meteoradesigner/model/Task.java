@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -83,18 +84,18 @@ public class Task extends AbstractNamedEntity {
                     nullable = false)})
     private Set<TaskContext> contexts;
 
-    //TODO serializable will be good practice, where is the clue?
+    @Embedded
     private TaskMetric metrics;
 
-    //TODO ?
+    @Enumerated(EnumType.STRING)
     @NotNull
     private InternalExecutionState internalExecutionState;
 
-    //TODO ?
+    @Enumerated(EnumType.STRING)
     @NotNull
     private SelfCompletionState selfCompletionState;
 
-    @NotEmpty
+
     //TODO table with columns
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "tasks_pointed_completion_states",
@@ -103,6 +104,7 @@ public class Task extends AbstractNamedEntity {
     @Column(name = "pointed_completion_state")
     //TODO lazy?
     @ElementCollection(fetch = FetchType.EAGER)
+    @NotEmpty
     private Set<PointedCompletionState> pointedCompletionStates;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "internalTasks")
