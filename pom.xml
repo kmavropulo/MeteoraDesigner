@@ -96,6 +96,7 @@
             <version>${spring-data-jpa.version}</version>
         </dependency>
 
+        <!--<exists in spring data
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
@@ -106,7 +107,7 @@
                 </exclusion>
             </exclusions>
             <version>${spring.version}</version>
-        </dependency>
+        </dependency>>-->
 
         <!--Testing-->
         <dependency>
@@ -131,6 +132,11 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -196,5 +202,17 @@
             <version>${javax-el.version}</version>
         </dependency>
 
+        <!--<Explicit-ParBOM-ImpBOM-Mediation, for future use of spring test>-->
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
