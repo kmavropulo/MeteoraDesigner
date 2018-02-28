@@ -6,6 +6,8 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.junit.runners.Parameterized;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.test.context.web.WebAppConfiguration;
+
 import java.util.Collection;
 
 import static data.DataJpaUserRepositoryTestData.USER_ADMIN_TO_SAVE_ONE_FIRST;
@@ -32,6 +35,8 @@ import static org.junit.Assert.assertEquals;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @RunWith(Parameterized.class)
 public class DataJpaUserRepositoryParametrizedSaveOneTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger
+            (DataJpaUserRepositoryParametrizedSaveOneTest.class);
 
     //TODO @Repository for DataJPA?
     @Autowired
@@ -40,13 +45,14 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
     private User toSave;
     private User expected;
 
+    //using for parametrized test
     @ClassRule
     public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
 
     @Rule
     public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
-    //TODO check different encapsulations
+    //only public for parametrized test
 
     /**
      * Constructor for parametrized testing.
@@ -56,7 +62,7 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
         this.expected = expected;
     }
 
-    //TODO check different encapsulations
+    //only public for parametrized
 
     /**
      * Set the parametrized data.
@@ -70,7 +76,6 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
                 {USER_TO_SAVE_ONE_SECOND, USER_TO_SAVE_ONE_SECOND},
                 {USER_ADMIN_TO_SAVE_ONE_FIRST, USER_ADMIN_TO_SAVE_ONE_FIRST},
                 {USER_ADMIN_TO_SAVE_ONE_SECOND, USER_ADMIN_TO_SAVE_ONE_SECOND},
-
         });
     }
 
@@ -80,10 +85,11 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
     @Test
     public void saveOne() {
         User actual = dataJpaUserRepository.save(toSave);
-        System.out.println(actual);
+        LOGGER.info("Actual, debugging",actual);
         User byGet = dataJpaUserRepository.getOne(actual.getId());
-        System.out.println(byGet);
-        assertEquals(String.format("SaveOne test failed:" + lineSeparator() + " expected=%s" +
+        LOGGER.info("ByGet, debugging",byGet);
+        assertEquals(
+                String.format("SaveOne test failed:" + lineSeparator() + " expected=%s" +
                         lineSeparator() + " actual= %s", expected, actual),
                 expected,
                 actual);

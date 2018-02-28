@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
  * For all entities in enabled below auto mode; spring-context's asserts using for checking.
  */
 @Converter(autoApply = true)
-public class TimestampToLocalDateTimeConverter implements AttributeConverter<LocalDateTime
-        , Timestamp> {
+public class TimestampToLocalDateTimeConverter implements AttributeConverter<
+        LocalDateTime, Timestamp> {
     //TODO test on next iteration.
     @Override
     public Timestamp convertToDatabaseColumn(LocalDateTime attributeLocalDateTime) {

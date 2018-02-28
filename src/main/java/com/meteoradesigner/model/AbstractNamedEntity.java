@@ -36,7 +36,6 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
 
     @Override
     public String toString() {
-        return String.format("NamedEntity{%s" +
-                "(displayName=%s)}" + getClass().getName(), displayName);
+        return String.format("NamedEntity{%s(displayName=%s)}" + getClass().getName(), displayName);
     }
 }
