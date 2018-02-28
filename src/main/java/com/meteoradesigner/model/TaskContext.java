@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -68,6 +69,15 @@ public class TaskContext extends AbstractNamedEntity {
         new TaskContext(taskContextCopy.getId(), taskContextCopy.getDisplayName(), taskContextCopy
                 .getUser(), taskContextCopy.getDescription(), taskContextCopy.getExternalContexts(),
                 taskContextCopy.getInternalContexts(), taskContextCopy.getTasks());
+    }
+
+    /**
+     * The minimal parameters initializing constructor.
+     */
+    public TaskContext(String nameToSet, @NotNull User user, @NotNull @Size(
+            min = 1, max = 6400) String description) {
+        this(0, nameToSet, user, description, Collections.emptySet(), Collections.emptySet(),
+                Collections.emptySet());
     }
 
     /**

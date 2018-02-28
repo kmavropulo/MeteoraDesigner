@@ -1,9 +1,14 @@
 package com.meteoradesigner.model;
 
+//TODO fix the scheme: from NONE position to any (paint the lines)
+//TODO fix the transitions: add NONE transition's paragraph (to is possible just for new instances
+//TODO fix the transitions: add to possible previous states for each state "from NONE state"
+
 /**
  * SelfCompletionState - not the entity, obligatory self completion state for a task.
  */
 public enum SelfCompletionState {
+    SELF_COMPLETION_STATE_NONE,
     SELF_COMPLETION_STATE_DISABLED,
     SELF_COMPLETION_STATE_ENABLED,
     SELF_COMPLETION_STATE_ACTIVE,

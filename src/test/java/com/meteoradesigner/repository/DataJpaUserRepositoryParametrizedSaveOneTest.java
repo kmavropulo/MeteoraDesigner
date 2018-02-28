@@ -2,30 +2,35 @@ package com.meteoradesigner.repository;
 
 import com.meteoradesigner.config.AppConfig;
 import com.meteoradesigner.model.User;
+import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.runners.Parameterized;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import javax.swing.Spring;
 import java.util.Collection;
 
+import static data.DataJpaUserRepositoryTestData.USER_ADMIN_TO_SAVE_ONE_FIRST;
+import static data.DataJpaUserRepositoryTestData.USER_ADMIN_TO_SAVE_ONE_SECOND;
+import static data.DataJpaUserRepositoryTestData.USER_TO_SAVE_ONE_FIRST;
+import static data.DataJpaUserRepositoryTestData.USER_TO_SAVE_ONE_SECOND;
 import static java.lang.System.lineSeparator;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 /**
  * Class to run parametrized tests to test @code{DataJpaUserRepository}'s save one method.
  */
 
-//TODO how to run Parametrized.class +parametrized tests with Spring runner
 @ContextConfiguration(classes = AppConfig.class)
 @WebAppConfiguration
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-@RunWith(SpringRunner.class)
+@RunWith(Parameterized.class)
 public class DataJpaUserRepositoryParametrizedSaveOneTest {
 
     //TODO @Repository for DataJPA?
@@ -35,12 +40,18 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
     private User toSave;
     private User expected;
 
+    @ClassRule
+    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
+
+    @Rule
+    public final SpringMethodRule springMethodRule = new SpringMethodRule();
+
     //TODO check different encapsulations
 
     /**
      * Constructor for parametrized testing.
      */
-    DataJpaUserRepositoryParametrizedSaveOneTest(User toSave, User expected) {
+    public DataJpaUserRepositoryParametrizedSaveOneTest(User toSave, User expected) {
         this.toSave = toSave;
         this.expected = expected;
     }
@@ -53,10 +64,14 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
      * @return @code{Collection<Object[]>} of parametrized data
      */
     @Parameterized.Parameters
-    static Collection<Object[]> setParametrizedData() {
+    public static Collection<Object[]> setParametrizedData() {
+        return asList(new Object[][]{
+                {USER_TO_SAVE_ONE_FIRST, USER_TO_SAVE_ONE_FIRST},
+                {USER_TO_SAVE_ONE_SECOND, USER_TO_SAVE_ONE_SECOND},
+                {USER_ADMIN_TO_SAVE_ONE_FIRST, USER_ADMIN_TO_SAVE_ONE_FIRST},
+                {USER_ADMIN_TO_SAVE_ONE_SECOND, USER_ADMIN_TO_SAVE_ONE_SECOND},
 
-        //TODO to init
-        return null;
+        });
     }
 
     /**
@@ -65,6 +80,9 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
     @Test
     public void saveOne() {
         User actual = dataJpaUserRepository.save(toSave);
+        System.out.println(actual);
+        User byGet = dataJpaUserRepository.getOne(actual.getId());
+        System.out.println(byGet);
         assertEquals(String.format("SaveOne test failed:" + lineSeparator() + " expected=%s" +
                         lineSeparator() + " actual= %s", expected, actual),
                 expected,

@@ -6,7 +6,7 @@ DELETE FROM tasks;
 //ALTER SEQUENCE global_seq RESTART WITH 1000;
 
 INSERT INTO users (email, display_name, password) VALUES
-  ('konstantin.n.mavropulo@gmail.com', silicicArcher, '123');
+  ('konstantin.n.mavropulo@gmail.com', 'silicicArcher', '123');
 
 INSERT INTO contexts (user_id, display_name, description) VALUES
   (0, 'meteoraProjects',

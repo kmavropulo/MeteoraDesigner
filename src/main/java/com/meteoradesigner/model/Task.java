@@ -26,8 +26,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Set;
-
 
 /**
  * Class implements task entity.
@@ -157,6 +157,21 @@ public class Task extends AbstractNamedEntity {
                 taskCopy.getInternalExecutionState());
     }
 
+    /**
+     * The minimum parameters initializing constructor.
+     */
+    public Task(String displayNameToSet, @NotNull User user, @NotBlank @Size(min = 1,
+            max = 6400000) String description, @NotNull LocalDateTime plannedStartTaskTimestamp,
+                @NotNull LocalDateTime plannedStopTaskTimestamp, @NotNull SelfCompletionState
+                        selfCompletionState, @NotNull InternalExecutionState
+                        internalExecutionState) {
+        this(0, displayNameToSet, user, description, plannedStartTaskTimestamp,
+                plannedStopTaskTimestamp, null, null,
+                null, Collections.emptySet(), Collections.emptySet(), Collections.emptySet(),
+                Collections.emptySet(), Collections.emptySet(), new TaskMetric(),
+                selfCompletionState, Collections.emptySet(),
+                internalExecutionState);
+    }
 
     /**
      * The all-args constructor.

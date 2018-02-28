@@ -96,18 +96,20 @@
             <version>${spring-data-jpa.version}</version>
         </dependency>
 
-        <!--<exists in spring data
+        <!--TODO: Explore-->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-            <version>${spring.version}</version>
-        </dependency>>-->
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--TODO: Explore-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>4.3.10.RELEASE</version>
+        </dependency>
+
 
         <!--Testing-->
         <dependency>
@@ -134,10 +136,13 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
+
+
+        <!--TODO: Explore-->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
         </dependency>
 
         <!-- Logging with SLF4J & LogBack -->
@@ -176,7 +181,6 @@
         </dependency>
 
         <!--DB-->
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -202,8 +206,9 @@
             <version>${javax-el.version}</version>
         </dependency>
 
-        <!--<Explicit-ParBOM-ImpBOM-Mediation, for future use of spring test>-->
     </dependencies>
+
+    <!--<Explicit-ParBOM-ImpBOM-Mediation, for future use of spring test>-->
     <dependencyManagement>
         <dependencies>
             <dependency>

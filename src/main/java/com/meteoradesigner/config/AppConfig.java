@@ -47,7 +47,7 @@ public class AppConfig {
         return bean;
     }
 
-    Properties hibernateProperties() {
+    private Properties hibernateProperties() {
         Properties properties = new Properties();
         properties.put(org.hibernate.cfg.Environment.DIALECT, "org.hibernate.dialect.H2Dialect");
         return properties;
@@ -68,8 +68,8 @@ public class AppConfig {
     private DatabasePopulator databasePopulator() {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
         databasePopulator.setContinueOnError(true);
-        databasePopulator.addScript(new ClassPathResource("db/initDB.sql"));
-        databasePopulator.addScript(new ClassPathResource("db/populateDB.sql"));
+        databasePopulator.addScript(new ClassPathResource("db/H2InitDB.sql"));
+        databasePopulator.addScript(new ClassPathResource("db/H2PopulateDB.sql"));
         return databasePopulator;
     }
 
