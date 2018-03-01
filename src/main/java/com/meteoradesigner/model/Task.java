@@ -34,7 +34,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "tasks", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id",
-        "display_name"}, name = "tasks_unique_user_id_display_name")})
+        "display_name"}, name = "user_id_task_display_name")})
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -46,7 +46,8 @@ public class Task extends AbstractNamedEntity {
     @NotNull
     private User user;
 
-    @Column(name = "description")
+    //TODO debug
+    @Column(name = "description",insertable=false, updatable=false)
     @Size(max = 6400000)
     private String description;
 
@@ -94,7 +95,6 @@ public class Task extends AbstractNamedEntity {
     @Enumerated(EnumType.STRING)
     @NotNull
     private SelfCompletionState selfCompletionState;
-
 
     //TODO table with columns
     @Enumerated(EnumType.STRING)

@@ -23,7 +23,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "portfolios", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id",
-        "display_name"}, name = "portfolio_unique_user_id_display_name")})
+        "display_name"}, name = "user_id_portfolio_display_name")})
 @NoArgsConstructor
 @Getter
 @Setter

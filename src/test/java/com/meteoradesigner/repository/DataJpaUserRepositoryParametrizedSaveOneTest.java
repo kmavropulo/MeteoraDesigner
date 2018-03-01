@@ -18,10 +18,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.Collection;
 
-import static data.DataJpaUserRepositoryTestData.USER_ADMIN_TO_SAVE_ONE_FIRST;
-import static data.DataJpaUserRepositoryTestData.USER_ADMIN_TO_SAVE_ONE_SECOND;
+import static data.DataJpaUserRepositoryTestData.ADMIN_TO_SAVE_ONE_FIRST;
+import static data.DataJpaUserRepositoryTestData.ADMIN_TO_SAVE_ONE_FIRST_EXPECTED;
+import static data.DataJpaUserRepositoryTestData.ADMIN_TO_SAVE_ONE_SECOND;
+import static data.DataJpaUserRepositoryTestData.ADMIN_TO_SAVE_ONE_SECOND_EXPECTED;
 import static data.DataJpaUserRepositoryTestData.USER_TO_SAVE_ONE_FIRST;
+import static data.DataJpaUserRepositoryTestData.USER_TO_SAVE_ONE_FIRST_EXPECTED;
 import static data.DataJpaUserRepositoryTestData.USER_TO_SAVE_ONE_SECOND;
+import static data.DataJpaUserRepositoryTestData.USER_TO_SAVE_ONE_SECOND_EXPECTED;
 import static java.lang.System.lineSeparator;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
@@ -72,10 +76,10 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
     @Parameterized.Parameters
     public static Collection<Object[]> setParametrizedData() {
         return asList(new Object[][]{
-                {USER_TO_SAVE_ONE_FIRST, USER_TO_SAVE_ONE_FIRST},
-                {USER_TO_SAVE_ONE_SECOND, USER_TO_SAVE_ONE_SECOND},
-                {USER_ADMIN_TO_SAVE_ONE_FIRST, USER_ADMIN_TO_SAVE_ONE_FIRST},
-                {USER_ADMIN_TO_SAVE_ONE_SECOND, USER_ADMIN_TO_SAVE_ONE_SECOND},
+                {USER_TO_SAVE_ONE_FIRST, USER_TO_SAVE_ONE_FIRST_EXPECTED},
+                {USER_TO_SAVE_ONE_SECOND, USER_TO_SAVE_ONE_SECOND_EXPECTED},
+                {ADMIN_TO_SAVE_ONE_FIRST, ADMIN_TO_SAVE_ONE_FIRST_EXPECTED},
+                {ADMIN_TO_SAVE_ONE_SECOND, ADMIN_TO_SAVE_ONE_SECOND_EXPECTED},
         });
     }
 

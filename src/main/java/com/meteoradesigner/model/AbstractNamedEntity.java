@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -16,6 +17,7 @@ import javax.validation.constraints.Size;
  * @see <a href=http://cs-exhibitions.uni-klu.ac.at/index.php?id=431>EER</a>
  * Named entity core is using to extend the semantic of the AbstractBaseEntity.
  */
+@MappedSuperclass
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PACKAGE)

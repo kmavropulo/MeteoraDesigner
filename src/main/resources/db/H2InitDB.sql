@@ -1,7 +1,13 @@
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS portfolios;
 DROP TABLE IF EXISTS contexts;
+DROP TABLE IF EXISTS portfolios;
 DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS users_roles;
+DROP TABLE IF EXISTS external_contexts_internal_contexts;
+DROP TABLE IF EXISTS tasks_contexts;
+DROP TABLE IF EXISTS tasks_pointed_completion_states;
+DROP TABLE IF EXISTS external_tasks_internal_tasks;
+DROP TABLE IF EXISTS tasks_blocked_by_the_task_tasks_blocking_the_task;
 
 CREATE TABLE users
 (
@@ -12,17 +18,6 @@ CREATE TABLE users
   registration_time TIMESTAMP DEFAULT now()            NOT NULL,
 );
 
-CREATE TABLE portfolios
-(
-  id           INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  user_id      INTEGER                            NOT NULL,
-  display_name VARCHAR                            NOT NULL,
-  description  VARCHAR,
-
-  CONSTRAINT user_id_portfolio_display_name UNIQUE (user_id, display_name),
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
 CREATE TABLE contexts
 (
   id           INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -31,6 +26,17 @@ CREATE TABLE contexts
   description  VARCHAR,
 
   CONSTRAINT user_id_context_display_name UNIQUE (user_id, display_name),
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE portfolios
+(
+  id           INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  user_id      INTEGER                            NOT NULL,
+  display_name VARCHAR                            NOT NULL,
+  description  VARCHAR,
+
+  CONSTRAINT user_id_portfolio_display_name UNIQUE (user_id, display_name),
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -50,7 +56,7 @@ CREATE TABLE tasks
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (portfolio_id) REFERENCES portfolios (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-//ON DELETE?!
+
 CREATE TABLE users_roles (
   user_id INTEGER NOT NULL,
   role    VARCHAR NOT NULL,
@@ -58,12 +64,12 @@ CREATE TABLE users_roles (
   FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
-//test M
 CREATE TABLE external_contexts_internal_contexts (
   external_context_id INTEGER NOT NULL,
   internal_context_id VARCHAR NOT NULL,
-  CONSTRAINT external_context_id_internal_context_id UNIQUE (external_context_id,
-                                                             internal_context_id),
+  CONSTRAINT external_context_id_internal_context_id UNIQUE (
+    external_context_id,
+    internal_context_id),
   FOREIGN KEY (external_context_id) REFERENCES contexts (id),
   FOREIGN KEY (internal_context_id) REFERENCES contexts (id),
 );
@@ -94,8 +100,9 @@ CREATE TABLE external_tasks_internal_tasks (
 CREATE TABLE tasks_blocked_by_the_task_tasks_blocking_the_task (
   task_blocked_by_the_task_id INTEGER NOT NULL,
   task_blocking_the_task_id   VARCHAR NOT NULL,
-  CONSTRAINT external_task_id_internal_task_id UNIQUE (task_blocked_by_the_task_id,
-                                                       task_blocking_the_task_id),
+  CONSTRAINT task_blocked_by_the_task_id_task_blocking_the_task_id UNIQUE (
+    task_blocked_by_the_task_id,
+    task_blocking_the_task_id),
   FOREIGN KEY (task_blocked_by_the_task_id) REFERENCES tasks (id),
   FOREIGN KEY (task_blocked_by_the_task_id) REFERENCES tasks (id)
 );

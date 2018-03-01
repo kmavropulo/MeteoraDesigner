@@ -25,7 +25,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "contexts", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id",
-        "display_name"}, name = "contexts_unique_user_id_display_name")})
+        "display_name"}, name = "user_id_context_display_name")})
 @NoArgsConstructor
 @Getter
 @Setter

@@ -16,7 +16,6 @@
       <configuration>
         <fileset id="fileset" name="AppConfig" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/com/meteoradesigner/config/AppConfig.java</file>
-          <file>file://$MODULE_DIR$/src/main/resources/spring/spring-app.xml</file>
         </fileset>
       </configuration>
     </facet>

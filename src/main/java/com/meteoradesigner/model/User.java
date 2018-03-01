@@ -20,7 +20,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -62,9 +61,8 @@ public class User extends AbstractNamedEntity {
             joinColumns = @JoinColumn(
                     name = "user_id"))
     @Column(name = "role")
-    //TODO lazy?
+    //TODO lazy? HOW to do NOT EMPTY constraints during init?
     @ElementCollection(fetch = FetchType.EAGER)
-    @NotEmpty
     private Set<Role> roles;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user",
@@ -116,7 +114,9 @@ public class User extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "User{" +
-                "email='" + email + '\'' +
+                "id=" + getId() + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", registrationTime=" + registrationTime +
                 ", roles=" + roles +
                 ", contexts=" + contexts +
