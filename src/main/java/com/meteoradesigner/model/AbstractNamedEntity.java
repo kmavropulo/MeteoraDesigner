@@ -10,6 +10,7 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+//TODO fix all the documentation, by using this class, -es and dots.
 /**
  * Class - abstract named entity, part of implementation of Enhanced Entity Relationships (EER)
  * model.

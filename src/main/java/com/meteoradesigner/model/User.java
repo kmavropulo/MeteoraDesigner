@@ -26,7 +26,13 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
+
+import static com.meteoradesigner.model.Role.ROLE_USER;
+import static java.util.Arrays.asList;
+
+//TODO fix all the documentation, by using this class, -es and dots.
 
 /**
  * Class implements the user entity.
@@ -65,24 +71,25 @@ public class User extends AbstractNamedEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user",
-            fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy
+            = "user")
     private Set<TaskContext> contexts;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user",
-            fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy
+            = "user")
     private Set<TaskPortfolio> portfolios;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user",
-            fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy
+            = "user")
     private Set<Task> tasks;
+
+    //TODO fix
 
     /**
      * Deep copying constructor.
      */
     public User(User user) {
         User userClone = SerializationUtils.clone(user);
-        userClone.setId(0);
         new User(userClone.getId(), userClone.getDisplayName(), userClone.getEmail(), userClone
                 .getPassword(), userClone.getContexts(), userClone.getPortfolios(), userClone
                 .getTasks(), userClone.getRoles());
@@ -91,8 +98,9 @@ public class User extends AbstractNamedEntity {
     /**
      * The minimal parameters initializing constructor.
      */
-    public User(String displayNameToSet, String email, String password, Role role, Role... roles) {
-        this(0, displayNameToSet, email, password, Collections.emptySet(),
+    public User(Integer idToSet, String displayNameToSet, String email, String password, Role role,
+                Role... roles) {
+        this(idToSet, displayNameToSet, email, password, Collections.emptySet(),
                 Collections.emptySet(), Collections.emptySet(), EnumSet.of(role, roles));
     }
 
@@ -115,18 +123,15 @@ public class User extends AbstractNamedEntity {
     public String toString() {
         return "User{" +
                 "id=" + getId() + '\'' +
+                "displayName=" + getDisplayName() + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", registrationTime=" + registrationTime +
-                ", roles=" + roles +
-                ", contexts=" + contexts +
-                ", portfolios=" + portfolios +
-                ", tasks=" + tasks +
                 '}';
     }
 
     public void setRoles(Collection<Role> roles) {
-        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf
-                (roles);
+        this.roles = CollectionUtils.isEmpty(roles) ? new HashSet<>(asList(ROLE_USER)) : EnumSet
+                .copyOf(roles);
     }
 }

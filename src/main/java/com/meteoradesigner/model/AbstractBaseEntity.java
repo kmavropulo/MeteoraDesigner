@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+//TODO fix all the documentation, by using this class, -es and dots.
 /**
  * Class - abstract base entity, part of implementation of Enhanced Entity Relationships (EER)
  * model.

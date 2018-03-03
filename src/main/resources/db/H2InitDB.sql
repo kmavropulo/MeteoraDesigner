@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS tasks_contexts;
 DROP TABLE IF EXISTS tasks_pointed_completion_states;
 DROP TABLE IF EXISTS external_tasks_internal_tasks;
 DROP TABLE IF EXISTS tasks_blocked_by_the_task_tasks_blocking_the_task;
+DROP TABLE IF EXISTS tasks_with_relatives_unlocked_by_the_task_tasks_unlocking_the_task_relatives;
 
 CREATE TABLE users
 (
@@ -51,6 +52,12 @@ CREATE TABLE tasks
   actual_start_task_timestamp  TIMESTAMP,
   actual_stop_task_timestamp   TIMESTAMP,
   portfolio_id                 INTEGER,
+  task_metric_description      VARCHAR,
+  task_metric_importance       DOUBLE,
+  task_metric_urgency          DOUBLE,
+  task_metric_stability        DOUBLE,
+  internal_execution_state     VARCHAR,
+  self_completion_state        VARCHAR,
 
   CONSTRAINT user_id_task_display_name UNIQUE (user_id, display_name),
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -104,5 +111,15 @@ CREATE TABLE tasks_blocked_by_the_task_tasks_blocking_the_task (
     task_blocked_by_the_task_id,
     task_blocking_the_task_id),
   FOREIGN KEY (task_blocked_by_the_task_id) REFERENCES tasks (id),
-  FOREIGN KEY (task_blocked_by_the_task_id) REFERENCES tasks (id)
+  FOREIGN KEY (task_blocking_the_task_id) REFERENCES tasks (id)
+);
+
+CREATE TABLE tasks_with_relatives_unlocked_by_the_task_tasks_unlocking_the_task_relatives (
+  task_with_relatives_unlocked_by_the_task_id INTEGER NOT NULL,
+  task_unlocking_the_task_relatives_id   VARCHAR NOT NULL,
+  CONSTRAINT task_with_relatives_unlocked_by_the_task_id_task_unlocking_the_task_relatives_id UNIQUE (
+    task_with_relatives_unlocked_by_the_task_id,
+    task_unlocking_the_task_relatives_id),
+  FOREIGN KEY (task_with_relatives_unlocked_by_the_task_id) REFERENCES tasks (id),
+  FOREIGN KEY (task_unlocking_the_task_relatives_id) REFERENCES tasks (id)
 );

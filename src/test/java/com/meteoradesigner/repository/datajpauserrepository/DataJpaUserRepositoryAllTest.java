@@ -1,18 +1,18 @@
-package com.meteoradesigner.repository;
+package com.meteoradesigner.repository.datajpauserrepository;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * Class to run all tests for @code{DataJpaUserRepository}.
+ * This class @code{DataJpaUserRepositoryAllTest} runs all tests for @code{DataJpaUserRepository}.
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         DataJpaUserRepositoryParametrizedSaveOneTest.class,
-        DataJpaUserRepositoryParametrizedGetOneTest.class,
+        DataJpaUserRepositoryParametrizedDeleteOneTest.class,
         DataJpaUserRepositoryParametrizedDeleteOneTest.class,
         DataJpaUserRepositoryCommonTest.class,
         DataJpaUserRepositoryCustomTest.class
 })
-public class DataJpaUserRepositoryAll {
+public class DataJpaUserRepositoryAllTest {
 }

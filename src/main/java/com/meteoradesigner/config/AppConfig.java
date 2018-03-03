@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Properties;
 
+//TODO fix all the documentation, by using this class, -es and dots.
 @Configuration
 @ComponentScan(basePackages = "com.meteoradesigner.**")
 @EnableJpaRepositories("com.meteoradesigner.repository")

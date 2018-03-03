@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.commons.lang3.SerializationUtils;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -29,6 +31,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Set;
 
+//TODO fix all the documentation, by using this class, -es and dots.
 /**
  * Class implements task entity.
  */
@@ -41,31 +44,31 @@ import java.util.Set;
 @Setter
 public class Task extends AbstractNamedEntity {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     private User user;
 
     //TODO debug
-    @Column(name = "description",insertable=false, updatable=false)
+    @Column(name = "description", insertable = false, updatable = false)
     @Size(max = 6400000)
     private String description;
 
-    @Column(name = "planned_start_task_time_stamp", nullable = false)
+    @Column(name = "planned_start_task_timestamp", nullable = false)
     @NotNull
     private LocalDateTime plannedStartTaskTimestamp;
 
-    @Column(name = "planned_stop_task_time_stamp", nullable = false)
+    @Column(name = "planned_stop_task_timestamp", nullable = false)
     @NotNull
     private LocalDateTime plannedStopTaskTimestamp;
 
-    @Column(name = "actual_start_task_time_stamp")
-    private LocalDateTime actualStartTaskTimestamp;
+    @Column(name = "actual_start_task_timestamp")
+    private LocalDateTime actualStartTaskTimestamp = LocalDateTime.MAX;
 
-    @Column(name = "actual_stop_task_time_stamp")
-    private LocalDateTime actualStopTaskTimestamp;
+    @Column(name = "actual_stop_task_timestamp")
+    private LocalDateTime actualStopTaskTimestamp = LocalDateTime.MAX;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "portfolio_id")
     private TaskPortfolio portfolio;
 
@@ -86,17 +89,28 @@ public class Task extends AbstractNamedEntity {
     private Set<TaskContext> contexts;
 
     @Embedded
+    @AttributeOverrides(value = {
+            @AttributeOverride(name = "description", column = @Column(name =
+                    "task_metric_description")),
+            @AttributeOverride(name = "importance", column = @Column(name =
+                    "task_metric_importance")),
+            @AttributeOverride(name = "urgency", column = @Column(name = "task_metric_urgency")),
+            @AttributeOverride(name = "stability", column = @Column(name =
+                    "task_metric_stability")),})
     private TaskMetric metrics;
 
+    //TODO table
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @Column(name = "internal_execution_state")
+    @NotBlank
     private InternalExecutionState internalExecutionState;
 
+    //TODO table
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @Column(name = "self_completion_state")
+    @NotBlank
     private SelfCompletionState selfCompletionState;
 
-    //TODO table with columns
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "tasks_pointed_completion_states",
             joinColumns = @JoinColumn(
@@ -104,15 +118,17 @@ public class Task extends AbstractNamedEntity {
     @Column(name = "pointed_completion_state")
     //TODO lazy?
     @ElementCollection(fetch = FetchType.EAGER)
-    @NotEmpty
     private Set<PointedCompletionState> pointedCompletionStates;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "internalTasks")
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "internalTasks")
     private Set<Task> externalTasks;
 
     //TODO check save and delete
     //TODO table with columns?!
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "external_tasks_internal_tasks",
             joinColumns = {@JoinColumn(
                     name = "external_task_id",
@@ -124,29 +140,52 @@ public class Task extends AbstractNamedEntity {
                     nullable = false)})
     private Set<Task> internalTasks;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "tasksBlockingTheTask")
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "tasksBlockingTheTask")
     private Set<Task> tasksBlockedByTheTask;
 
     //TODO check save and delete
     //TODO table with columns?!
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "tasks_blocked_by_the_task_tasks_blocking_the_task",
             joinColumns = {@JoinColumn(
-                    name = "tasks_blocked_by_the_task",
+                    name = "task_blocked_by_the_task_id",
                     referencedColumnName = "id",
                     nullable = false)},
             inverseJoinColumns = {@JoinColumn(
-                    name = "tasks_blocking_the_task",
+                    name = "task_blocking_the_task_id",
                     referencedColumnName = "id",
                     nullable = false)})
     private Set<Task> tasksBlockingTheTask;
+
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "tasksUnlockingTheTaskRelatives")
+    private Set<Task> tasksWithRelativesUnlockedByTheTask;
+
+    //TODO check save and delete
+    //TODO table with columns?!
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name =
+            "tasks_with_relatives_unlocked_by_the_task_tasks_unlocking_the_task_relatives",
+            joinColumns = {@JoinColumn(
+                    name = "task_with_relatives_unlocked_by_the_task_id",
+                    referencedColumnName = "id",
+                    nullable = false)},
+            inverseJoinColumns = {@JoinColumn(
+                    name = "task_unlocking_the_task_relatives_id",
+                    referencedColumnName = "id",
+                    nullable = false)})
+    private Set<Task> tasksUnlockingTheTaskRelatives;
 
     /**
      * The deep copying constructor.
      */
     public Task(Task taskToCopy) {
         Task taskCopy = SerializationUtils.clone(taskToCopy);
-        taskCopy.setId(0);
         new Task(taskCopy.getId(), taskCopy.getDisplayName(), taskCopy.getUser(), taskCopy
                 .getDescription(), taskCopy.getPlannedStartTaskTimestamp(), taskCopy
                 .getPlannedStopTaskTimestamp(), taskCopy.getActualStartTaskTimestamp(), taskCopy
@@ -207,13 +246,13 @@ public class Task extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "Task{" +
-                "user=" + user +
+                "user=" + user.getDisplayName() +
                 ", description='" + description + '\'' +
                 ", plannedStartTaskTimestamp=" + plannedStartTaskTimestamp +
                 ", plannedStopTaskTimestamp=" + plannedStopTaskTimestamp +
                 ", actualStartTaskTimestamp=" + actualStartTaskTimestamp +
                 ", actualStopTaskTimestamp=" + actualStopTaskTimestamp +
-                ", portfolio=" + portfolio +
+                ", portfolio=" + portfolio.getDisplayName() +
                 ", externalTasks=" + externalTasks +
                 ", internalTasks=" + internalTasks +
                 ", tasksBlockedByTheTask=" + tasksBlockedByTheTask +

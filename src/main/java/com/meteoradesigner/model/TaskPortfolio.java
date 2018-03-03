@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 import java.util.Collections;
 import java.util.Set;
 
+//TODO fix all the documentation, by using this class, -es and dots.
 /**
  * Class implements the task portfolio entity.
  */
@@ -29,7 +30,7 @@ import java.util.Set;
 @Setter
 public class TaskPortfolio extends AbstractNamedEntity {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     private User user;
@@ -38,7 +39,7 @@ public class TaskPortfolio extends AbstractNamedEntity {
     @Size(max = 6400)
     private String description;
 
-    @OneToMany(mappedBy = "portfolio", fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "portfolio")
     private Set<Task> tasks;
 
     /**
@@ -46,7 +47,6 @@ public class TaskPortfolio extends AbstractNamedEntity {
      */
     public TaskPortfolio(TaskPortfolio taskPortfolio) {
         TaskPortfolio taskPortfolioCopy = SerializationUtils.clone(taskPortfolio);
-        taskPortfolioCopy.setId(0);
         new TaskPortfolio(taskPortfolioCopy.getId(), taskPortfolioCopy.getDisplayName(),
                 taskPortfolioCopy.getUser(), taskPortfolioCopy.getDescription(),
                 taskPortfolioCopy.getTasks());
@@ -74,7 +74,7 @@ public class TaskPortfolio extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "TaskPortfolio{" +
-                "user=" + user +
+                "user=" + user.getDisplayName() +
                 ", description='" + description + '\'' +
                 ", tasks=" + tasks +
                 '}';

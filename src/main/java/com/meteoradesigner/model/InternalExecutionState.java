@@ -1,5 +1,6 @@
 package com.meteoradesigner.model;
 
+//TODO fix all the documentation, by using this class, -es and dots.
 //TODO AFTER servises will be DONE: add to code and requirements: default state ??is ..SERIAL or
 
 /**

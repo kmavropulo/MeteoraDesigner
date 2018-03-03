@@ -1,7 +1,8 @@
-package com.meteoradesigner.repository;
+package com.meteoradesigner.repository.datajpauserrepository;
 
 import com.meteoradesigner.config.AppConfig;
 import com.meteoradesigner.model.User;
+import com.meteoradesigner.repository.DataJpaUserRepository;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,20 +19,13 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.Collection;
 
-import static data.DataJpaUserRepositoryTestData.ADMIN_TO_SAVE_ONE_FIRST;
-import static data.DataJpaUserRepositoryTestData.ADMIN_TO_SAVE_ONE_FIRST_EXPECTED;
-import static data.DataJpaUserRepositoryTestData.ADMIN_TO_SAVE_ONE_SECOND;
-import static data.DataJpaUserRepositoryTestData.ADMIN_TO_SAVE_ONE_SECOND_EXPECTED;
-import static data.DataJpaUserRepositoryTestData.USER_TO_SAVE_ONE_FIRST;
-import static data.DataJpaUserRepositoryTestData.USER_TO_SAVE_ONE_FIRST_EXPECTED;
-import static data.DataJpaUserRepositoryTestData.USER_TO_SAVE_ONE_SECOND;
-import static data.DataJpaUserRepositoryTestData.USER_TO_SAVE_ONE_SECOND_EXPECTED;
+import static data.DataJpaUserRepositoryTestData.USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
 import static java.lang.System.lineSeparator;
-import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Class to run parametrized tests to test @code{DataJpaUserRepository}'s save one method.
+ * This class @code{DataJpaUserRepositoryParametrizedSaveOneTest} runs parametrized tests to test
+ * @code{DataJpaUserRepository}'s save one method.
  */
 
 @ContextConfiguration(classes = AppConfig.class)
@@ -59,7 +53,7 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
     //only public for parametrized test
 
     /**
-     * Constructor for parametrized testing.
+     * Constructs instance for parametrized testing.
      */
     public DataJpaUserRepositoryParametrizedSaveOneTest(User toSave, User expected) {
         this.toSave = toSave;
@@ -69,29 +63,24 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
     //only public for parametrized
 
     /**
-     * Set the parametrized data.
+     * Sets the parametrized data.
      *
-     * @return @code{Collection<Object[]>} of parametrized data
+     * @return @code{Collection<Object[]>} of parametrized data.
      */
     @Parameterized.Parameters
     public static Collection<Object[]> setParametrizedData() {
-        return asList(new Object[][]{
-                {USER_TO_SAVE_ONE_FIRST, USER_TO_SAVE_ONE_FIRST_EXPECTED},
-                {USER_TO_SAVE_ONE_SECOND, USER_TO_SAVE_ONE_SECOND_EXPECTED},
-                {ADMIN_TO_SAVE_ONE_FIRST, ADMIN_TO_SAVE_ONE_FIRST_EXPECTED},
-                {ADMIN_TO_SAVE_ONE_SECOND, ADMIN_TO_SAVE_ONE_SECOND_EXPECTED},
-        });
+        return USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
     }
 
     /**
-     * Test the save method, persisting one entity per commit.
+     * Tests @code{saveOne} method.
      */
     @Test
     public void saveOne() {
         User actual = dataJpaUserRepository.save(toSave);
-        LOGGER.info("Actual, debugging",actual);
-        User byGet = dataJpaUserRepository.getOne(actual.getId());
-        LOGGER.info("ByGet, debugging",byGet);
+        LOGGER.info(String.format("Actual, debugging%s", actual), actual);
+        User fromDb = dataJpaUserRepository.findOne(actual.getId());
+        LOGGER.info(String.format("From DB, debugging%s", fromDb), fromDb);
         assertEquals(
                 String.format("SaveOne test failed:" + lineSeparator() + " expected=%s" +
                         lineSeparator() + " actual= %s", expected, actual),

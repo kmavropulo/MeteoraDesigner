@@ -9,7 +9,7 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-
+//TODO fix all the documentation, by using this class, -es and dots.
 /**
  * TaskMetric - not the entity, default parameters set for a task.
  */

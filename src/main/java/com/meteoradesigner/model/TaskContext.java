@@ -20,6 +20,7 @@ import javax.validation.constraints.Size;
 import java.util.Collections;
 import java.util.Set;
 
+//TODO fix all the documentation, by using this class, -es and dots.
 /**
  * Class implements task context entity.
  */
@@ -31,7 +32,7 @@ import java.util.Set;
 @Setter
 public class TaskContext extends AbstractNamedEntity {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
     private User user;
@@ -40,15 +41,20 @@ public class TaskContext extends AbstractNamedEntity {
     @Size(max = 6400)
     private String description;
 
-    @ManyToMany(mappedBy = "contexts", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "contexts")
     private Set<Task> tasks;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "internalContexts")
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "internalContexts")
     private Set<TaskContext> externalContexts;
 
     //TODO check save and delete
     //TODO table with columns?!
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "external_contexts_internal_contexts",
             joinColumns = {@JoinColumn(
                     name = "external_context_id",
@@ -65,7 +71,6 @@ public class TaskContext extends AbstractNamedEntity {
      */
     public TaskContext(TaskContext taskContextToCopy) {
         TaskContext taskContextCopy = SerializationUtils.clone(taskContextToCopy);
-        taskContextCopy.setId(0);
         new TaskContext(taskContextCopy.getId(), taskContextCopy.getDisplayName(), taskContextCopy
                 .getUser(), taskContextCopy.getDescription(), taskContextCopy.getExternalContexts(),
                 taskContextCopy.getInternalContexts(), taskContextCopy.getTasks());
@@ -97,7 +102,7 @@ public class TaskContext extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "TaskContext{" +
-                "user=" + user +
+                "user=" + user.getDisplayName() +
                 ", description='" + description + '\'' +
                 ", externalContexts=" + externalContexts +
                 ", internalContexts=" + internalContexts +

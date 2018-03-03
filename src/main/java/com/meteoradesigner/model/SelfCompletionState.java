@@ -1,5 +1,6 @@
 package com.meteoradesigner.model;
 
+//TODO fix all the documentation, by using this class, -es and dots.
 //TODO fix the scheme: from NONE position to any (paint the lines)
 //TODO fix the transitions: add NONE transition's paragraph (to is possible just for new instances
 //TODO fix the transitions: add to possible previous states for each state "from NONE state"
