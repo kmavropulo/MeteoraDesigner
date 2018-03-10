@@ -8,20 +8,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.test.context.web.WebAppConfiguration;
-
+import util.GenericTestHelper;
 import java.util.Collection;
-
 import static data.DataJpaUserRepositoryTestData.USER_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
-import static java.lang.System.lineSeparator;
-import static org.junit.Assert.assertEquals;
 
 /**
  * This class @code{DataJpaUserRepositoryParametrizedDeleteOneTest} runs parametrized tests to
@@ -32,8 +27,6 @@ import static org.junit.Assert.assertEquals;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @RunWith(Parameterized.class)
 public class DataJpaUserRepositoryParametrizedDeleteOneTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger
-            (DataJpaUserRepositoryParametrizedDeleteOneTest.class);
 
     //TODO @Repository for DataJPA?
     @Autowired
@@ -72,18 +65,10 @@ public class DataJpaUserRepositoryParametrizedDeleteOneTest {
     }
 
     /**
-     * Tests the @code{delete} method that.
+     * Tests the @code{deleteOne} method.
      */
     @Test
     public void deleteOne() {
-        LOGGER.info(String.format("toDelete=%s", toDelete), toDelete);
-        dataJpaUserRepository.delete(toDelete);
-        User actual = dataJpaUserRepository.findOne(toDelete.getId());
-        LOGGER.info(String.format("Actual, debugging%s", actual), actual);
-        assertEquals(
-                String.format("FindOne test failed:" + lineSeparator() + " expected=%s" +
-                        lineSeparator() + " actual= %s", expected, actual),
-                expected,
-                actual);
+        new GenericTestHelper<User>().deleteOne(dataJpaUserRepository,toDelete,expected);
     }
 }

@@ -24,7 +24,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -32,6 +31,7 @@ import java.util.Collections;
 import java.util.Set;
 
 //TODO fix all the documentation, by using this class, -es and dots.
+
 /**
  * Class implements task entity.
  */
@@ -184,6 +184,7 @@ public class Task extends AbstractNamedEntity {
     /**
      * The deep copying constructor.
      */
+    //TODO fix
     public Task(Task taskToCopy) {
         Task taskCopy = SerializationUtils.clone(taskToCopy);
         new Task(taskCopy.getId(), taskCopy.getDisplayName(), taskCopy.getUser(), taskCopy

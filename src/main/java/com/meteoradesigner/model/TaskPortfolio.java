@@ -18,10 +18,11 @@ import javax.validation.constraints.Size;
 import java.util.Collections;
 import java.util.Set;
 
-//TODO fix all the documentation, by using this class, -es and dots.
+
 /**
  * Class implements the task portfolio entity.
  */
+//TODO fix all the documentation, by using this class, -es and dots.
 @Entity
 @Table(name = "portfolios", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id",
         "display_name"}, name = "user_id_portfolio_display_name")})
@@ -45,6 +46,7 @@ public class TaskPortfolio extends AbstractNamedEntity {
     /**
      * Deep copy constructor.
      */
+    //TODO fix
     public TaskPortfolio(TaskPortfolio taskPortfolio) {
         TaskPortfolio taskPortfolioCopy = SerializationUtils.clone(taskPortfolio);
         new TaskPortfolio(taskPortfolioCopy.getId(), taskPortfolioCopy.getDisplayName(),

@@ -20,10 +20,10 @@ import javax.validation.constraints.Size;
 import java.util.Collections;
 import java.util.Set;
 
-//TODO fix all the documentation, by using this class, -es and dots.
 /**
  * Class implements task context entity.
  */
+//TODO fix all the documentation, by using this class, -es and dots.
 @Entity
 @Table(name = "contexts", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id",
         "display_name"}, name = "user_id_context_display_name")})
@@ -69,6 +69,7 @@ public class TaskContext extends AbstractNamedEntity {
     /**
      * The deep copying constructor.
      */
+    //TODO fix
     public TaskContext(TaskContext taskContextToCopy) {
         TaskContext taskContextCopy = SerializationUtils.clone(taskContextToCopy);
         new TaskContext(taskContextCopy.getId(), taskContextCopy.getDisplayName(), taskContextCopy
@@ -79,9 +80,9 @@ public class TaskContext extends AbstractNamedEntity {
     /**
      * The minimal parameters initializing constructor.
      */
-    public TaskContext(String nameToSet, @NotNull User user, @NotNull @Size(
+    public TaskContext(Integer idToSet, String nameToSet, @NotNull User user, @NotNull @Size(
             min = 1, max = 6400) String description) {
-        this(0, nameToSet, user, description, Collections.emptySet(), Collections.emptySet(),
+        this(idToSet, nameToSet, user, description, Collections.emptySet(), Collections.emptySet(),
                 Collections.emptySet());
     }
 
@@ -102,10 +103,9 @@ public class TaskContext extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "TaskContext{" +
+                "id=" + getId() +
                 "user=" + user.getDisplayName() +
-                ", description='" + description + '\'' +
-                ", externalContexts=" + externalContexts +
-                ", internalContexts=" + internalContexts +
+                ", description='" + description +
                 ", tasks=" + tasks +
                 '}';
     }

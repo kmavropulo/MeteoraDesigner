@@ -32,11 +32,10 @@ import java.util.Set;
 import static com.meteoradesigner.model.Role.ROLE_USER;
 import static java.util.Arrays.asList;
 
-//TODO fix all the documentation, by using this class, -es and dots.
-
 /**
  * Class implements the user entity.
  */
+//TODO fix all the documentation, by using this class, -es and dots.
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"}, name =
         "users_unique_email"), @UniqueConstraint(columnNames = {"display_name"}, name =
@@ -83,11 +82,10 @@ public class User extends AbstractNamedEntity {
             = "user")
     private Set<Task> tasks;
 
-    //TODO fix
-
     /**
      * Deep copying constructor.
      */
+    //TODO fix
     public User(User user) {
         User userClone = SerializationUtils.clone(user);
         new User(userClone.getId(), userClone.getDisplayName(), userClone.getEmail(), userClone

@@ -1,8 +1,8 @@
-package com.meteoradesigner.repository.datajpauserrepository;
+package com.meteoradesigner.repository.datajpataskcontextrepository;
 
 import com.meteoradesigner.config.AppConfig;
-import com.meteoradesigner.model.User;
-import com.meteoradesigner.repository.DataJpaUserRepository;
+import com.meteoradesigner.model.TaskContext;
+import com.meteoradesigner.repository.DataJpaTaskContextRepository;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,27 +15,28 @@ import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.test.context.web.WebAppConfiguration;
 import util.GenericTestHelper;
+
 import java.util.Collection;
-import static data.DataJpaUserRepositoryTestData.USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+
+import static data.DataJpaTaskContextRepositoryTestData
+        .TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
 
 /**
- * This class @code{DataJpaUserRepositoryParametrizedSaveOneTest} runs parametrized tests to test
- *
- * @code{DataJpaUserRepository}'s save one method.
+ * This class @code{DataJpaTaskContextRepositoryParametrizedSaveOneTest} runs parametrized tests to
+ * test @code{DataJpaTaskContextRepository}'s save one method.
  */
-
 @ContextConfiguration(classes = AppConfig.class)
 @WebAppConfiguration
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @RunWith(Parameterized.class)
-public class DataJpaUserRepositoryParametrizedSaveOneTest {
+public class DataJpaTaskContextRepositoryParametrizedSaveOneTest {
 
     //TODO @Repository for DataJPA?
     @Autowired
-    private DataJpaUserRepository dataJpaUserRepository;
+    private DataJpaTaskContextRepository dataJpaTaskContextRepository;
 
-    private User toSave;
-    private User expected;
+    private TaskContext toSave;
+    private TaskContext expected;
 
     //using for parametrized test
     @ClassRule
@@ -49,7 +50,8 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
     /**
      * Constructs instance for parametrized testing.
      */
-    public DataJpaUserRepositoryParametrizedSaveOneTest(User toSave, User expected) {
+    public DataJpaTaskContextRepositoryParametrizedSaveOneTest(TaskContext toSave, TaskContext
+            expected) {
         this.toSave = toSave;
         this.expected = expected;
     }
@@ -63,7 +65,7 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
      */
     @Parameterized.Parameters
     public static Collection<Object[]> setParametrizedData() {
-        return USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+        return TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
     }
 
     /**
@@ -71,6 +73,7 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
      */
     @Test
     public void saveOne() {
-        new GenericTestHelper<User>().saveOne(dataJpaUserRepository, toSave, expected);
+        new GenericTestHelper<TaskContext>().saveOne(dataJpaTaskContextRepository, toSave,
+                expected);
     }
 }

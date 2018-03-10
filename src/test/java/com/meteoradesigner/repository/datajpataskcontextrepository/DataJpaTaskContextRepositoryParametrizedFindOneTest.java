@@ -1,41 +1,41 @@
-package com.meteoradesigner.repository.datajpauserrepository;
+package com.meteoradesigner.repository.datajpataskcontextrepository;
 
 import com.meteoradesigner.config.AppConfig;
-import com.meteoradesigner.model.User;
-import com.meteoradesigner.repository.DataJpaUserRepository;
+import com.meteoradesigner.model.TaskContext;
+import com.meteoradesigner.repository.DataJpaTaskContextRepository;
 import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
 import org.junit.runners.Parameterized;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.rules.SpringClassRule;
 import org.springframework.test.context.junit4.rules.SpringMethodRule;
 import org.springframework.test.context.web.WebAppConfiguration;
 import util.GenericTestHelper;
+
 import java.util.Collection;
-import static data.DataJpaUserRepositoryTestData.USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+
+import static data.DataJpaTaskContextRepositoryTestData
+        .TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
 
 /**
- * This class @code{DataJpaUserRepositoryParametrizedSaveOneTest} runs parametrized tests to test
- *
- * @code{DataJpaUserRepository}'s save one method.
+ * This class @code{DataJpaTaskContextRepositoryParametrizedFindOneTest} runs parametrized tests to
+ * test @code{DataJpaTaskContextRepository}'s find one method.
  */
-
 @ContextConfiguration(classes = AppConfig.class)
 @WebAppConfiguration
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @RunWith(Parameterized.class)
-public class DataJpaUserRepositoryParametrizedSaveOneTest {
+public class DataJpaTaskContextRepositoryParametrizedFindOneTest {
 
-    //TODO @Repository for DataJPA?
     @Autowired
-    private DataJpaUserRepository dataJpaUserRepository;
+    private DataJpaTaskContextRepository dataJpaTaskContextRepository;
 
-    private User toSave;
-    private User expected;
+    private TaskContext toFind;
+    private TaskContext expected;
 
     //using for parametrized test
     @ClassRule
@@ -49,8 +49,9 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
     /**
      * Constructs instance for parametrized testing.
      */
-    public DataJpaUserRepositoryParametrizedSaveOneTest(User toSave, User expected) {
-        this.toSave = toSave;
+    public DataJpaTaskContextRepositoryParametrizedFindOneTest(TaskContext toFind, TaskContext
+            expected) {
+        this.toFind = toFind;
         this.expected = expected;
     }
 
@@ -63,14 +64,15 @@ public class DataJpaUserRepositoryParametrizedSaveOneTest {
      */
     @Parameterized.Parameters
     public static Collection<Object[]> setParametrizedData() {
-        return USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+        return TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
     }
 
     /**
-     * Tests @code{saveOne} method.
+     * Tests @code{findOne} method.
      */
     @Test
-    public void saveOne() {
-        new GenericTestHelper<User>().saveOne(dataJpaUserRepository, toSave, expected);
+    public void findOne() {
+        new GenericTestHelper<TaskContext>().findOne(dataJpaTaskContextRepository, toFind,
+                expected);
     }
 }

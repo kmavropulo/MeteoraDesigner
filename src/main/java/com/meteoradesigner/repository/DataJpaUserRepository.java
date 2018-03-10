@@ -2,13 +2,13 @@ package com.meteoradesigner.repository;
 
 import com.meteoradesigner.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-//TODO generic for all entities
-//TODO @Repository for DataJPA?
+import org.springframework.stereotype.Repository;
 
 /**
- * This interface @code{DataJpaUserRepository} declares the data jpa user repository.
+ * This interface @code{DataJpaUserRepository} declares the data jpa @code{user} repository.
  */
+//TODO @Repository for DataJPA?
+@Repository
 public interface DataJpaUserRepository extends JpaRepository<User, Integer> {
 
     /**
