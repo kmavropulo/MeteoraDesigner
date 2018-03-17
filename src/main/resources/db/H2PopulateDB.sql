@@ -49,7 +49,7 @@ INSERT INTO portfolios (user_id, display_name, description) VALUES
   (2, 'initializedBySqlScriptUser2Portfolio4DisplayName',
    'initializedBySqlScriptUser2Portfolio4Description');
 
-INSERT INTO tasks (user_id, display_name, planned_start_task_timestamp, planned_stop_task_timestamp, internal_execution_state, self_completion_state, portfolio_id, task_metric_description, task_metric_importance, task_metric_urgency, task_metric_stability,
+INSERT INTO tasks (user_id, display_name, planned_start_task_timestamp, planned_stop_task_timestamp, internal_execution_state, self_completion_state, portfolio_id, task_metric_description, task_metric_importance, task_metric_urgency, task_metric_stability
 
 )
 VALUES

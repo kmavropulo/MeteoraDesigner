@@ -1,46 +1,60 @@
 package data;
 
 import com.meteoradesigner.model.TaskContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 import static data.DataJpaUserRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1;
 import static data.DataJpaUserRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_USER_2;
 import static data.DataJpaUserRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4;
+import static java.lang.System.lineSeparator;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
 
 /**
- * This class @code{DataJpaTaskContextRepositoryTestData} holds of test data
+ * This class @code{DataJpaTaskContextRepositoryTestData} holds of saveOneTest data
  * for @code{DataJpaTaskContextRepository}.
  */
-public class DataJpaTaskContextRepositoryTestData {
-    public static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1;
-    public static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_2;
-    public static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_3;
-    public static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_4;
-    public static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_5;
-    public static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_6;
-    public static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_7;
-    public static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_8;
-    public static final List<TaskContext> TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
-    public static final TaskContext TASK_CONTEXT_TO_SAVE_ONE_FIRST;
-    public static final TaskContext TASK_CONTEXT_TO_SAVE_ONE_SECOND;
-    public static final Collection<Object[]>
+//TODO documentation.
+public class DataJpaTaskContextRepositoryTestData extends
+        GenericDataJpaRepositoryTestData<TaskContext> {
+    protected static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1;
+    protected static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_2;
+    protected static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_3;
+    protected static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_4;
+    protected static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_5;
+    protected static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_6;
+    protected static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_7;
+    protected static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_8;
+    private static final List<TaskContext> TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
+    private static final TaskContext TASK_CONTEXT_TO_SAVE_ONE_FIRST;
+    private static final TaskContext TASK_CONTEXT_TO_SAVE_ONE_SECOND;
+    private static final Collection<TaskContext[]>
             TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
-    public static final TaskContext TASK_CONTEXT_TO_FIND_ONE_FIRST_EXPECTED;
-    public static final TaskContext TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED;
-    public static final Collection<Object[]>
+    private static final TaskContext TASK_CONTEXT_TO_FIND_ONE_FIRST_EXPECTED;
+    private static final TaskContext TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED;
+    private static final Collection<TaskContext[]>
             TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
-    public static final TaskContext TASK_CONTEXT_TO_DELETE_ONE_FIRST;
-    public static final TaskContext TASK_CONTEXT_TO_DELETE_ONE_SECOND;
-    public static final Collection<Object[]>
+    private static final TaskContext TASK_CONTEXT_TO_DELETE_ONE_FIRST;
+    private static final TaskContext TASK_CONTEXT_TO_DELETE_ONE_SECOND;
+    private static final Collection<TaskContext[]>
             TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
 
-    //TODO add more test logic, for example initialize all the fields
+    private static final BiConsumer<TaskContext[], JpaRepository<TaskContext, Integer>>
+            CONSUMER_SAVE_ONE_TEST;
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            DataJpaTaskContextRepositoryTestData.class);
+
+    //TODO add more saveOneTest logic, for example initialize all the fields
     static {
 
-        //constructs test data for common tests
+        //constructs saveOneTest data for common tests
         CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1 = new TaskContext(1,
                 "initializedBySqlScriptUser1Context1DisplayName",
                 CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1,
@@ -86,7 +100,21 @@ public class DataJpaTaskContextRepositoryTestData {
         );
 
         //TODO add tests/testData to check updating
-        //constructs test data for save/update tests
+        //constructs saveOneTest data for save/update tests
+        CONSUMER_SAVE_ONE_TEST = (ar, rep) -> {
+            TaskContext expected = TaskContext.class.cast(ar[1]);
+            LOGGER.info(String.format("Expected, debugging%s", expected));
+            TaskContext actual = rep.save(TaskContext.class.cast(ar[0]));
+            LOGGER.info(String.format("Actual, debugging%s", actual), actual);
+            TaskContext fromDb = rep.findOne(actual.getId());
+            LOGGER.info(String.format("From DB, debugging%s", fromDb), fromDb);
+            assertEquals(
+                    String.format("SaveOne saveOneTest failed:" + lineSeparator() + " expected=%s" +
+                            lineSeparator() + " actual= %s", expected, actual),
+                    expected,
+                    actual);
+        };
+
         TASK_CONTEXT_TO_SAVE_ONE_FIRST = new TaskContext(
                 CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_8.getId() + 1,
                 "TaskContextToSaveOneFirst",
@@ -99,30 +127,47 @@ public class DataJpaTaskContextRepositoryTestData {
                 CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4,
                 "TaskContextToSaveOneSecondDescription");
 
-        TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA = asList(new Object[][]{
+        TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA = asList(new TaskContext[][]{
                 {TASK_CONTEXT_TO_SAVE_ONE_FIRST, TASK_CONTEXT_TO_SAVE_ONE_FIRST},
                 {TASK_CONTEXT_TO_SAVE_ONE_SECOND, TASK_CONTEXT_TO_SAVE_ONE_SECOND},
         });
 
-        //constructs test data for find tests
+        //constructs saveOneTest data for find tests
         TASK_CONTEXT_TO_FIND_ONE_FIRST_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1;
         TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_8;
 
-        TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA = asList(new Object[][]{
+        TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA = asList(new TaskContext[][]{
                 {TASK_CONTEXT_TO_FIND_ONE_FIRST_EXPECTED, TASK_CONTEXT_TO_FIND_ONE_FIRST_EXPECTED},
                 {TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED,
                         TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED},
         });
 
-        //constructs test data for delete tests
+        //constructs saveOneTest data for delete tests
         TASK_CONTEXT_TO_DELETE_ONE_FIRST = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1;
         TASK_CONTEXT_TO_DELETE_ONE_SECOND = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_8;
 
-        TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA = asList(new Object[][]{
+        TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA = asList(new TaskContext[][]{
                 {TASK_CONTEXT_TO_DELETE_ONE_FIRST, null},
                 {TASK_CONTEXT_TO_DELETE_ONE_SECOND, null},
         });
 
-        //TODO add custom test data
+        //TODO add custom saveOneTest data
+    }
+
+
+    public Collection<TaskContext[]> getSaveOneTestData() {
+        return TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+    }
+
+    public Collection<TaskContext[]> getFindOneTestData() {
+        return TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
+    }
+
+    public Collection<TaskContext[]> getDeleteOneTestData() {
+        return TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
+    }
+
+    public List<TaskContext> getFindAllTestData() {
+        return TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
     }
 }

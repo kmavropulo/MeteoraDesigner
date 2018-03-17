@@ -14,5 +14,5 @@ import org.springframework.stereotype.Repository;
 public interface DataJpaTaskContextRepository extends JpaRepository<TaskContext, Integer> {
 
     //TODO Query and check good practice how to name/add methods not existing by default
-    TaskContext findTaskContextsByTasks(TaskPortfolio taskPortfolio);
+    // TaskContext findTaskContextsByTasks(TaskPortfolio taskPortfolio);
 }

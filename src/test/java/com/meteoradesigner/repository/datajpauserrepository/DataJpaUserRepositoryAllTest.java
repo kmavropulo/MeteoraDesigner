@@ -6,12 +6,10 @@ import org.junit.runners.Suite;
 /**
  * This class @code{DataJpaUserRepositoryAllTest} runs all tests for @code{DataJpaUserRepository}.
  */
+//TODO documentation.
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        DataJpaUserRepositoryParametrizedSaveOneTest.class,
-        DataJpaUserRepositoryParametrizedDeleteOneTest.class,
-        DataJpaUserRepositoryParametrizedDeleteOneTest.class,
-        DataJpaUserRepositoryCommonTest.class,
+        DataJpaUserRepositoryCrudTest.class,
         DataJpaUserRepositoryCustomTest.class
 })
 public class DataJpaUserRepositoryAllTest {

@@ -10,34 +10,35 @@ import static com.meteoradesigner.model.Role.ROLE_USER;
 import static java.util.Arrays.asList;
 
 /**
- * This class @code{DataJpaUserRepositoryTestData} holds of test data for
+ * This class @code{DataJpaUserRepositoryTestData} holds of saveOneTest data for
  *
  * @code{DataJpaUserRepository}.
  */
-public class DataJpaUserRepositoryTestData {
-    public static final User CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1;
-    public static final User CONSTRUCTED_BY_H2SQL_SCRIPT_USER_2;
-    public static final User CONSTRUCTED_BY_H2SQL_SCRIPT_USER_3;
-    public static final User CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4;
-    public static final User USER_TO_SAVE_ONE_FIRST;
-    public static final User ADMIN_TO_SAVE_ONE_FIRST;
-    public static final User USER_ADMIN_TO_SAVE_ONE_SECOND;
-    public static final Collection<Object[]> USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
-    public static final User USER_TO_FIND_ONE_FIRST_EXPECTED;
-    public static final User USER_ADMIN_TO_FIND_ONE_SECOND_EXPECTED;
-    public static final Collection<Object[]> USER_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
-    public static final User USER_TO_DELETE_ONE_FIRST;
-    public static final User USER_ADMIN_TO_DELETE_ONE_SECOND;
-    public static final Collection<Object[]> USER_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
+//TODO documentation.
+public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestData<User> {
+    protected static final User CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1;
+    protected static final User CONSTRUCTED_BY_H2SQL_SCRIPT_USER_2;
+    protected static final User CONSTRUCTED_BY_H2SQL_SCRIPT_USER_3;
+    protected static final User CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4;
+    private static final User USER_TO_SAVE_ONE_FIRST;
+    private static final User ADMIN_TO_SAVE_ONE_FIRST;
+    private static final User USER_ADMIN_TO_SAVE_ONE_SECOND;
+    private static final Collection<User[]> USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+    private static final User USER_TO_FIND_ONE_FIRST_EXPECTED;
+    private static final User USER_ADMIN_TO_FIND_ONE_SECOND_EXPECTED;
+    private static final Collection<User[]> USER_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
+    private static final User USER_TO_DELETE_ONE_FIRST;
+    private static final User USER_ADMIN_TO_DELETE_ONE_SECOND;
+    private static final Collection<User[]> USER_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
     public static final List<User> USER_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
     public static final String USER_REPOSITORY_MAIL_TO_FIND_BY_MAIL;
     public static final User USER_REPOSITORY_CUSTOM_TEST_DATA;
     public static final String USER_REPOSITORY_DISPLAY_NAME_TO_FIND_BY_DISPLAY_NAME;
 
-    //TODO add more test logic, for example initialize all the fields
+    //TODO add more saveOneTest logic, for example initialize all the fields
     static {
 
-        //constructs test data for common tests
+        //constructs saveOneTest data for common tests
         CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1 = new User(1,
                 "initializedBySqlScriptUser1DisplayName",
                 "initializedBySqlScriptUser1@email.com",
@@ -67,7 +68,7 @@ public class DataJpaUserRepositoryTestData {
         );
 
         //TODO add tests/testData to check updating
-        //constructs test data for save/update tests
+        //constructs saveOneTest data for save/update tests
         USER_TO_SAVE_ONE_FIRST = new User(5,
                 "UserToSaveOneFirst",
                 "UserToSaveOneFirst@email.com",
@@ -86,34 +87,51 @@ public class DataJpaUserRepositoryTestData {
                 "UserAdminToSaveOneSecondPassword",
                 ROLE_ADMIN, ROLE_USER);
 
-        USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA = asList(new Object[][]{
+        USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA = asList(new User[][]{
                 {USER_TO_SAVE_ONE_FIRST, USER_TO_SAVE_ONE_FIRST},
                 {ADMIN_TO_SAVE_ONE_FIRST, ADMIN_TO_SAVE_ONE_FIRST},
                 {USER_ADMIN_TO_SAVE_ONE_SECOND, USER_ADMIN_TO_SAVE_ONE_SECOND},
         });
 
-        //constructs test data for find tests
+        //constructs saveOneTest data for find tests
         USER_TO_FIND_ONE_FIRST_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1;
         USER_ADMIN_TO_FIND_ONE_SECOND_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4;
 
-        USER_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA = asList(new Object[][]{
+        USER_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA = asList(new User[][]{
                 {USER_TO_FIND_ONE_FIRST_EXPECTED, USER_TO_FIND_ONE_FIRST_EXPECTED},
                 {USER_ADMIN_TO_FIND_ONE_SECOND_EXPECTED, USER_ADMIN_TO_FIND_ONE_SECOND_EXPECTED},
         });
 
-        //constructs test data for delete tests
+        //constructs saveOneTest data for delete tests
+        //TODO check that the orphans are deleted
         USER_TO_DELETE_ONE_FIRST = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1;
         USER_ADMIN_TO_DELETE_ONE_SECOND = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4;
 
-        USER_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA = asList(new Object[][]{
+        USER_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA = asList(new User[][]{
                 {USER_TO_DELETE_ONE_FIRST, null},
                 {USER_ADMIN_TO_DELETE_ONE_SECOND, null},
         });
 
-        //constructs test data for custom tests
+        //constructs saveOneTest data for custom tests
         USER_REPOSITORY_MAIL_TO_FIND_BY_MAIL = "initializedBySqlScriptUserAdmin4@email.com";
         USER_REPOSITORY_DISPLAY_NAME_TO_FIND_BY_DISPLAY_NAME
                 = "initializedBySqlScriptUserAdmin4DisplayName";
         USER_REPOSITORY_CUSTOM_TEST_DATA = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4;
+    }
+
+    public Collection<User[]> getSaveOneTestData() {
+        return USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+    }
+
+    public Collection<User[]> getFindOneTestData() {
+        return USER_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
+    }
+
+    public Collection<User[]> getDeleteOneTestData() {
+        return USER_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
+    }
+
+    public List<User> getFindAllTestData() {
+        return USER_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
     }
 }

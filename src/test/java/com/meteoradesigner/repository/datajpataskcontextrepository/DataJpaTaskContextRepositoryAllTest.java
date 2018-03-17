@@ -8,13 +8,11 @@ import org.junit.runners.Suite;
  *
  * @code{DataJpaTaskContextRepository}.
  */
+//TODO documentation.
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        DataJpaTaskContextRepositoryCommonTest.class,
-        DataJpaTaskContextRepositoryParametrizedDeleteOneTest.class,
-        DataJpaTaskContextRepositoryCustomTest.class,
-        DataJpaTaskContextRepositoryParametrizedFindOneTest.class,
-        DataJpaTaskContextRepositoryParametrizedSaveOneTest.class
+        DataJpaTaskContextRepositoryCrudTest.class,
+        DataJpaTaskContextRepositoryCustomTest.class
 })
 public class DataJpaTaskContextRepositoryAllTest {
 }
