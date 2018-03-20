@@ -3,12 +3,14 @@ package com.meteoradesigner.repository;
 import com.meteoradesigner.HasId;
 import com.meteoradesigner.repository.config.DataJpaRepositoryTestConfiguration;
 import data.GenericDataJpaRepositoryTestData;
+import org.junit.Ignore;
 import org.springframework.data.jpa.repository.JpaRepository;
 import util.GenericTestHelper;
 
 import java.io.Serializable;
 import java.util.Map;
 
+@Ignore
 //TODO documentation.
 public class GenericDataJpaRepositoryCrudTest<E extends HasId, ID extends Serializable> extends
         DataJpaRepositoryTestConfiguration {
