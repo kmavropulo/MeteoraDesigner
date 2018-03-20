@@ -5,27 +5,32 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
-
+//TODO fix all the documentation, by using this class, -es and dots.
 /**
  * TaskMetric - not the entity, default parameters set for a task.
  */
-@Getter
-@Setter
+@Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class TaskMetric implements Serializable {
 
-    @NotNull
-    @Size(min = 1, max = 6400)
+    @Size(max = 6400)
     private String description;
 
-    private Long importance;
-    private Long urgency;
-    private Long stability;
+    @Size(min = -100, max = 100)
+    private Double importance;
+
+    @Size(min = -100, max = 100)
+    private Double urgency;
+
+    @Size(min = -100, max = 100)
+    private Double stability;
 
     /**
      * Copy constructor.

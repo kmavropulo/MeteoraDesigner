@@ -96,17 +96,19 @@
             <version>${spring-data-jpa.version}</version>
         </dependency>
 
+        <!--TODO: Explore-->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-            <version>${spring.version}</version>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
         </dependency>
+
+        <!--TODO: Explore-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
 
         <!--Testing-->
         <dependency>
@@ -132,6 +134,14 @@
             <artifactId>mockito-all</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
+        </dependency>
+
+
+        <!--TODO: Explore-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
         </dependency>
 
         <!-- Logging with SLF4J & LogBack -->
@@ -170,7 +180,6 @@
         </dependency>
 
         <!--DB-->
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -197,4 +206,17 @@
         </dependency>
 
     </dependencies>
+
+    <!--<Explicit-ParBOM-ImpBOM-Mediation, for future use of spring test>-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-framework-bom</artifactId>
+                <version>${spring.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

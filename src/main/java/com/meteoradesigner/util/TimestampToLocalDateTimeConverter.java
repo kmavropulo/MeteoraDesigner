@@ -9,13 +9,13 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 /**
- * Class-converter from/to db data (<code>Timestamp</code>) to/from attribute
- * (<code>LocalDateTime</code>).
- * For all entities in enabled below auto mode; spring-context's asserts using for checking.
+ * This class @code{TimestampToLocalDateTimeConverter} converts from/to db data
+ * (<code>Timestamp</code>) to/from attribute (<code>LocalDateTime</code>).
+ * For all entities in enabled auto mode; spring-context's asserts using for checking.
  */
 @Converter(autoApply = true)
-public class TimestampToLocalDateTimeConverter implements AttributeConverter<LocalDateTime
-        , Timestamp> {
+public class TimestampToLocalDateTimeConverter implements AttributeConverter<
+        LocalDateTime, Timestamp> {
     //TODO test on next iteration.
     @Override
     public Timestamp convertToDatabaseColumn(LocalDateTime attributeLocalDateTime) {
@@ -25,7 +25,9 @@ public class TimestampToLocalDateTimeConverter implements AttributeConverter<Loc
 
     @Override
     public LocalDateTime convertToEntityAttribute(Timestamp dBTimestamp) {
-        Assert.notNull(dBTimestamp, "dBTimestamp to convert must not be null");
-        return dBTimestamp.toLocalDateTime();
+        if (dBTimestamp != null) {
+            return dBTimestamp.toLocalDateTime();
+        }
+        return null;
     }
 }
