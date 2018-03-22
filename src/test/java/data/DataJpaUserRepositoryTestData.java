@@ -38,7 +38,7 @@ public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestD
     //TODO add more saveOneTest logic, for example initialize all the fields
     static {
 
-        //constructs saveOneTest data for common tests
+        //constructs data for common tests
         CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1 = new User(1,
                 "initializedBySqlScriptUser1DisplayName",
                 "initializedBySqlScriptUser1@email.com",
@@ -68,7 +68,7 @@ public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestD
         );
 
         //TODO add tests/testData to check updating
-        //constructs saveOneTest data for save/update tests
+        //constructs data for save/update tests
         USER_TO_SAVE_ONE_FIRST = new User(5,
                 "UserToSaveOneFirst",
                 "UserToSaveOneFirst@email.com",
@@ -93,7 +93,7 @@ public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestD
                 {USER_ADMIN_TO_SAVE_ONE_SECOND, USER_ADMIN_TO_SAVE_ONE_SECOND},
         });
 
-        //constructs saveOneTest data for find tests
+        //constructs data for find tests
         USER_TO_FIND_ONE_FIRST_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1;
         USER_ADMIN_TO_FIND_ONE_SECOND_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4;
 
@@ -102,7 +102,7 @@ public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestD
                 {USER_ADMIN_TO_FIND_ONE_SECOND_EXPECTED, USER_ADMIN_TO_FIND_ONE_SECOND_EXPECTED},
         });
 
-        //constructs saveOneTest data for delete tests
+        //constructs data for delete tests
         //TODO check that the orphans are deleted
         USER_TO_DELETE_ONE_FIRST = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1;
         USER_ADMIN_TO_DELETE_ONE_SECOND = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4;
@@ -112,7 +112,7 @@ public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestD
                 {USER_ADMIN_TO_DELETE_ONE_SECOND, null},
         });
 
-        //constructs saveOneTest data for custom tests
+        //constructs data for custom tests
         USER_REPOSITORY_MAIL_TO_FIND_BY_MAIL = "initializedBySqlScriptUserAdmin4@email.com";
         USER_REPOSITORY_DISPLAY_NAME_TO_FIND_BY_DISPLAY_NAME
                 = "initializedBySqlScriptUserAdmin4DisplayName";

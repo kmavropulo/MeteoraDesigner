@@ -4,7 +4,6 @@ import com.meteoradesigner.model.TaskContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.List;
@@ -54,7 +53,7 @@ public class DataJpaTaskContextRepositoryTestData extends
     //TODO add more saveOneTest logic, for example initialize all the fields
     static {
 
-        //constructs saveOneTest data for common tests
+        //constructs data for common tests
         CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1 = new TaskContext(1,
                 "initializedBySqlScriptUser1Context1DisplayName",
                 CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1,
@@ -100,7 +99,7 @@ public class DataJpaTaskContextRepositoryTestData extends
         );
 
         //TODO add tests/testData to check updating
-        //constructs saveOneTest data for save/update tests
+        //constructs data for save/update tests
         CONSUMER_SAVE_ONE_TEST = (ar, rep) -> {
             TaskContext expected = TaskContext.class.cast(ar[1]);
             LOGGER.info(String.format("Expected, debugging%s", expected));
@@ -132,7 +131,7 @@ public class DataJpaTaskContextRepositoryTestData extends
                 {TASK_CONTEXT_TO_SAVE_ONE_SECOND, TASK_CONTEXT_TO_SAVE_ONE_SECOND},
         });
 
-        //constructs saveOneTest data for find tests
+        //constructs data for find tests
         TASK_CONTEXT_TO_FIND_ONE_FIRST_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1;
         TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_8;
 
@@ -142,7 +141,7 @@ public class DataJpaTaskContextRepositoryTestData extends
                         TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED},
         });
 
-        //constructs saveOneTest data for delete tests
+        //constructs data for delete tests
         TASK_CONTEXT_TO_DELETE_ONE_FIRST = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1;
         TASK_CONTEXT_TO_DELETE_ONE_SECOND = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_8;
 

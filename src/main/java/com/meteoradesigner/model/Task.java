@@ -1,6 +1,5 @@
 package com.meteoradesigner.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,7 +38,6 @@ import java.util.Set;
 @Table(name = "tasks", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id",
         "display_name"}, name = "user_id_task_display_name")})
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 public class Task extends AbstractNamedEntity {
