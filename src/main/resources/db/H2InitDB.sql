@@ -116,7 +116,7 @@ CREATE TABLE tasks_blocked_by_the_task_tasks_blocking_the_task (
 
 CREATE TABLE tasks_with_relatives_unlocked_by_the_task_tasks_unlocking_the_task_relatives (
   task_with_relatives_unlocked_by_the_task_id INTEGER NOT NULL,
-  task_unlocking_the_task_relatives_id   VARCHAR NOT NULL,
+  task_unlocking_the_task_relatives_id        VARCHAR NOT NULL,
   CONSTRAINT task_with_relatives_unlocked_by_the_task_id_task_unlocking_the_task_relatives_id UNIQUE (
     task_with_relatives_unlocked_by_the_task_id,
     task_unlocking_the_task_relatives_id),

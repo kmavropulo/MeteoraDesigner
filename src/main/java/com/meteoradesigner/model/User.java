@@ -125,6 +125,7 @@ public class User extends AbstractNamedEntity {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", registrationTime=" + registrationTime +
+                ", roles=" + roles +
                 '}';
     }
 

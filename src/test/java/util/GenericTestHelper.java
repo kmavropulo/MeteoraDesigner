@@ -1,7 +1,6 @@
 package util;
 
 import com.meteoradesigner.HasId;
-import com.meteoradesigner.model.AbstractBaseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,8 +34,8 @@ public class GenericTestHelper {
      */
     public static <E extends HasId, ID extends Serializable> void deleteTest(
             Collection<E[]> data,
-            Map<String, JpaRepository<?,ID>> repository,
-            BiConsumer<E[], Map<String, JpaRepository<?,ID>>> consumer
+            Map<String, JpaRepository<?, ID>> repository,
+            BiConsumer<E[], Map<String, JpaRepository<?, ID>>> consumer
     ) {
         data.forEach(ar -> consumer.accept(ar, repository));
     }

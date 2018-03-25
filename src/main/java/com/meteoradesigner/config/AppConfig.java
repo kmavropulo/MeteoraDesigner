@@ -1,8 +1,5 @@
 package com.meteoradesigner.config;
 
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +16,8 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 import java.util.Properties;
 
 //TODO fix all the documentation, by using this class, -es and dots.
@@ -26,7 +25,6 @@ import java.util.Properties;
 @ComponentScan(basePackages = "com.meteoradesigner.**")
 @EnableJpaRepositories("com.meteoradesigner.repository")
 @EnableTransactionManagement
-
 public class AppConfig {
 
     @Bean

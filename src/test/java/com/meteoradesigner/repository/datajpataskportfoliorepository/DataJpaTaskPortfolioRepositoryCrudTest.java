@@ -1,24 +1,24 @@
-package com.meteoradesigner.repository.datajpauserrepository;
+package com.meteoradesigner.repository.datajpataskportfoliorepository;
 
-import com.meteoradesigner.model.User;
-import com.meteoradesigner.repository.DataJpaUserRepository;
+
+import com.meteoradesigner.model.TaskPortfolio;
+import com.meteoradesigner.repository.DataJpaTaskPortfolioRepository;
 import com.meteoradesigner.repository.GenericDataJpaRepositoryCrudTest;
-import data.DataJpaUserRepositoryTestData;
+import data.DataJpaTaskPortfolioRepositoryTestData;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-//TODO documentation.
-public class DataJpaUserRepositoryCrudTest extends
-        GenericDataJpaRepositoryCrudTest<User, Integer> {
+//TODO documentation
+public class DataJpaTaskPortfolioRepositoryCrudTest extends GenericDataJpaRepositoryCrudTest<TaskPortfolio, Integer> {
 
     @Autowired
-    DataJpaUserRepository userRepository;
+    DataJpaTaskPortfolioRepository portfolioRepository;
 
     @Before
     public void initialize() {
-        super.repository = userRepository;
-        this.testData = new DataJpaUserRepositoryTestData();
+        super.repository = portfolioRepository;
+        this.testData = new DataJpaTaskPortfolioRepositoryTestData();
         setTestCommon();
     }
 
