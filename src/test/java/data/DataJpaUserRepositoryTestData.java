@@ -33,11 +33,11 @@ public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestD
     private static final Collection<User[]> USER_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
 
     private static final Collection<User[]> USER_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
-    protected static final List<User> USER_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
+    public static final List<User> USER_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
 
-    protected static final String USER_REPOSITORY_MAIL_TO_FIND_BY_MAIL;
-    protected static final User USER_REPOSITORY_CUSTOM_TEST_DATA;
-    protected static final String USER_REPOSITORY_DISPLAY_NAME_TO_FIND_BY_DISPLAY_NAME;
+    public static final String USER_REPOSITORY_MAIL_TO_FIND_BY_MAIL;
+    public static final User USER_REPOSITORY_CUSTOM_TEST_DATA;
+    public static final String USER_REPOSITORY_DISPLAY_NAME_TO_FIND_BY_DISPLAY_NAME;
 
     //TODO add more saveOneTest logic, for example initialize all the fields
     static {
