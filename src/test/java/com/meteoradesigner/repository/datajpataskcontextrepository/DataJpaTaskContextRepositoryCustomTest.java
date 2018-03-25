@@ -1,12 +1,12 @@
 package com.meteoradesigner.repository.datajpataskcontextrepository;
 
-import com.meteoradesigner.repository.config.DataJpaRepositoryTestConfiguration;
 import com.meteoradesigner.repository.DataJpaTaskContextRepository;
+import com.meteoradesigner.repository.config.DataJpaRepositoryTestConfiguration;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * This class @code{DataJpaTaskContextRepositoryCustomTest} runs custom tests for
+ * This class @code{DataJpaTaskRepositoryCustomTest} runs custom tests for
  *
  * @code{DataJpaTaskContextRepository}'s custom methods.
  */

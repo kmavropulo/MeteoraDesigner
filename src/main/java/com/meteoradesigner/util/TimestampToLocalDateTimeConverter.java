@@ -1,12 +1,11 @@
 package com.meteoradesigner.util;
 
-import org.springframework.util.Assert;
-
-//Dependency hibernate.core added to add the implementation's interface.
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+
+//Dependency hibernate.core added to add the implementation's interface.
 
 /**
  * This class @code{TimestampToLocalDateTimeConverter} converts from/to db data
@@ -19,8 +18,10 @@ public class TimestampToLocalDateTimeConverter implements AttributeConverter<
     //TODO test on next iteration.
     @Override
     public Timestamp convertToDatabaseColumn(LocalDateTime attributeLocalDateTime) {
-        Assert.notNull(attributeLocalDateTime, "LocalDateTime to convert must not be null!");
-        return Timestamp.valueOf(attributeLocalDateTime);
+        if (attributeLocalDateTime != null) {
+            return Timestamp.valueOf(attributeLocalDateTime);
+        }
+        return null;
     }
 
     @Override

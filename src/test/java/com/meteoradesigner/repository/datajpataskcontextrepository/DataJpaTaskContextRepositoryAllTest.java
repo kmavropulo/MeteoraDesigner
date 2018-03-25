@@ -4,7 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * This class @code{DataJpaTaskContextRepositoryAllTest} runs all tests for
+ * This class @code{DataJpaTaskRepositoryAllTest} runs all tests for
  *
  * @code{DataJpaTaskContextRepository}.
  */
