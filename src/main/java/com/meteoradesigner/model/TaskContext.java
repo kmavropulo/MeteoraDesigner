@@ -106,7 +106,6 @@ public class TaskContext extends AbstractNamedEntity {
                 "id=" + getId() +
                 "user=" + user.getDisplayName() +
                 ", description='" + description +
-                ", tasks=" + tasks +
                 '}';
     }
 }

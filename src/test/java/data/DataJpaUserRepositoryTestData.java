@@ -4,6 +4,8 @@ import com.meteoradesigner.model.User;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.meteoradesigner.model.Role.ROLE_ADMIN;
 import static com.meteoradesigner.model.Role.ROLE_USER;
@@ -20,20 +22,22 @@ public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestD
     protected static final User CONSTRUCTED_BY_H2SQL_SCRIPT_USER_2;
     protected static final User CONSTRUCTED_BY_H2SQL_SCRIPT_USER_3;
     protected static final User CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4;
+
     private static final User USER_TO_SAVE_ONE_FIRST;
     private static final User ADMIN_TO_SAVE_ONE_FIRST;
     private static final User USER_ADMIN_TO_SAVE_ONE_SECOND;
     private static final Collection<User[]> USER_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+
     private static final User USER_TO_FIND_ONE_FIRST_EXPECTED;
     private static final User USER_ADMIN_TO_FIND_ONE_SECOND_EXPECTED;
     private static final Collection<User[]> USER_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
-    private static final User USER_TO_DELETE_ONE_FIRST;
-    private static final User USER_ADMIN_TO_DELETE_ONE_SECOND;
+
     private static final Collection<User[]> USER_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
-    public static final List<User> USER_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
-    public static final String USER_REPOSITORY_MAIL_TO_FIND_BY_MAIL;
-    public static final User USER_REPOSITORY_CUSTOM_TEST_DATA;
-    public static final String USER_REPOSITORY_DISPLAY_NAME_TO_FIND_BY_DISPLAY_NAME;
+    protected static final List<User> USER_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
+
+    protected static final String USER_REPOSITORY_MAIL_TO_FIND_BY_MAIL;
+    protected static final User USER_REPOSITORY_CUSTOM_TEST_DATA;
+    protected static final String USER_REPOSITORY_DISPLAY_NAME_TO_FIND_BY_DISPLAY_NAME;
 
     //TODO add more saveOneTest logic, for example initialize all the fields
     static {
@@ -103,14 +107,8 @@ public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestD
         });
 
         //constructs data for delete tests
-        //TODO check that the orphans are deleted
-        USER_TO_DELETE_ONE_FIRST = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1;
-        USER_ADMIN_TO_DELETE_ONE_SECOND = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4;
-
-        USER_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA = asList(new User[][]{
-                {USER_TO_DELETE_ONE_FIRST, null},
-                {USER_ADMIN_TO_DELETE_ONE_SECOND, null},
-        });
+        USER_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA = Stream.of(USER_REPOSITORY_FIND_ALL_COMMON_TEST_DATA)
+                .flatMap(Collection::stream).map(u -> new User[]{u, null}).collect(Collectors.toList());
 
         //constructs data for custom tests
         USER_REPOSITORY_MAIL_TO_FIND_BY_MAIL = "initializedBySqlScriptUserAdmin4@email.com";

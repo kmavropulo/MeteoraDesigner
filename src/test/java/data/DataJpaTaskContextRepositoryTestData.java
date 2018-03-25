@@ -3,18 +3,16 @@ package data;
 import com.meteoradesigner.model.TaskContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static data.DataJpaUserRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1;
 import static data.DataJpaUserRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_USER_2;
 import static data.DataJpaUserRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4;
-import static java.lang.System.lineSeparator;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
 
 /**
  * This class @code{DataJpaTaskContextRepositoryTestData} holds of saveOneTest data
@@ -40,13 +38,10 @@ public class DataJpaTaskContextRepositoryTestData extends
     private static final TaskContext TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED;
     private static final Collection<TaskContext[]>
             TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
-    private static final TaskContext TASK_CONTEXT_TO_DELETE_ONE_FIRST;
-    private static final TaskContext TASK_CONTEXT_TO_DELETE_ONE_SECOND;
+
     private static final Collection<TaskContext[]>
             TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
 
-    private static final BiConsumer<TaskContext[], JpaRepository<TaskContext, Integer>>
-            CONSUMER_SAVE_ONE_TEST;
     private static final Logger LOGGER = LoggerFactory.getLogger(
             DataJpaTaskContextRepositoryTestData.class);
 
@@ -100,19 +95,6 @@ public class DataJpaTaskContextRepositoryTestData extends
 
         //TODO add tests/testData to check updating
         //constructs data for save/update tests
-        CONSUMER_SAVE_ONE_TEST = (ar, rep) -> {
-            TaskContext expected = TaskContext.class.cast(ar[1]);
-            LOGGER.info(String.format("Expected, debugging%s", expected));
-            TaskContext actual = rep.save(TaskContext.class.cast(ar[0]));
-            LOGGER.info(String.format("Actual, debugging%s", actual), actual);
-            TaskContext fromDb = rep.findOne(actual.getId());
-            LOGGER.info(String.format("From DB, debugging%s", fromDb), fromDb);
-            assertEquals(
-                    String.format("SaveOne saveOneTest failed:" + lineSeparator() + " expected=%s" +
-                            lineSeparator() + " actual= %s", expected, actual),
-                    expected,
-                    actual);
-        };
 
         TASK_CONTEXT_TO_SAVE_ONE_FIRST = new TaskContext(
                 CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_8.getId() + 1,
@@ -142,17 +124,13 @@ public class DataJpaTaskContextRepositoryTestData extends
         });
 
         //constructs data for delete tests
-        TASK_CONTEXT_TO_DELETE_ONE_FIRST = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1;
-        TASK_CONTEXT_TO_DELETE_ONE_SECOND = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_8;
+        TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA = Stream.of
+                (TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON_TEST_DATA)
+                .flatMap(Collection::stream).map(c -> new TaskContext[]{c, null}).collect(Collectors.toList());
 
-        TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA = asList(new TaskContext[][]{
-                {TASK_CONTEXT_TO_DELETE_ONE_FIRST, null},
-                {TASK_CONTEXT_TO_DELETE_ONE_SECOND, null},
-        });
-
-        //TODO add custom saveOneTest data
+        //constructs data for custom tests
+        //TODO construct data for custom tests
     }
-
 
     public Collection<TaskContext[]> getSaveOneTestData() {
         return TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;

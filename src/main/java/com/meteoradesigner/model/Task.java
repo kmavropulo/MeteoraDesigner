@@ -100,13 +100,13 @@ public class Task extends AbstractNamedEntity {
     //TODO table
     @Enumerated(EnumType.STRING)
     @Column(name = "internal_execution_state")
-    @NotBlank
+    @NotNull
     private InternalExecutionState internalExecutionState;
 
     //TODO table
     @Enumerated(EnumType.STRING)
     @Column(name = "self_completion_state")
-    @NotBlank
+    @NotNull
     private SelfCompletionState selfCompletionState;
 
     @Enumerated(EnumType.STRING)
@@ -188,42 +188,40 @@ public class Task extends AbstractNamedEntity {
         new Task(taskCopy.getId(), taskCopy.getDisplayName(), taskCopy.getUser(), taskCopy
                 .getDescription(), taskCopy.getPlannedStartTaskTimestamp(), taskCopy
                 .getPlannedStopTaskTimestamp(), taskCopy.getActualStartTaskTimestamp(), taskCopy
-                .getActualStopTaskTimestamp(), taskCopy.getPortfolio(), taskCopy.getExternalTasks
-                (), taskCopy.getInternalTasks(), taskCopy.getTasksBlockedByTheTask(), taskCopy
-                .getTasksBlockedByTheTask(), taskCopy.getContexts(), taskCopy.getMetrics(),
-                taskCopy.getSelfCompletionState(), taskCopy.getPointedCompletionStates(),
-                taskCopy.getInternalExecutionState());
+                .getActualStopTaskTimestamp(), taskCopy.getPortfolio(), taskCopy.getContexts(), taskCopy.getMetrics()
+                , taskCopy.getInternalExecutionState(), taskCopy.getSelfCompletionState(), taskCopy
+                .getPointedCompletionStates(), taskCopy.getExternalTasks(), taskCopy.getInternalTasks(), taskCopy
+                .getTasksBlockedByTheTask(), taskCopy.getTasksBlockingTheTask(), taskCopy
+                .getTasksWithRelativesUnlockedByTheTask(), taskCopy.getTasksUnlockingTheTaskRelatives());
     }
 
     /**
      * The minimum parameters initializing constructor.
      */
-    public Task(String displayNameToSet, @NotNull User user, @NotBlank @Size(min = 1,
-            max = 6400000) String description, @NotNull LocalDateTime plannedStartTaskTimestamp,
-                @NotNull LocalDateTime plannedStopTaskTimestamp, @NotNull SelfCompletionState
-                        selfCompletionState, @NotNull InternalExecutionState
-                        internalExecutionState) {
-        this(0, displayNameToSet, user, description, plannedStartTaskTimestamp,
-                plannedStopTaskTimestamp, null, null,
-                null, Collections.emptySet(), Collections.emptySet(), Collections.emptySet(),
-                Collections.emptySet(), Collections.emptySet(), new TaskMetric(),
-                selfCompletionState, Collections.emptySet(),
-                internalExecutionState);
+    public Task(String displayNameToSet, @NotNull User user, @NotBlank @Size(min = 1, max = 6400000) String
+            description, @NotNull LocalDateTime plannedStartTaskTimestamp, @NotNull LocalDateTime
+                        plannedStopTaskTimestamp, @NotNull SelfCompletionState selfCompletionState,
+                @NotNull InternalExecutionState internalExecutionState) {
+        this(0, displayNameToSet, user, description, plannedStartTaskTimestamp, plannedStopTaskTimestamp,
+                null, null, null, Collections.emptySet(),
+                new TaskMetric(), internalExecutionState, selfCompletionState, Collections.emptySet(), Collections
+                        .emptySet(), Collections.emptySet(), Collections.emptySet(), Collections.emptySet(),
+                Collections.emptySet(), Collections.emptySet()
+        );
     }
 
     /**
      * The all-args constructor.
      */
-    public Task(Integer id, String displayNameToSet, @NotNull User user, @NotBlank @Size(min = 1,
-            max = 6400000) String description, @NotNull LocalDateTime plannedStartTaskTimestamp,
-                @NotNull LocalDateTime plannedStopTaskTimestamp, LocalDateTime
-                        actualStartTaskTimestamp, LocalDateTime actualStopTaskTimestamp,
-                TaskPortfolio portfolio, Set<Task> externalTasks, Set<Task> internalTasks,
-                Set<Task> tasksBlockedByTheTask, Set<Task> tasksBlockingTheTask, Set<TaskContext>
-                        contexts, TaskMetric metrics, @NotNull SelfCompletionState
-                        selfCompletionState, Set<PointedCompletionState> pointedCompletionStates,
-                @NotNull InternalExecutionState internalExecutionState) {
-        super(id, displayNameToSet);
+    public Task(Integer idToSet, String nameToSet, @NotNull User user, @Size(max = 6400000) String description,
+                @NotNull LocalDateTime plannedStartTaskTimestamp, @NotNull LocalDateTime plannedStopTaskTimestamp,
+                LocalDateTime actualStartTaskTimestamp, LocalDateTime actualStopTaskTimestamp, TaskPortfolio
+                        portfolio, Set<TaskContext> contexts, TaskMetric metrics, @NotNull InternalExecutionState
+                        internalExecutionState, @NotNull SelfCompletionState selfCompletionState,
+                Set<PointedCompletionState> pointedCompletionStates, Set<Task> externalTasks, Set<Task>
+                        internalTasks, Set<Task> tasksBlockedByTheTask, Set<Task> tasksBlockingTheTask, Set<Task>
+                        tasksWithRelativesUnlockedByTheTask, Set<Task> tasksUnlockingTheTaskRelatives) {
+        super(idToSet, nameToSet);
         this.user = user;
         this.description = description;
         this.plannedStartTaskTimestamp = plannedStartTaskTimestamp;
@@ -231,31 +229,30 @@ public class Task extends AbstractNamedEntity {
         this.actualStartTaskTimestamp = actualStartTaskTimestamp;
         this.actualStopTaskTimestamp = actualStopTaskTimestamp;
         this.portfolio = portfolio;
+        this.contexts = contexts;
+        this.metrics = metrics;
+        this.internalExecutionState = internalExecutionState;
+        this.selfCompletionState = selfCompletionState;
+        this.pointedCompletionStates = pointedCompletionStates;
         this.externalTasks = externalTasks;
         this.internalTasks = internalTasks;
         this.tasksBlockedByTheTask = tasksBlockedByTheTask;
         this.tasksBlockingTheTask = tasksBlockingTheTask;
-        this.contexts = contexts;
-        this.metrics = metrics;
-        this.selfCompletionState = selfCompletionState;
-        this.pointedCompletionStates = pointedCompletionStates;
-        this.internalExecutionState = internalExecutionState;
+        this.tasksWithRelativesUnlockedByTheTask = tasksWithRelativesUnlockedByTheTask;
+        this.tasksUnlockingTheTaskRelatives = tasksUnlockingTheTaskRelatives;
     }
 
     @Override
     public String toString() {
         return "Task{" +
-                "user=" + user.getDisplayName() +
+                "id=" + getId() +
                 ", description='" + description + '\'' +
                 ", plannedStartTaskTimestamp=" + plannedStartTaskTimestamp +
                 ", plannedStopTaskTimestamp=" + plannedStopTaskTimestamp +
                 ", actualStartTaskTimestamp=" + actualStartTaskTimestamp +
                 ", actualStopTaskTimestamp=" + actualStopTaskTimestamp +
-                ", portfolio=" + portfolio.getDisplayName() +
-                ", externalTasks=" + externalTasks +
-                ", internalTasks=" + internalTasks +
-                ", tasksBlockedByTheTask=" + tasksBlockedByTheTask +
-                ", tasksBlockingTheTask=" + tasksBlockingTheTask +
+                ", portfolio=" + (portfolio != null ? portfolio.getDisplayName() : null) +
+
                 ", contexts=" + contexts +
                 ", metrics=" + metrics +
                 ", selfCompletionState=" + selfCompletionState +
