@@ -1,7 +1,7 @@
-package com.meteoradesigner.service.user;
+package com.meteoradesigner.service.task;
 
-import com.meteoradesigner.model.User;
-import com.meteoradesigner.repository.DataJpaUserRepository;
+import com.meteoradesigner.model.Task;
+import com.meteoradesigner.repository.DataJpaTaskRepository;
 import com.meteoradesigner.service.GenericAbstractCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,13 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 //TODO doc
 @Service
 @Transactional(readOnly = true)
-public class UserServiceImp extends GenericAbstractCrudService<User, Integer> implements UserService {
+public class TaskServiceImp extends GenericAbstractCrudService<Task, Integer> implements TaskService {
 
     @Autowired
-    private DataJpaUserRepository repository;
+    private DataJpaTaskRepository repository;
 
     @Override
-    protected JpaRepository<User, Integer> getRepository() {
+    protected JpaRepository<Task, Integer> getRepository() {
         return repository;
     }
 }
