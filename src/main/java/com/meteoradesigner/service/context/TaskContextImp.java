@@ -2,9 +2,9 @@ package com.meteoradesigner.service.context;
 
 import com.meteoradesigner.model.TaskContext;
 import com.meteoradesigner.repository.DataJpaTaskContextRepository;
+import com.meteoradesigner.repository.GenericAbstractCrudRepository;
 import com.meteoradesigner.service.GenericAbstractCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +17,7 @@ public class TaskContextImp extends GenericAbstractCrudService<TaskContext, Inte
     private DataJpaTaskContextRepository repository;
 
     @Override
-    protected JpaRepository<TaskContext, Integer> getRepository() {
+    protected GenericAbstractCrudRepository<TaskContext, Integer> getRepository() {
         return repository;
     }
 }

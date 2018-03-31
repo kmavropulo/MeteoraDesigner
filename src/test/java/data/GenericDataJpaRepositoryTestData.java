@@ -5,9 +5,9 @@ import com.meteoradesigner.model.Task;
 import com.meteoradesigner.model.TaskContext;
 import com.meteoradesigner.model.TaskPortfolio;
 import com.meteoradesigner.model.User;
+import com.meteoradesigner.repository.GenericAbstractCrudRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -19,7 +19,6 @@ import static java.lang.System.lineSeparator;
 import static org.junit.Assert.assertEquals;
 
 //TODO documentation.
-//TODO hard delete tests with multilinked entities
 public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericDataJpaRepositoryTestData.class);
@@ -34,8 +33,8 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
 
     @SuppressWarnings("unchecked")
     public static <E extends HasId, ID extends Serializable> BiConsumer<E[],
-            JpaRepository<E, ID>> getSaveOneTestConsumer() {
-        final BiConsumer<E[], JpaRepository<E, ID>> consumer;
+            GenericAbstractCrudRepository<E, ID>> getSaveOneTestConsumer() {
+        final BiConsumer<E[], GenericAbstractCrudRepository<E, ID>> consumer;
         consumer = (ar, rep) -> {
             E expected = ar[1];
             E toSave = ar[0];
@@ -58,8 +57,8 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
     @SuppressWarnings("unchecked")
     public static <E extends HasId,
             ID extends Serializable> BiConsumer<E[],
-            JpaRepository<E, ID>> getFindOneTestConsumer() {
-        final BiConsumer<E[], JpaRepository<E, ID>> consumer;
+            GenericAbstractCrudRepository<E, ID>> getFindOneTestConsumer() {
+        final BiConsumer<E[], GenericAbstractCrudRepository<E, ID>> consumer;
         consumer = (ar, rep) -> {
             E expected = ar[1];
             E toFind = ar[0];
@@ -76,10 +75,10 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
         return consumer;
     }
 
-    private static void getDeleteOneTaskTestConsumerSupport(JpaRepository<Task, Integer> taskRepository,
-                                                            JpaRepository<User, Integer> userRepository,
-                                                            JpaRepository<TaskContext, Integer> taskContextRepository,
-                                                            JpaRepository<TaskPortfolio, Integer>
+    private static void getDeleteOneTaskTestConsumerSupport(GenericAbstractCrudRepository<Task, Integer> taskRepository,
+                                                            GenericAbstractCrudRepository<User, Integer> userRepository,
+                                                            GenericAbstractCrudRepository<TaskContext, Integer> taskContextRepository,
+                                                            GenericAbstractCrudRepository<TaskPortfolio, Integer>
                                                                     taskPortfolioRepository,
                                                             Task currentToDelete,
                                                             Task expected
@@ -158,10 +157,10 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
                 actual);
     }
 
-    private static void getDeleteOneTaskContextTestConsumerSupport(JpaRepository<TaskContext, Integer>
+    private static void getDeleteOneTaskContextTestConsumerSupport(GenericAbstractCrudRepository<TaskContext, Integer>
                                                                            taskContextRepository,
-                                                                   JpaRepository<User, Integer> userRepository,
-                                                                   JpaRepository<Task, Integer> taskRepository,
+                                                                   GenericAbstractCrudRepository<User, Integer> userRepository,
+                                                                   GenericAbstractCrudRepository<Task, Integer> taskRepository,
                                                                    TaskContext currentToDelete,
                                                                    TaskContext expected
     ) {
@@ -203,10 +202,10 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
                 actual);
     }
 
-    private static void getDeleteOneTaskPortfolioTestConsumerSupport(JpaRepository<TaskPortfolio, Integer>
+    private static void getDeleteOneTaskPortfolioTestConsumerSupport(GenericAbstractCrudRepository<TaskPortfolio, Integer>
                                                                              taskPortfolioRepository,
-                                                                     JpaRepository<User, Integer> userRepository,
-                                                                     JpaRepository<Task, Integer> taskRepository,
+                                                                     GenericAbstractCrudRepository<User, Integer> userRepository,
+                                                                     GenericAbstractCrudRepository<Task, Integer> taskRepository,
                                                                      TaskPortfolio currentToDelete,
                                                                      TaskPortfolio expected
     ) {
@@ -234,11 +233,11 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
                 actual);
     }
 
-    private static void getDeleteOneUserTestConsumerSupport(JpaRepository<User, Integer> userRepository,
+    private static void getDeleteOneUserTestConsumerSupport(GenericAbstractCrudRepository<User, Integer> userRepository,
                                                             User currentToDelete,
                                                             User expected
     ) {
-        userRepository.delete(currentToDelete);
+        Integer integer = userRepository.deleteById(currentToDelete.getId());
         User actual = userRepository.findOne((currentToDelete.getId()));
         LOGGER.info(String.format("Actual, debugging%s", actual), actual);
         assertEquals(
@@ -252,26 +251,26 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
     @SuppressWarnings("unchecked")
     public static <E extends HasId,
             ID extends Serializable> BiConsumer<E[],
-            Map<String, JpaRepository<?, ID>>> getDeleteOneTestConsumer() {
-        final BiConsumer<E[], Map<String, JpaRepository<?, ID>>> consumer;
+            Map<String, GenericAbstractCrudRepository<?, ID>>> getDeleteOneTestConsumer() {
+        final BiConsumer<E[], Map<String, GenericAbstractCrudRepository<?, ID>>> consumer;
         consumer = (ar, repositoryMap) -> {
             E expected = ar[1];
             E toDelete = ar[0];
 
-            JpaRepository<User, Integer> userRepository
-                    = (JpaRepository<User, Integer>) repositoryMap.get
+            GenericAbstractCrudRepository<User, Integer> userRepository
+                    = (GenericAbstractCrudRepository<User, Integer>) repositoryMap.get
                     ("DataJpaUserRepository");
 
-            JpaRepository<TaskContext, Integer> taskContextRepository
-                    = (JpaRepository<TaskContext, Integer>) repositoryMap.get
+            GenericAbstractCrudRepository<TaskContext, Integer> taskContextRepository
+                    = (GenericAbstractCrudRepository<TaskContext, Integer>) repositoryMap.get
                     ("DataJpaTaskContextRepository");
 
-            JpaRepository<TaskPortfolio, Integer> taskPortfolioRepository
-                    = (JpaRepository<TaskPortfolio, Integer>) repositoryMap.get
+            GenericAbstractCrudRepository<TaskPortfolio, Integer> taskPortfolioRepository
+                    = (GenericAbstractCrudRepository<TaskPortfolio, Integer>) repositoryMap.get
                     ("DataJpaTaskPortfolioRepository");
 
-            JpaRepository<Task, Integer> taskRepository
-                    = (JpaRepository<Task, Integer>) repositoryMap.get
+            GenericAbstractCrudRepository<Task, Integer> taskRepository
+                    = (GenericAbstractCrudRepository<Task, Integer>) repositoryMap.get
                     ("DataJpaTaskRepository");
 
 

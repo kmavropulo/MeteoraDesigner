@@ -2,9 +2,9 @@ package com.meteoradesigner.service.user;
 
 import com.meteoradesigner.model.User;
 import com.meteoradesigner.repository.DataJpaUserRepository;
+import com.meteoradesigner.repository.GenericAbstractCrudRepository;
 import com.meteoradesigner.service.GenericAbstractCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +17,7 @@ public class UserServiceImp extends GenericAbstractCrudService<User, Integer> im
     private DataJpaUserRepository repository;
 
     @Override
-    protected JpaRepository<User, Integer> getRepository() {
+    protected GenericAbstractCrudRepository<User, Integer> getRepository() {
         return repository;
     }
 }
