@@ -25,17 +25,17 @@ public class DataJpaTaskPortfolioRepositoryTestData extends GenericDataJpaReposi
     protected static final TaskPortfolio CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_2;
     protected static final TaskPortfolio CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_3;
     protected static final TaskPortfolio CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_4;
-    protected static final List<TaskPortfolio> PORTFOLIO_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
+    protected static final List<TaskPortfolio> PORTFOLIO_REPOSITORY_FIND_ALL_COMMON;
 
     private static final TaskPortfolio TASK_PORTFOLIO_TO_SAVE_ONE_FIRST;
     private static final TaskPortfolio TASK_PORTFOLIO_TO_SAVE_ONE_SECOND;
-    protected static final List<TaskPortfolio[]> TASK_PORTFOLIO_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+    protected static final List<TaskPortfolio[]> TASK_PORTFOLIO_REPOSITORY_SAVE_ONE_PARAMETRIZED;
 
     private static final TaskPortfolio TASK_PORTFOLIO_TO_FIND_ONE_FIRST_EXPECTED;
     private static final TaskPortfolio TASK_PORTFOLIO_TO_FIND_ONE_SECOND_EXPECTED;
-    protected static final List<TaskPortfolio[]> TASK_PORTFOLIO_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
+    protected static final List<TaskPortfolio[]> TASK_PORTFOLIO_REPOSITORY_FIND_ONE_PARAMETRIZED;
 
-    protected static final List<TaskPortfolio[]> TASK_PORTFOLIO_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
+    protected static final List<TaskPortfolio[]> TASK_PORTFOLIO_REPOSITORY_DELETE_ONE_PARAMETRIZED;
 
     static {
 
@@ -68,7 +68,7 @@ public class DataJpaTaskPortfolioRepositoryTestData extends GenericDataJpaReposi
                 "initializedBySqlScriptUser2Portfolio4Description",
                 null);
 
-        PORTFOLIO_REPOSITORY_FIND_ALL_COMMON_TEST_DATA = asList(
+        PORTFOLIO_REPOSITORY_FIND_ALL_COMMON = asList(
                 CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_1,
                 CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_2,
                 CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_3,
@@ -95,7 +95,7 @@ public class DataJpaTaskPortfolioRepositoryTestData extends GenericDataJpaReposi
                 Collections.emptySet()
         );
 
-        TASK_PORTFOLIO_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA = asList(new TaskPortfolio[][]{
+        TASK_PORTFOLIO_REPOSITORY_SAVE_ONE_PARAMETRIZED = asList(new TaskPortfolio[][]{
                 {TASK_PORTFOLIO_TO_SAVE_ONE_FIRST, TASK_PORTFOLIO_TO_SAVE_ONE_FIRST},
                 {TASK_PORTFOLIO_TO_SAVE_ONE_SECOND, TASK_PORTFOLIO_TO_SAVE_ONE_SECOND},
         });
@@ -104,14 +104,14 @@ public class DataJpaTaskPortfolioRepositoryTestData extends GenericDataJpaReposi
         TASK_PORTFOLIO_TO_FIND_ONE_FIRST_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_1;
         TASK_PORTFOLIO_TO_FIND_ONE_SECOND_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_2;
 
-        TASK_PORTFOLIO_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA = asList(new TaskPortfolio[][]{
+        TASK_PORTFOLIO_REPOSITORY_FIND_ONE_PARAMETRIZED = asList(new TaskPortfolio[][]{
                 {TASK_PORTFOLIO_TO_FIND_ONE_FIRST_EXPECTED, TASK_PORTFOLIO_TO_FIND_ONE_FIRST_EXPECTED},
                 {TASK_PORTFOLIO_TO_FIND_ONE_SECOND_EXPECTED, TASK_PORTFOLIO_TO_FIND_ONE_SECOND_EXPECTED},
         });
 
         //constructs data for delete tests
-        TASK_PORTFOLIO_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA = Stream.of
-                (PORTFOLIO_REPOSITORY_FIND_ALL_COMMON_TEST_DATA)
+        TASK_PORTFOLIO_REPOSITORY_DELETE_ONE_PARAMETRIZED = Stream.of
+                (PORTFOLIO_REPOSITORY_FIND_ALL_COMMON)
                 .flatMap(Collection::stream).map(p -> new TaskPortfolio[]{p, null}).collect(Collectors.toList());
 
         //constructs data for custom tests
@@ -120,21 +120,21 @@ public class DataJpaTaskPortfolioRepositoryTestData extends GenericDataJpaReposi
 
     @Override
     public Collection<TaskPortfolio[]> getSaveOneTestData() {
-        return TASK_PORTFOLIO_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+        return TASK_PORTFOLIO_REPOSITORY_SAVE_ONE_PARAMETRIZED;
     }
 
     @Override
     public Collection<TaskPortfolio[]> getFindOneTestData() {
-        return TASK_PORTFOLIO_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
+        return TASK_PORTFOLIO_REPOSITORY_FIND_ONE_PARAMETRIZED;
     }
 
     @Override
     public Collection<TaskPortfolio[]> getDeleteOneTestData() {
-        return TASK_PORTFOLIO_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
+        return TASK_PORTFOLIO_REPOSITORY_DELETE_ONE_PARAMETRIZED;
     }
 
     @Override
     public List<TaskPortfolio> getFindAllTestData() {
-        return PORTFOLIO_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
+        return PORTFOLIO_REPOSITORY_FIND_ALL_COMMON;
     }
 }

@@ -1,19 +1,17 @@
 package com.meteoradesigner.repository.datajpauserrepository;
 
 import com.meteoradesigner.model.User;
-import com.meteoradesigner.repository.config.DataJpaRepositoryTestConfiguration;
 import com.meteoradesigner.repository.DataJpaUserRepository;
-import data.DataJpaUserRepositoryTestData;
+import com.meteoradesigner.repository.config.DataJpaRepositoryTestConfiguration;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static data.DataJpaUserRepositoryTestData
-        .USER_REPOSITORY_DISPLAY_NAME_TO_FIND_BY_DISPLAY_NAME;
-import static data.DataJpaUserRepositoryTestData.USER_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
+import static data.DataJpaUserRepositoryTestData.USER_REPOSITORY_CUSTOM;
+import static data.DataJpaUserRepositoryTestData.USER_REPOSITORY_DISPLAY_NAME_TO_FIND_BY_DISPLAY_NAME;
+import static data.DataJpaUserRepositoryTestData.USER_REPOSITORY_FIND_ALL_COMMON;
 import static data.DataJpaUserRepositoryTestData.USER_REPOSITORY_MAIL_TO_FIND_BY_MAIL;
-import static data.DataJpaUserRepositoryTestData.USER_REPOSITORY_CUSTOM_TEST_DATA;
 import static java.lang.System.lineSeparator;
 import static org.junit.Assert.assertEquals;
 
@@ -42,8 +40,8 @@ public class DataJpaUserRepositoryCustomTest extends DataJpaRepositoryTestConfig
         assertEquals(
                 String.format("FindByMail saveOneTest failed:" + lineSeparator() + " expected=%s" +
                                 lineSeparator() + " actual= %s",
-                        USER_REPOSITORY_FIND_ALL_COMMON_TEST_DATA, actual),
-                USER_REPOSITORY_CUSTOM_TEST_DATA,
+                        USER_REPOSITORY_FIND_ALL_COMMON, actual),
+                USER_REPOSITORY_CUSTOM,
                 actual);
     }
 
@@ -61,8 +59,8 @@ public class DataJpaUserRepositoryCustomTest extends DataJpaRepositoryTestConfig
         assertEquals(
                 String.format("FindByDisplayName saveOneTest failed:" + lineSeparator() + " expected=%s" +
                                 lineSeparator() + " actual= %s",
-                        USER_REPOSITORY_CUSTOM_TEST_DATA, actual),
-                USER_REPOSITORY_CUSTOM_TEST_DATA,
+                        USER_REPOSITORY_CUSTOM, actual),
+                USER_REPOSITORY_CUSTOM,
                 actual);
     }
 }

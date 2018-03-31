@@ -5,14 +5,13 @@ import com.meteoradesigner.repository.config.DataJpaRepositoryTestConfiguration;
 import data.GenericDataJpaRepositoryTestData;
 import org.junit.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import util.GenericTestHelper;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import static data.DataJpaTaskRepositoryTestData.CONSTRUCTED_PROGRAMMATICALLY_TASK_TEST_DATA;
+import static data.DataJpaTaskRepositoryTestData.CONSTRUCTED_PROGRAMMATICALLY_TASK;
 
 @Ignore
 //TODO documentation.
@@ -31,12 +30,12 @@ public class GenericDataJpaRepositoryCrudTest<E extends HasId, ID extends Serial
     @Autowired
     private DataJpaUserRepository userRepository;
 
-    protected JpaRepository<E, ID> repository;
+    protected GenericAbstractCrudRepository<E, ID> repository;
     protected GenericDataJpaRepositoryTestData<E> testData;
-    protected Map<String, JpaRepository<?,Integer>> repositoryMap;
+    protected Map<String, GenericAbstractCrudRepository<?,Integer>> repositoryMap;
 
     protected void setTestCommon() {
-        repositoryMap = new HashMap<String, JpaRepository<?,Integer>>() {{
+        repositoryMap = new HashMap<String, GenericAbstractCrudRepository<?,Integer>>() {{
             put("DataJpaUserRepository", userRepository);
             put("DataJpaTaskContextRepository", taskContextRepository);
             put("DataJpaTaskRepository", taskRepository);
@@ -44,7 +43,7 @@ public class GenericDataJpaRepositoryCrudTest<E extends HasId, ID extends Serial
         }};
 
         //constructed programmatically test data sets here
-        taskRepository.save(CONSTRUCTED_PROGRAMMATICALLY_TASK_TEST_DATA);
+        taskRepository.save(CONSTRUCTED_PROGRAMMATICALLY_TASK);
     }
 
     public void saveOneTest() {

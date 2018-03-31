@@ -47,18 +47,18 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
     protected static Task CONSTRUCTED_PROGRAMMATICALLY_TASK_13;
     protected static Task CONSTRUCTED_PROGRAMMATICALLY_TASK_14;
     protected static Task CONSTRUCTED_PROGRAMMATICALLY_TASK_15;
-    public static final List<Task> CONSTRUCTED_PROGRAMMATICALLY_TASK_TEST_DATA;
-    protected static final List<Task> TASK_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
+    public static final List<Task> CONSTRUCTED_PROGRAMMATICALLY_TASK;
+    protected static final List<Task> TASK_REPOSITORY_FIND_ALL_COMMON;
 
     protected static Task TASK_TO_SAVE_ONE_FIRST;
     protected static Task TASK_TO_SAVE_ONE_SECOND;
-    protected static final List<Task[]> TASK_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+    protected static final List<Task[]> TASK_REPOSITORY_SAVE_ONE_PARAMETRIZED;
 
     protected static final Task TASK_TO_FIND_ONE_FIRST_EXPECTED;
     protected static final Task TASK_TO_FIND_ONE_SECOND_EXPECTED;
-    protected static final List<Task[]> TASK_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
+    protected static final List<Task[]> TASK_REPOSITORY_FIND_ONE_PARAMETRIZED;
 
-    protected static final List<Task[]> TASK_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
+    protected static final List<Task[]> TASK_REPOSITORY_DELETE_ONE_PARAMETRIZED;
 
     //TODO add more saveOneTest logic, for example initialize all the fields
     static {
@@ -405,7 +405,7 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
                         CONSTRUCTED_PROGRAMMATICALLY_TASK_14)),
                 null);
 
-        CONSTRUCTED_PROGRAMMATICALLY_TASK_TEST_DATA = asList(
+        CONSTRUCTED_PROGRAMMATICALLY_TASK = asList(
                 CONSTRUCTED_PROGRAMMATICALLY_TASK_1,
                 CONSTRUCTED_PROGRAMMATICALLY_TASK_2,
                 CONSTRUCTED_PROGRAMMATICALLY_TASK_3,
@@ -423,7 +423,7 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
                 CONSTRUCTED_PROGRAMMATICALLY_TASK_15
         );
 
-        TASK_REPOSITORY_FIND_ALL_COMMON_TEST_DATA = CONSTRUCTED_PROGRAMMATICALLY_TASK_TEST_DATA;
+        TASK_REPOSITORY_FIND_ALL_COMMON = CONSTRUCTED_PROGRAMMATICALLY_TASK;
 
         //TODO add tests/testData to check updating
         //constructs data for save/update tests
@@ -449,7 +449,7 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
         );
         TASK_TO_SAVE_ONE_SECOND.setId(16);
 
-        TASK_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA = asList(new Task[][]{
+        TASK_REPOSITORY_SAVE_ONE_PARAMETRIZED = asList(new Task[][]{
                 {TASK_TO_SAVE_ONE_FIRST, TASK_TO_SAVE_ONE_FIRST},
                 {TASK_TO_SAVE_ONE_SECOND, TASK_TO_SAVE_ONE_SECOND},
         });
@@ -458,13 +458,13 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
         TASK_TO_FIND_ONE_FIRST_EXPECTED = CONSTRUCTED_PROGRAMMATICALLY_TASK_1;
         TASK_TO_FIND_ONE_SECOND_EXPECTED = CONSTRUCTED_PROGRAMMATICALLY_TASK_15;
 
-        TASK_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA = asList(new Task[][]{
+        TASK_REPOSITORY_FIND_ONE_PARAMETRIZED = asList(new Task[][]{
                 {TASK_TO_FIND_ONE_FIRST_EXPECTED, TASK_TO_FIND_ONE_FIRST_EXPECTED},
                 {TASK_TO_FIND_ONE_SECOND_EXPECTED, TASK_TO_FIND_ONE_SECOND_EXPECTED},
         });
 
         //constructs data for delete tests
-        TASK_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA = Stream.of(TASK_REPOSITORY_FIND_ALL_COMMON_TEST_DATA)
+        TASK_REPOSITORY_DELETE_ONE_PARAMETRIZED = Stream.of(TASK_REPOSITORY_FIND_ALL_COMMON)
                 .flatMap(Collection::stream).map(t -> new Task[]{t, null}).collect(Collectors.toList());
 
         //constructs data for custom tests
@@ -473,21 +473,21 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
 
     @Override
     public Collection<Task[]> getSaveOneTestData() {
-        return TASK_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+        return TASK_REPOSITORY_SAVE_ONE_PARAMETRIZED;
     }
 
     @Override
     public Collection<Task[]> getFindOneTestData() {
-        return TASK_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
+        return TASK_REPOSITORY_FIND_ONE_PARAMETRIZED;
     }
 
     @Override
     public Collection<Task[]> getDeleteOneTestData() {
-        return TASK_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
+        return TASK_REPOSITORY_DELETE_ONE_PARAMETRIZED;
     }
 
     @Override
     public List<Task> getFindAllTestData() {
-        return TASK_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
+        return TASK_REPOSITORY_FIND_ALL_COMMON;
     }
 }

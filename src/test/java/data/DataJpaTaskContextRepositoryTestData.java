@@ -29,18 +29,18 @@ public class DataJpaTaskContextRepositoryTestData extends
     protected static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_6;
     protected static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_7;
     protected static final TaskContext CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_8;
-    private static final List<TaskContext> TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
+    private static final List<TaskContext> TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON;
     private static final TaskContext TASK_CONTEXT_TO_SAVE_ONE_FIRST;
     private static final TaskContext TASK_CONTEXT_TO_SAVE_ONE_SECOND;
     private static final Collection<TaskContext[]>
-            TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+            TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED;
     private static final TaskContext TASK_CONTEXT_TO_FIND_ONE_FIRST_EXPECTED;
     private static final TaskContext TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED;
     private static final Collection<TaskContext[]>
-            TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
+            TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED;
 
     private static final Collection<TaskContext[]>
-            TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
+            TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
             DataJpaTaskContextRepositoryTestData.class);
@@ -82,7 +82,7 @@ public class DataJpaTaskContextRepositoryTestData extends
                 CONSTRUCTED_BY_H2SQL_SCRIPT_USER_2,
                 "initializedBySqlScriptUser2Context8Description");
 
-        TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON_TEST_DATA = asList(
+        TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON = asList(
                 CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1,
                 CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_2,
                 CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_3,
@@ -108,7 +108,7 @@ public class DataJpaTaskContextRepositoryTestData extends
                 CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4,
                 "TaskContextToSaveOneSecondDescription");
 
-        TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA = asList(new TaskContext[][]{
+        TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED = asList(new TaskContext[][]{
                 {TASK_CONTEXT_TO_SAVE_ONE_FIRST, TASK_CONTEXT_TO_SAVE_ONE_FIRST},
                 {TASK_CONTEXT_TO_SAVE_ONE_SECOND, TASK_CONTEXT_TO_SAVE_ONE_SECOND},
         });
@@ -117,15 +117,15 @@ public class DataJpaTaskContextRepositoryTestData extends
         TASK_CONTEXT_TO_FIND_ONE_FIRST_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1;
         TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_8;
 
-        TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA = asList(new TaskContext[][]{
+        TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED = asList(new TaskContext[][]{
                 {TASK_CONTEXT_TO_FIND_ONE_FIRST_EXPECTED, TASK_CONTEXT_TO_FIND_ONE_FIRST_EXPECTED},
                 {TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED,
                         TASK_CONTEXT_TO_FIND_ONE_SECOND_EXPECTED},
         });
 
         //constructs data for delete tests
-        TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA = Stream.of
-                (TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON_TEST_DATA)
+        TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED = Stream.of
+                (TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON)
                 .flatMap(Collection::stream).map(c -> new TaskContext[]{c, null}).collect(Collectors.toList());
 
         //constructs data for custom tests
@@ -133,18 +133,18 @@ public class DataJpaTaskContextRepositoryTestData extends
     }
 
     public Collection<TaskContext[]> getSaveOneTestData() {
-        return TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED_TEST_DATA;
+        return TASK_CONTEXT_REPOSITORY_SAVE_ONE_PARAMETRIZED;
     }
 
     public Collection<TaskContext[]> getFindOneTestData() {
-        return TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED_TEST_DATA;
+        return TASK_CONTEXT_REPOSITORY_FIND_ONE_PARAMETRIZED;
     }
 
     public Collection<TaskContext[]> getDeleteOneTestData() {
-        return TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED_TEST_DATA;
+        return TASK_CONTEXT_REPOSITORY_DELETE_ONE_PARAMETRIZED;
     }
 
     public List<TaskContext> getFindAllTestData() {
-        return TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON_TEST_DATA;
+        return TASK_CONTEXT_REPOSITORY_FIND_ALL_COMMON;
     }
 }

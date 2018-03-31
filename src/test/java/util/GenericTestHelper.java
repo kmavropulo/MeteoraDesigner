@@ -1,9 +1,9 @@
 package util;
 
 import com.meteoradesigner.HasId;
+import com.meteoradesigner.repository.GenericAbstractCrudRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -23,8 +23,8 @@ public class GenericTestHelper {
      */
     public static <E extends HasId, ID extends Serializable> void cruTest(
             Collection<E[]> data,
-            JpaRepository<E, ID> repository,
-            BiConsumer<E[], JpaRepository<E, ID>> consumer
+            GenericAbstractCrudRepository<E, ID> repository,
+            BiConsumer<E[], GenericAbstractCrudRepository<E, ID>> consumer
     ) {
         data.forEach(ar -> consumer.accept(ar, repository));
     }
@@ -34,8 +34,8 @@ public class GenericTestHelper {
      */
     public static <E extends HasId, ID extends Serializable> void deleteTest(
             Collection<E[]> data,
-            Map<String, JpaRepository<?, ID>> repository,
-            BiConsumer<E[], Map<String, JpaRepository<?, ID>>> consumer
+            Map<String, GenericAbstractCrudRepository<?, ID>> repository,
+            BiConsumer<E[], Map<String, GenericAbstractCrudRepository<?, ID>>> consumer
     ) {
         data.forEach(ar -> consumer.accept(ar, repository));
     }
@@ -45,7 +45,7 @@ public class GenericTestHelper {
      */
     public static <E extends HasId, ID extends Serializable> void findAll(
             List<E> expected,
-            JpaRepository<E, ID> jpaRepository) {
+            GenericAbstractCrudRepository<E, ID> jpaRepository) {
         List<E> actual = jpaRepository.findAll();
         LOGGER.info(String.format("Actual=%s", actual), actual);
         assertEquals(
