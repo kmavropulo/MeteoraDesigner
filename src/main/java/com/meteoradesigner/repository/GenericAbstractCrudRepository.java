@@ -2,15 +2,16 @@ package com.meteoradesigner.repository;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 //TODO doc
 public interface GenericAbstractCrudRepository<E, ID extends Serializable> {
 
-    public <S extends E> S save(S entity);
+    <S extends E> S save(S toSave);
 
-    public E findOne(ID id);
+    Optional<E> findById(ID toFind);
 
-    public List<E> findAll();
+    List<E> findAll();
 
-    ID deleteById(ID id);
+    int deleteById(int id);
 }

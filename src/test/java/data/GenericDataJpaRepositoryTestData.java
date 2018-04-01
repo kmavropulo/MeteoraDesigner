@@ -6,6 +6,7 @@ import com.meteoradesigner.model.TaskContext;
 import com.meteoradesigner.model.TaskPortfolio;
 import com.meteoradesigner.model.User;
 import com.meteoradesigner.repository.GenericAbstractCrudRepository;
+import com.meteoradesigner.util.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +43,8 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
             LOGGER.info(String.format("toSave, debugging%s", toSave));
             E actual = rep.save(toSave);
             LOGGER.info(String.format("Actual, debugging%s", actual), actual);
-            E fromDb = rep.findOne((ID) expected.getId());
+            E fromDb = rep.findById((ID) expected.getId()).orElseThrow(() -> new
+                    NotFoundException("Entity to save not found"));
             LOGGER.info(String.format("From DB, debugging%s", fromDb), fromDb);
 
             assertEquals(
@@ -64,7 +66,8 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
             E toFind = ar[0];
             LOGGER.info(String.format("Expected=%s", expected), expected);
             LOGGER.info(String.format("toFind=%s", toFind), toFind);
-            E actual = rep.findOne((ID) toFind.getId());
+            E actual = rep.findById((ID) toFind.getId()).orElseThrow(() -> new
+                    NotFoundException("Entity to find not found"));
             LOGGER.info(String.format("Actual, debugging%s", actual), actual);
             assertEquals(
                     String.format("FindOne saveOneTest failed:" + lineSeparator() + " expected=%s" +
@@ -77,7 +80,8 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
 
     private static void getDeleteOneTaskTestConsumerSupport(GenericAbstractCrudRepository<Task, Integer> taskRepository,
                                                             GenericAbstractCrudRepository<User, Integer> userRepository,
-                                                            GenericAbstractCrudRepository<TaskContext, Integer> taskContextRepository,
+                                                            GenericAbstractCrudRepository<TaskContext, Integer>
+                                                                    taskContextRepository,
                                                             GenericAbstractCrudRepository<TaskPortfolio, Integer>
                                                                     taskPortfolioRepository,
                                                             Task currentToDelete,
@@ -85,7 +89,8 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
     ) {
 
         currentToDelete.getContexts().forEach(task -> {
-            TaskContext toUnbind = taskContextRepository.findOne(task.getId());
+            TaskContext toUnbind = taskContextRepository.findById(task.getId()).orElseThrow(() -> new
+                    NotFoundException("TaskContext to unbind not found"));
             toUnbind.getTasks().remove(currentToDelete);
             taskContextRepository.save(toUnbind);
         });
@@ -93,48 +98,56 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
 
         TaskPortfolio portfolioToUnbind = currentToDelete.getPortfolio();
         if (portfolioToUnbind != null) {
-            portfolioToUnbind.getTasks().remove(currentToDelete);
+            taskPortfolioRepository.findById(portfolioToUnbind.getId())
+                    .orElseThrow(() -> new NotFoundException("TaskPortfolio to unbind not found"))
+                    .getTasks().remove(currentToDelete);
             taskPortfolioRepository.save(portfolioToUnbind);
             currentToDelete.setPortfolio(null);
         }
 
         currentToDelete.getExternalTasks().forEach(task -> {
-            Task toUnbind = taskRepository.findOne(task.getId());
+            Task toUnbind = taskRepository.findById(task.getId()).orElseThrow(() -> new
+                    NotFoundException("Task to unbind not found"));
             toUnbind.getInternalTasks().remove(currentToDelete);
             taskRepository.save(toUnbind);
         });
         currentToDelete.setExternalTasks(null);
 
         currentToDelete.getInternalTasks().forEach(task -> {
-            Task toUnbind = taskRepository.findOne(task.getId());
+            Task toUnbind = taskRepository.findById(task.getId()).orElseThrow(() -> new
+                    NotFoundException("Task to unbind not found"));
             toUnbind.getExternalTasks().remove(currentToDelete);
             taskRepository.save(toUnbind);
         });
         currentToDelete.setInternalTasks(null);
 
         currentToDelete.getTasksBlockedByTheTask().forEach(task -> {
-            Task toUnbind = taskRepository.findOne(task.getId());
+            Task toUnbind = taskRepository.findById(task.getId()).orElseThrow(() -> new
+                    NotFoundException("Task to unbind not found"));
             toUnbind.getTasksBlockingTheTask().remove(currentToDelete);
             taskRepository.save(toUnbind);
         });
         currentToDelete.setTasksBlockedByTheTask(null);
 
         currentToDelete.getTasksBlockingTheTask().forEach(task -> {
-            Task toUnbind = taskRepository.findOne(task.getId());
+            Task toUnbind = taskRepository.findById(task.getId()).orElseThrow(() -> new
+                    NotFoundException("Task to unbind not found"));
             toUnbind.getTasksBlockedByTheTask().remove(currentToDelete);
             taskRepository.save(toUnbind);
         });
         currentToDelete.setTasksBlockingTheTask(null);
 
         currentToDelete.getTasksUnlockingTheTaskRelatives().forEach(task -> {
-            Task toUnbind = taskRepository.findOne(task.getId());
+            Task toUnbind = taskRepository.findById(task.getId()).orElseThrow(() -> new
+                    NotFoundException("Task to unbind not found"));
             toUnbind.getTasksWithRelativesUnlockedByTheTask().remove(currentToDelete);
             taskRepository.save(toUnbind);
         });
         currentToDelete.setTasksUnlockingTheTaskRelatives(null);
 
         currentToDelete.getTasksWithRelativesUnlockedByTheTask().forEach(task -> {
-            Task toUnbind = taskRepository.findOne(task.getId());
+            Task toUnbind = taskRepository.findById(task.getId()).orElseThrow(() -> new
+                    NotFoundException("Task to unbind not found"));
             toUnbind.getTasksUnlockingTheTaskRelatives().remove(currentToDelete);
             taskRepository.save(toUnbind);
         });
@@ -142,11 +155,12 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
 
         taskRepository.save(currentToDelete);
 
-        User owner = userRepository.findOne(currentToDelete.getUser().getId());
+        User owner = userRepository.findById(currentToDelete.getUser().getId()).orElseThrow(() -> new
+                NotFoundException("User to unbind not found"));
         owner.getTasks().remove(currentToDelete);
         userRepository.save(owner);
 
-        Task actual = taskRepository.findOne(currentToDelete.getId());
+        Task actual = taskRepository.findById(currentToDelete.getId()).orElseThrow(null);
         LOGGER.info(String.format("Actual, debugging%s", actual), actual);
         assertEquals(
                 String.format("DeleteOne failed:" + lineSeparator()
@@ -159,27 +173,32 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
 
     private static void getDeleteOneTaskContextTestConsumerSupport(GenericAbstractCrudRepository<TaskContext, Integer>
                                                                            taskContextRepository,
-                                                                   GenericAbstractCrudRepository<User, Integer> userRepository,
-                                                                   GenericAbstractCrudRepository<Task, Integer> taskRepository,
+                                                                   GenericAbstractCrudRepository<User, Integer>
+                                                                           userRepository,
+                                                                   GenericAbstractCrudRepository<Task, Integer>
+                                                                           taskRepository,
                                                                    TaskContext currentToDelete,
                                                                    TaskContext expected
     ) {
         currentToDelete.getExternalContexts().forEach(task -> {
-            TaskContext toUnbind = taskContextRepository.findOne(task.getId());
+            TaskContext toUnbind = taskContextRepository.findById(task.getId()).orElseThrow(() -> new
+                    NotFoundException("TaskContext to unbind not found"));
             toUnbind.getInternalContexts().remove(currentToDelete);
             taskContextRepository.save(toUnbind);
         });
         currentToDelete.setExternalContexts(null);
 
         currentToDelete.getInternalContexts().forEach(task -> {
-            TaskContext toUnbind = taskContextRepository.findOne(task.getId());
+            TaskContext toUnbind = taskContextRepository.findById(task.getId()).orElseThrow(() -> new
+                    NotFoundException("TaskContext to unbind not found"));
             toUnbind.getExternalContexts().remove(currentToDelete);
             taskContextRepository.save(toUnbind);
         });
         currentToDelete.setInternalContexts(null);
 
         currentToDelete.getTasks().forEach(task -> {
-            Task toUnbind = taskRepository.findOne(task.getId());
+            Task toUnbind = taskRepository.findById(task.getId()).orElseThrow(() -> new
+                    NotFoundException("Task to unbind not found"));
             toUnbind.getContexts().remove(currentToDelete);
             taskRepository.save(toUnbind);
         });
@@ -187,11 +206,12 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
 
         taskContextRepository.save(currentToDelete);
 
-        User owner = userRepository.findOne(currentToDelete.getUser().getId());
+        User owner = userRepository.findById(currentToDelete.getUser().getId()).orElseThrow(() -> new
+                NotFoundException("User to unbind not found"));
         owner.getContexts().remove(currentToDelete);
         userRepository.save(owner);
 
-        TaskContext actual = taskContextRepository.findOne(currentToDelete.getId());
+        TaskContext actual = taskContextRepository.findById(currentToDelete.getId()).orElse(null);
         LOGGER.info(String.format("Actual, debugging%s", actual), actual);
         assertEquals(
                 String.format("DeleteOne failed:" + lineSeparator()
@@ -202,15 +222,19 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
                 actual);
     }
 
-    private static void getDeleteOneTaskPortfolioTestConsumerSupport(GenericAbstractCrudRepository<TaskPortfolio, Integer>
+    private static void getDeleteOneTaskPortfolioTestConsumerSupport(GenericAbstractCrudRepository<TaskPortfolio,
+            Integer>
                                                                              taskPortfolioRepository,
-                                                                     GenericAbstractCrudRepository<User, Integer> userRepository,
-                                                                     GenericAbstractCrudRepository<Task, Integer> taskRepository,
+                                                                     GenericAbstractCrudRepository<User, Integer>
+                                                                             userRepository,
+                                                                     GenericAbstractCrudRepository<Task, Integer>
+                                                                             taskRepository,
                                                                      TaskPortfolio currentToDelete,
                                                                      TaskPortfolio expected
     ) {
         currentToDelete.getTasks().forEach(task -> {
-            Task toUnbind = taskRepository.findOne(task.getId());
+            Task toUnbind = taskRepository.findById(task.getId()).orElseThrow(() -> new
+                    NotFoundException("Task to unbind not found"));
             toUnbind.setPortfolio(null);
             taskRepository.save(toUnbind);
         });
@@ -218,11 +242,12 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
 
         taskPortfolioRepository.save(currentToDelete);
 
-        User owner = userRepository.findOne((currentToDelete).getUser().getId());
+        User owner = userRepository.findById((currentToDelete).getUser().getId()).orElseThrow(() -> new
+                NotFoundException("User to unbind not found"));
         owner.getPortfolios().remove(currentToDelete);
         userRepository.save(owner);
 
-        TaskPortfolio actual = taskPortfolioRepository.findOne(currentToDelete.getId());
+        TaskPortfolio actual = taskPortfolioRepository.findById(currentToDelete.getId()).orElse(null);
         LOGGER.info(String.format("Actual, debugging%s", actual), actual);
         assertEquals(
                 String.format("DeleteOne failed:" + lineSeparator()
@@ -237,8 +262,8 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
                                                             User currentToDelete,
                                                             User expected
     ) {
-        Integer integer = userRepository.deleteById(currentToDelete.getId());
-        User actual = userRepository.findOne((currentToDelete.getId()));
+        int i = userRepository.deleteById(currentToDelete.getId());
+        User actual = userRepository.findById((currentToDelete.getId())).orElse(null);
         LOGGER.info(String.format("Actual, debugging%s", actual), actual);
         assertEquals(
                 String.format("DeleteOne cruTest failed:" + lineSeparator()
@@ -280,27 +305,31 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
             if (toDelete instanceof TaskContext) {
 
                 //get current instance
-                TaskContext currentToDelete = taskContextRepository.findOne(toDelete.getId());
+                TaskContext currentToDelete = taskContextRepository.findById(toDelete.getId()).orElseThrow(() -> new
+                        NotFoundException("TaskContext to delete not found"));
                 getDeleteOneTaskContextTestConsumerSupport(taskContextRepository, userRepository, taskRepository,
                         currentToDelete, (TaskContext) expected);
 
             } else if (toDelete instanceof TaskPortfolio) {
 
                 //get current instance
-                TaskPortfolio currentToDelete = taskPortfolioRepository.findOne(toDelete.getId());
+                TaskPortfolio currentToDelete = taskPortfolioRepository.findById(toDelete.getId()).orElseThrow(() -> new
+                        NotFoundException("TaskPortfolio to delete not found"));
                 getDeleteOneTaskPortfolioTestConsumerSupport(taskPortfolioRepository, userRepository, taskRepository,
                         currentToDelete, (TaskPortfolio) expected);
 
             } else if (toDelete instanceof Task) {
 
                 //get current instance
-                Task currentToDelete = taskRepository.findOne(toDelete.getId());
+                Task currentToDelete = taskRepository.findById(toDelete.getId()).orElseThrow(() -> new
+                        NotFoundException("Task to delete not found"));
                 getDeleteOneTaskTestConsumerSupport(taskRepository, userRepository, taskContextRepository,
                         taskPortfolioRepository, currentToDelete, (Task) expected);
 
             } else if (toDelete instanceof User) {
 
-                User currentToDelete = (User) toDelete;
+                User currentToDelete = userRepository.findById(toDelete.getId()).orElseThrow(() -> new
+                        NotFoundException("User to delete not found"));
                 getDeleteOneUserTestConsumerSupport(userRepository, currentToDelete, (User) expected);
             }
         };

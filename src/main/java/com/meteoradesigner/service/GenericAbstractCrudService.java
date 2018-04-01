@@ -35,7 +35,7 @@ public abstract class GenericAbstractCrudService<E extends HasId, ID extends Ser
     public E get(ID toGet) {
         //TODO implement Mapper
         //TODO validations 1,2
-        return ServiceValidatorUtil.validateNotFoundWithId(getRepository().findOne(toGet), toGet);
+        return ServiceValidatorUtil.validateNotFoundWithId(getRepository().findById(toGet).orElse(null), toGet);
     }
 
     @Transactional
@@ -43,8 +43,8 @@ public abstract class GenericAbstractCrudService<E extends HasId, ID extends Ser
     public boolean delete(ID toDelete) {
         //TODO implement Mapper
         //TODO validations 1,2
-        return ServiceValidatorUtil.validateNotFoundWithIdBoolean(!getRepository().deleteById(toDelete)
-                .equals(0), toDelete);
+        return ServiceValidatorUtil.validateNotFoundWithIdBoolean(getRepository().deleteById(
+                (int) (Object) toDelete) != 0, toDelete);
     }
 
     @Override

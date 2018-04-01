@@ -43,7 +43,7 @@ public class GenericDataJpaRepositoryCrudTest<E extends HasId, ID extends Serial
         }};
 
         //constructed programmatically test data sets here
-        taskRepository.save(CONSTRUCTED_PROGRAMMATICALLY_TASK);
+        taskRepository.saveAll(CONSTRUCTED_PROGRAMMATICALLY_TASK);
     }
 
     public void saveOneTest() {
