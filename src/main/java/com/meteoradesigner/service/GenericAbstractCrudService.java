@@ -23,28 +23,11 @@ public abstract class GenericAbstractCrudService<E extends HasId, ID extends Ser
         return ServiceValidatorUtil.validateNotFoundWithId(getRepository().save(toCreate), toCreate);
     }
 
-    @Transactional
     @Override
-    public E update(E toUpdate) {
+    public E find(ID toGet) {
         //TODO implement Mapper
         //TODO validations 1,2
-        return ServiceValidatorUtil.validateNotFoundWithId(getRepository().save(toUpdate), toUpdate);
-    }
-
-    @Override
-    public E get(ID toGet) {
-        //TODO implement Mapper
-        //TODO validations 1,2
-        return ServiceValidatorUtil.validateNotFoundWithId(getRepository().findOne(toGet), toGet);
-    }
-
-    @Transactional
-    @Override
-    public boolean delete(ID toDelete) {
-        //TODO implement Mapper
-        //TODO validations 1,2
-        return ServiceValidatorUtil.validateNotFoundWithIdBoolean(!getRepository().deleteById(toDelete)
-                .equals(0), toDelete);
+        return ServiceValidatorUtil.validateNotFoundWithId(getRepository().findById(toGet).orElse(null), toGet);
     }
 
     @Override
@@ -52,5 +35,23 @@ public abstract class GenericAbstractCrudService<E extends HasId, ID extends Ser
         //TODO implement Mapper
         //TODO validations 1,2
         return getRepository().findAll();
+    }
+
+    @Transactional
+    @Override
+    public void update(E toUpdate) {
+        //TODO implement Mapper
+        //TODO validations 1,2
+        ServiceValidatorUtil.validateNotFoundWithId(getRepository().save(toUpdate), toUpdate);
+    }
+
+    @Transactional
+    @Override
+    public void delete(ID toDelete) {
+        //TODO implement Mapper
+        //TODO validations 1,2
+        getRepository().deleteById(toDelete);
+        ServiceValidatorUtil.validateNotFoundWithId(getRepository().findById(
+                toDelete).orElse(null) == null, toDelete);
     }
 }
