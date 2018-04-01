@@ -160,7 +160,7 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
         owner.getTasks().remove(currentToDelete);
         userRepository.save(owner);
 
-        Task actual = taskRepository.findById(currentToDelete.getId()).orElseThrow(null);
+        Task actual = taskRepository.findById(currentToDelete.getId()).orElse(null);
         LOGGER.info(String.format("Actual, debugging%s", actual), actual);
         assertEquals(
                 String.format("DeleteOne failed:" + lineSeparator()
@@ -262,7 +262,7 @@ public abstract class GenericDataJpaRepositoryTestData<E extends HasId> {
                                                             User currentToDelete,
                                                             User expected
     ) {
-        int i = userRepository.deleteById(currentToDelete.getId());
+        userRepository.deleteById(currentToDelete.getId());
         User actual = userRepository.findById((currentToDelete.getId())).orElse(null);
         LOGGER.info(String.format("Actual, debugging%s", actual), actual);
         assertEquals(

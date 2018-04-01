@@ -13,5 +13,5 @@ public interface GenericAbstractCrudRepository<E, ID extends Serializable> {
 
     List<E> findAll();
 
-    int deleteById(int id);
+    void deleteById(ID id);
 }

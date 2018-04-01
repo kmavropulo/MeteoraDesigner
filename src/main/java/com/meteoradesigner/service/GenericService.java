@@ -9,11 +9,11 @@ import java.util.List;
 public interface GenericService<E extends HasId, ID extends Serializable> {
     E create(E toCreate);
 
-    E update(E toUpdate);
+    void update(E toUpdate);
 
-    E get(ID toget);
+    E find(ID toget);
 
-    boolean delete(ID toDelete);
+    void delete(ID toDelete);
 
     List<E> findAll();
 }
