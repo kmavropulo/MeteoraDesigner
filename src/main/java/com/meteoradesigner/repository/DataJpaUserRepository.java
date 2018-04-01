@@ -2,17 +2,16 @@ package com.meteoradesigner.repository;
 
 import com.meteoradesigner.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This interface @code{DataJpaUserRepository} declares the data jpa @code{user} repository.
  */
 @Transactional
-public interface DataJpaUserRepository extends JpaRepository<User, Integer>,GenericAbstractCrudRepository<User,
+@Repository
+public interface DataJpaUserRepository extends JpaRepository<User, Integer>, GenericAbstractCrudRepository<User,
         Integer> {
-
-
-    Integer deleteById(Integer id);
 
     /**
      * Finds user by mail.

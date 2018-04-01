@@ -3,6 +3,7 @@ package com.meteoradesigner.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
@@ -57,6 +58,7 @@ public class AppConfig {
         return new JpaTransactionManager(emf);
     }
 
+    @Primary
     @Bean(name = "dataSource")
     public DataSource dataSource() {
         DataSource dataSource = createDataSource();
