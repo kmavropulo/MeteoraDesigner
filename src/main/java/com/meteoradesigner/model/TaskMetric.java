@@ -40,6 +40,9 @@ public class TaskMetric implements Serializable {
                 taskMetricToCopy.getUrgency(), taskMetricToCopy.getStability());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "TaskMetric{" +

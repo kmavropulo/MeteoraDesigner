@@ -8,15 +8,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * This @code{ContextDto} class declares data transfer object for @code{Context} class.
+ * This @code{TaskContextDto} class declares data transfer object for @code{Context} class.
  */
 @Setter
 @Getter
 @NoArgsConstructor
-public class ContextDto extends AbstractNamedDto {
+public class TaskContextDto extends AbstractNamedDto {
 
     @NotBlank
-    private String userId;
+    private Integer userId;
 
     @Size(max = 6400)
     private String description;
@@ -24,10 +24,10 @@ public class ContextDto extends AbstractNamedDto {
     /**
      * The all-args constructor.
      */
-    public ContextDto(Integer idToSet,
-                      String displayNameToSet,
-                      String userIdToSet,
-                      String descriptionToSet
+    public TaskContextDto(Integer idToSet,
+                          String displayNameToSet,
+                          Integer userIdToSet,
+                          String descriptionToSet
     ) {
         super(idToSet, displayNameToSet);
         this.userId = userIdToSet;

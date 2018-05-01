@@ -30,6 +30,9 @@ public class AbstractNamedDto extends AbstractBaseDto {
         this.displayName = nameToSet;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return String.format("NamedDto{%s(displayName=%s)}" + getClass().getName(), displayName);

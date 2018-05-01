@@ -23,6 +23,9 @@ public class UserDto extends AbstractNamedDto {
     @Size(min = 5, max = 6400)
     private String email;
 
+    @Size(max = 6433)
+    private String password;
+
     @NotNull
     private LocalDateTime registrationTime = LocalDateTime.now();
 
@@ -32,9 +35,11 @@ public class UserDto extends AbstractNamedDto {
     public UserDto(Integer idToSet,
                    String displayNameToSet,
                    String emailToSet,
+                   String passwordToSet,
                    LocalDateTime registrationTimeToSet) {
         super(idToSet, displayNameToSet);
         this.email = emailToSet;
+        this.password = passwordToSet;
         this.registrationTime = registrationTimeToSet;
     }
 }

@@ -18,6 +18,9 @@ import lombok.Setter;
 public class AbstractBaseDto implements HasId {
     private Integer id = null;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return String.format("Dto{%s(id=%s)}", getClass().getName(), getId());

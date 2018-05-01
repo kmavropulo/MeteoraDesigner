@@ -63,8 +63,8 @@ public class User extends AbstractNamedEntity {
     //TODO table with columns
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id"))
+                     joinColumns = @JoinColumn(
+                             name = "user_id"))
     @Column(name = "role")
     //TODO lazy? HOW to do NOT EMPTY constraints during init?
     @ElementCollection(fetch = FetchType.EAGER)
@@ -90,23 +90,32 @@ public class User extends AbstractNamedEntity {
         User userClone = SerializationUtils.clone(user);
         new User(userClone.getId(), userClone.getDisplayName(), userClone.getEmail(), userClone
                 .getPassword(), userClone.getContexts(), userClone.getPortfolios(), userClone
-                .getTasks(), userClone.getRoles());
+                         .getTasks(), userClone.getRoles());
     }
 
     /**
      * The minimal parameters initializing constructor.
      */
-    public User(Integer idToSet, String displayNameToSet, String email, String password, Role role,
+    public User(Integer idToSet,
+                String displayNameToSet,
+                String email,
+                String password,
+                Role role,
                 Role... roles) {
         this(idToSet, displayNameToSet, email, password, Collections.emptySet(),
-                Collections.emptySet(), Collections.emptySet(), EnumSet.of(role, roles));
+             Collections.emptySet(), Collections.emptySet(), EnumSet.of(role, roles));
     }
 
     /**
      * The all-args constructor.
      */
-    public User(Integer idToSet, String displayNameToSet, String email, String password,
-                Set<TaskContext> contexts, Set<TaskPortfolio> portfolios, Set<Task> tasks,
+    public User(Integer idToSet,
+                String displayNameToSet,
+                String email,
+                String password,
+                Set<TaskContext> contexts,
+                Set<TaskPortfolio> portfolios,
+                Set<Task> tasks,
                 Collection<Role> roles) {
         super(idToSet, displayNameToSet);
         this.email = email;
@@ -117,6 +126,9 @@ public class User extends AbstractNamedEntity {
         setRoles(roles);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "User{" +

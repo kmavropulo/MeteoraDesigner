@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class TaskDto extends AbstractNamedDto {
 
     @NotBlank
-    private String userId;
+    private Integer userId;
 
     @Size(max = 6400000)
     private String description;
@@ -36,7 +36,7 @@ public class TaskDto extends AbstractNamedDto {
 
     private LocalDateTime actualStopTaskTimestamp = LocalDateTime.MAX;
 
-    private String portfolioId;
+    private Integer portfolioId;
 
     private TaskMetric metrics;
 
@@ -51,13 +51,13 @@ public class TaskDto extends AbstractNamedDto {
      */
     public TaskDto(Integer idToSet,
                    String displayNameToSet,
-                   String userIdToSet,
+                   Integer userIdToSet,
                    String descriptionToSet,
                    LocalDateTime plannedStartTaskTimestampToSet,
                    LocalDateTime plannedStopTaskTimestampToSet,
                    LocalDateTime actualStartTaskTimestampToSet,
                    LocalDateTime actualStopTaskTimestampToSet,
-                   String taskPortfolioIdToSet,
+                   Integer taskPortfolioIdToSet,
                    TaskMetric taskMetricToSet
     ) {
         super(idToSet, displayNameToSet);

@@ -14,7 +14,9 @@ import java.util.function.BiConsumer;
 import static java.lang.System.lineSeparator;
 import static org.junit.Assert.assertEquals;
 
-//TODO add documentation
+/**
+ * This @code{GenericTestHelper} class represents test helper behaviour.
+ */
 public class GenericTestHelper {
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericTestHelper.class);
 
@@ -50,8 +52,8 @@ public class GenericTestHelper {
         LOGGER.info(String.format("Actual=%s", actual), actual);
         assertEquals(
                 String.format("FindAll failed:" + lineSeparator() + " expected=%s" +
-                                lineSeparator() + " actual= %s",
-                        expected, actual),
+                                      lineSeparator() + " actual= %s",
+                              expected, actual),
                 expected,
                 actual);
     }

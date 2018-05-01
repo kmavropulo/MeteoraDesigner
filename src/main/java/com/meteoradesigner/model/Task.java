@@ -288,6 +288,9 @@ public class Task extends AbstractNamedEntity {
         this.tasksUnlockingTheTaskRelatives = tasksUnlockingTheTaskRelatives;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "Task{" +

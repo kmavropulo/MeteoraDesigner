@@ -16,6 +16,10 @@ import java.time.LocalDateTime;
 public class TimestampToLocalDateTimeConverter implements AttributeConverter<
         LocalDateTime, Timestamp> {
     //TODO test on next iteration.
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Timestamp convertToDatabaseColumn(LocalDateTime attributeLocalDateTime) {
         if (attributeLocalDateTime != null) {
@@ -24,6 +28,9 @@ public class TimestampToLocalDateTimeConverter implements AttributeConverter<
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public LocalDateTime convertToEntityAttribute(Timestamp dBTimestamp) {
         if (dBTimestamp != null) {

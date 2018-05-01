@@ -73,6 +73,9 @@ public class TaskPortfolio extends AbstractNamedEntity {
         this.tasks = tasks;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "TaskPortfolio{" +

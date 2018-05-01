@@ -8,15 +8,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * This @code{PortfolioDto} class declares data transfer object for @code{Portfolio} class.
+ * This @code{TaskPortfolioDto} class declares data transfer object for @code{Portfolio} class.
  */
 @Setter
 @Getter
 @NoArgsConstructor
-public class PortfolioDto extends AbstractNamedDto {
+public class TaskPortfolioDto extends AbstractNamedDto {
 
     @NotBlank
-    private String userId;
+    private Integer userId;
 
     @Size(max = 6400)
     private String description;
@@ -24,10 +24,10 @@ public class PortfolioDto extends AbstractNamedDto {
     /**
      * The all-args constructor.
      */
-    public PortfolioDto(Integer idToSet,
-                      String displayNameToSet,
-                      String userIdToSet,
-                      String descriptionToSet
+    public TaskPortfolioDto(Integer idToSet,
+                            String displayNameToSet,
+                            Integer userIdToSet,
+                            String descriptionToSet
     ) {
         super(idToSet, displayNameToSet);
         this.userId = userIdToSet;
