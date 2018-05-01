@@ -26,9 +26,9 @@ import java.util.Set;
 @Entity
 @Table(name = "portfolios", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id",
         "display_name"}, name = "user_id_portfolio_display_name")})
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class TaskPortfolio extends AbstractNamedEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)

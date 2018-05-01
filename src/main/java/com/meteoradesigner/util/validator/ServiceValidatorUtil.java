@@ -1,4 +1,4 @@
-package com.meteoradesigner.util;
+package com.meteoradesigner.util.validator;
 
 
 import com.meteoradesigner.util.exception.NotFoundException;

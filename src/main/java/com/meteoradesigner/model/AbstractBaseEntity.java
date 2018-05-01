@@ -24,10 +24,10 @@ import javax.persistence.MappedSuperclass;
 //Overriding id methods.
 @MappedSuperclass
 @Access(AccessType.FIELD)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public abstract class AbstractBaseEntity implements HasId {
 
     @Id

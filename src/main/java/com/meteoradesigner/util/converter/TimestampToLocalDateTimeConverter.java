@@ -1,4 +1,4 @@
-package com.meteoradesigner.util;
+package com.meteoradesigner.util.converter;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

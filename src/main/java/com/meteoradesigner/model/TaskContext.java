@@ -27,9 +27,9 @@ import java.util.Set;
 @Entity
 @Table(name = "contexts", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id",
         "display_name"}, name = "user_id_context_display_name")})
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class TaskContext extends AbstractNamedEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)

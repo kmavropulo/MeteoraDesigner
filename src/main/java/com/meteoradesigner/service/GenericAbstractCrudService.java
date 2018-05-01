@@ -2,7 +2,7 @@ package com.meteoradesigner.service;
 
 import com.meteoradesigner.HasId;
 import com.meteoradesigner.repository.GenericAbstractCrudRepository;
-import com.meteoradesigner.util.ServiceValidatorUtil;
+import com.meteoradesigner.util.validator.ServiceValidatorUtil;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;

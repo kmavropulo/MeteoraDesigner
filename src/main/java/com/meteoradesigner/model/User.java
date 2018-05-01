@@ -40,9 +40,9 @@ import static java.util.Arrays.asList;
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"}, name =
         "users_unique_email"), @UniqueConstraint(columnNames = {"display_name"}, name =
         "users_unique_display_name")})
-@NoArgsConstructor
 @Getter
 @Setter
+@NoArgsConstructor
 public class User extends AbstractNamedEntity {
     //Can be several equal external tasks that doesn't lead to cycle.
 
