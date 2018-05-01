@@ -5,10 +5,14 @@ import com.meteoradesigner.model.TaskPortfolio;
 import com.meteoradesigner.repository.DataJpaTaskPortfolioRepository;
 import com.meteoradesigner.repository.GenericAbstractCrudRepository;
 import com.meteoradesigner.service.GenericAbstractCrudService;
+import com.meteoradesigner.util.crud.DeleteSupport;
 import com.meteoradesigner.util.mapper.EntityDtoMapper;
 import com.meteoradesigner.util.mapper.TaskPortfolioEntityDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.function.Consumer;
 
 /**
  * This @code{TaskPortfolioServiceImp} class implements @code{TaskPortfolioService} interface.
@@ -20,6 +24,10 @@ public class TaskPortfolioServiceImp extends GenericAbstractCrudService<TaskPort
 
     @Autowired
     private DataJpaTaskPortfolioRepository repository;
+
+    @Autowired
+    @Qualifier(value = "taskPortfolioDeleteSupport")
+    private DeleteSupport<Integer> deleteSupport;
 
     /**
      * {@inheritDoc}
@@ -43,5 +51,13 @@ public class TaskPortfolioServiceImp extends GenericAbstractCrudService<TaskPort
     @Override
     protected Class<? extends TaskPortfolioDto> getDtoClass() {
         return TaskPortfolioDto.class;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Consumer<Integer> getDeleteSupport() {
+        return deleteSupport.getDeleteSupportConsumer();
     }
 }

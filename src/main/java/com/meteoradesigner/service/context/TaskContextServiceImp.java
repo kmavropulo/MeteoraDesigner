@@ -5,10 +5,14 @@ import com.meteoradesigner.model.TaskContext;
 import com.meteoradesigner.repository.DataJpaTaskContextRepository;
 import com.meteoradesigner.repository.GenericAbstractCrudRepository;
 import com.meteoradesigner.service.GenericAbstractCrudService;
+import com.meteoradesigner.util.crud.DeleteSupport;
 import com.meteoradesigner.util.mapper.EntityDtoMapper;
 import com.meteoradesigner.util.mapper.TaskContextEntityDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.function.Consumer;
 
 /**
  * This @code{TaskContextServiceImp} class implements @code{TaskContextService} interface.
@@ -20,6 +24,10 @@ public class TaskContextServiceImp extends GenericAbstractCrudService<TaskContex
 
     @Autowired
     private DataJpaTaskContextRepository repository;
+
+    @Autowired
+    @Qualifier(value = "taskContextDeleteSupport")
+    private DeleteSupport<Integer> deleteSupport;
 
     /**
      * {@inheritDoc}
@@ -43,5 +51,13 @@ public class TaskContextServiceImp extends GenericAbstractCrudService<TaskContex
     @Override
     protected Class<? extends TaskContextDto> getDtoClass() {
         return TaskContextDto.class;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Consumer<Integer> getDeleteSupport() {
+        return deleteSupport.getDeleteSupportConsumer();
     }
 }

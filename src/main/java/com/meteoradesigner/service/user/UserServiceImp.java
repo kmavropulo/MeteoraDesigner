@@ -5,10 +5,14 @@ import com.meteoradesigner.model.User;
 import com.meteoradesigner.repository.DataJpaUserRepository;
 import com.meteoradesigner.repository.GenericAbstractCrudRepository;
 import com.meteoradesigner.service.GenericAbstractCrudService;
+import com.meteoradesigner.util.crud.DeleteSupport;
 import com.meteoradesigner.util.mapper.EntityDtoMapper;
 import com.meteoradesigner.util.mapper.UserEntityDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.function.Consumer;
 
 /**
  * This @code{UserServiceImp} class implements @code{UserService} interface.
@@ -20,6 +24,10 @@ public class UserServiceImp extends GenericAbstractCrudService<User, UserDto, In
 
     @Autowired
     private DataJpaUserRepository repository;
+
+    @Autowired
+    @Qualifier(value = "userDeleteSupport")
+    private DeleteSupport<Integer> deleteSupport;
 
     /**
      * {@inheritDoc}
@@ -43,5 +51,13 @@ public class UserServiceImp extends GenericAbstractCrudService<User, UserDto, In
     @Override
     protected Class<? extends UserDto> getDtoClass() {
         return UserDto.class;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected Consumer<Integer> getDeleteSupport() {
+        return deleteSupport.getDeleteSupportConsumer();
     }
 }

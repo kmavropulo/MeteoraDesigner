@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static com.meteoradesigner.util.validator.ServiceValidatorUtil.validateNotFoundWithId;
 import static java.util.stream.Collectors.toList;
@@ -24,6 +25,8 @@ public abstract class GenericAbstractCrudService
     protected abstract Class<? extends D> getDtoClass();
 
     protected abstract EntityDtoMapper<E, D> getEntityDtoMapper();
+
+    protected abstract Consumer<ID> getDeleteSupport();
 
     /**
      * {@inheritDoc}
@@ -86,9 +89,8 @@ public abstract class GenericAbstractCrudService
     @Transactional
     @Override
     public void delete(ID toDelete) {
-        //TODO implement Mapper
         //TODO validations 1,2
-        getRepository().deleteById(toDelete);
+        getDeleteSupport().accept(toDelete);
         validateNotFoundWithId(
                 getRepository().findById(toDelete).orElse(null) == null,
                 toDelete);
