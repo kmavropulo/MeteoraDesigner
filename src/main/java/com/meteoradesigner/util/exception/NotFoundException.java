@@ -2,11 +2,11 @@ package com.meteoradesigner.util.exception;
 
 import org.springframework.http.HttpStatus;
 
-//TODO doc
+//TODO documentation
 public class NotFoundException extends ApplicationException {
-    public static final String NOT_FOUND_EXCEPTION = "notFound";
+    private static final String NOT_FOUND_EXCEPTION = "notFound";
 
-    public NotFoundException(String arg) {
-        super(ErrorType.DATA_NOT_FOUND, NOT_FOUND_EXCEPTION, HttpStatus.UNPROCESSABLE_ENTITY, arg);
+    public NotFoundException(String msg) {
+        super(NOT_FOUND_EXCEPTION, HttpStatus.UNPROCESSABLE_ENTITY, msg);
     }
 }
