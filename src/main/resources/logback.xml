@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
 
-    <!-- To enable JMX Management -->
+    <!-- To enable JMX Management
     <jmxConfigurator/>
     <property name="LOG_PATH" value="C:\Tools\Logs" />
 
@@ -11,7 +11,7 @@
             <charset>UTF-8</charset>
             <pattern>%date %-5level %logger{0} [%file:%line] %msg%n</pattern>
         </encoder>
-    </appender>
+    </appender> -->
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -23,7 +23,7 @@
     <logger name="data" level="warn"/>
 
     <root level="info">
-        <appender-ref ref="file"/>
+        <!--<appender-ref ref="file"/>-->
         <appender-ref ref="console"/>
     </root>
 </configuration>
