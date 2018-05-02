@@ -12,7 +12,8 @@ import java.util.stream.Stream;
 
 import static com.meteoradesigner.model.InternalExecutionState.INTERNAL_EXECUTION_STATE_CONCURRENT;
 import static com.meteoradesigner.model.InternalExecutionState.INTERNAL_EXECUTION_STATE_SERIAL;
-import static com.meteoradesigner.model.InternalExecutionState.INTERNAL_EXECUTION_STATE_SERIAL_STRICT;
+import static com.meteoradesigner.model.InternalExecutionState
+        .INTERNAL_EXECUTION_STATE_SERIAL_STRICT;
 import static com.meteoradesigner.model.PointedCompletionState.POINTED_COMPLETION_STATE_FROZEN_BY;
 import static com.meteoradesigner.model.SelfCompletionState.SELF_COMPLETION_STATE_ACTIVE;
 import static com.meteoradesigner.model.SelfCompletionState.SELF_COMPLETION_STATE_ENABLED;
@@ -23,8 +24,10 @@ import static data.DataJpaTaskContextRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCR
 import static data.DataJpaTaskContextRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_2;
 import static data.DataJpaTaskContextRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_3;
 import static data.DataJpaTaskContextRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_4;
-import static data.DataJpaTaskPortfolioRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_1;
-import static data.DataJpaTaskPortfolioRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_3;
+import static data.DataJpaTaskPortfolioRepositoryTestData
+        .CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_1;
+import static data.DataJpaTaskPortfolioRepositoryTestData
+        .CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_3;
 import static data.DataJpaUserRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1;
 import static data.DataJpaUserRepositoryTestData.CONSTRUCTED_BY_H2SQL_SCRIPT_USER_2;
 import static java.util.Arrays.asList;
@@ -81,7 +84,8 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
                 null,
                 CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_1,
                 new HashSet<>(asList(
-                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1, CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_2)),
+                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1,
+                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_2)),
                 null,
                 INTERNAL_EXECUTION_STATE_SERIAL,
                 SELF_COMPLETION_STATE_ACTIVE,
@@ -103,7 +107,8 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
                 null,
                 CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_1,
                 new HashSet<>(asList(
-                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1, CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_2)),
+                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_1,
+                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_2)),
                 null,
                 INTERNAL_EXECUTION_STATE_SERIAL,
                 SELF_COMPLETION_STATE_ACTIVE,
@@ -125,7 +130,8 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
                 null,
                 CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_PORTFOLIO_3,
                 new HashSet<>(asList(
-                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_3, CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_4)),
+                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_3,
+                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_4)),
                 null,
                 INTERNAL_EXECUTION_STATE_SERIAL,
                 SELF_COMPLETION_STATE_ACTIVE,
@@ -147,7 +153,8 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
                 null,
                 null,
                 new HashSet<>(asList(
-                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_3, CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_4)),
+                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_3,
+                        CONSTRUCTED_BY_H2SQL_SCRIPT_TASK_CONTEXT_4)),
                 null,
                 INTERNAL_EXECUTION_STATE_SERIAL,
                 SELF_COMPLETION_STATE_ACTIVE,
@@ -284,9 +291,11 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
                 new HashSet<>(asList(
                         POINTED_COMPLETION_STATE_FROZEN_BY)),
                 new HashSet<>(asList(
-                        CONSTRUCTED_PROGRAMMATICALLY_TASK_11, CONSTRUCTED_PROGRAMMATICALLY_TASK_12)),
+                        CONSTRUCTED_PROGRAMMATICALLY_TASK_11,
+                        CONSTRUCTED_PROGRAMMATICALLY_TASK_12)),
                 new HashSet<>(asList(
-                        CONSTRUCTED_PROGRAMMATICALLY_TASK_13, CONSTRUCTED_PROGRAMMATICALLY_TASK_14)),
+                        CONSTRUCTED_PROGRAMMATICALLY_TASK_13,
+                        CONSTRUCTED_PROGRAMMATICALLY_TASK_14)),
                 new HashSet<>(asList(
                         CONSTRUCTED_PROGRAMMATICALLY_TASK_12)),
                 new HashSet<>(asList(
@@ -339,12 +348,25 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
                 null,
                 null,
                 null);
-        CONSTRUCTED_PROGRAMMATICALLY_TASK_13 = new Task(13,
+        CONSTRUCTED_PROGRAMMATICALLY_TASK_13 = new Task(
+                13,
                 "initializedBySqlScriptUser2Task13BlockingTheTask10DisplayName",
                 CONSTRUCTED_BY_H2SQL_SCRIPT_USER_2,
                 "initializedBySqlScriptTask13Description",
-                LocalDateTime.of(2018, 2, 23, 21, 18, 33, 64000000),
-                LocalDateTime.of(2018, 3, 1, 21, 18, 33, 64000000),
+                LocalDateTime.of(2018,
+                                 2,
+                                 23,
+                                 21,
+                                 18,
+                                 33,
+                                 64000000),
+                LocalDateTime.of(2018,
+                                 3,
+                                 1,
+                                 21,
+                                 18,
+                                 33,
+                                 64000000),
                 null,
                 null,
                 null,
@@ -353,8 +375,9 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
                 INTERNAL_EXECUTION_STATE_SERIAL,
                 SELF_COMPLETION_STATE_FROZEN,
                 null
-                , new HashSet<>(asList(
-                CONSTRUCTED_PROGRAMMATICALLY_TASK_10)),
+                ,
+                new HashSet<>(asList(
+                        CONSTRUCTED_PROGRAMMATICALLY_TASK_10)),
                 null,
                 null,
                 null,
@@ -376,7 +399,8 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
                 SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY,
                 null,
                 new HashSet<>(asList(
-                        CONSTRUCTED_PROGRAMMATICALLY_TASK_10, CONSTRUCTED_PROGRAMMATICALLY_TASK_15)),
+                        CONSTRUCTED_PROGRAMMATICALLY_TASK_10,
+                        CONSTRUCTED_PROGRAMMATICALLY_TASK_15)),
                 null,
                 null,
                 null,
@@ -397,8 +421,9 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
                 INTERNAL_EXECUTION_STATE_SERIAL,
                 SELF_COMPLETION_STATE_ACTIVE,
                 null,
-                null, new HashSet<>(asList(
-                CONSTRUCTED_PROGRAMMATICALLY_TASK_14)),
+                null,
+                new HashSet<>(asList(
+                        CONSTRUCTED_PROGRAMMATICALLY_TASK_14)),
                 null,
                 null,
                 new HashSet<>(asList(
@@ -452,7 +477,7 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
         TASK_REPOSITORY_SAVE_ONE_PARAMETRIZED = asList(new Task[][]{
                 {TASK_TO_SAVE_ONE_FIRST, TASK_TO_SAVE_ONE_FIRST},
                 {TASK_TO_SAVE_ONE_SECOND, TASK_TO_SAVE_ONE_SECOND},
-        });
+                });
 
         //constructs data for find tests
         TASK_TO_FIND_ONE_FIRST_EXPECTED = CONSTRUCTED_PROGRAMMATICALLY_TASK_1;
@@ -461,31 +486,45 @@ public class DataJpaTaskRepositoryTestData extends GenericDataJpaRepositoryTestD
         TASK_REPOSITORY_FIND_ONE_PARAMETRIZED = asList(new Task[][]{
                 {TASK_TO_FIND_ONE_FIRST_EXPECTED, TASK_TO_FIND_ONE_FIRST_EXPECTED},
                 {TASK_TO_FIND_ONE_SECOND_EXPECTED, TASK_TO_FIND_ONE_SECOND_EXPECTED},
-        });
+                });
 
         //constructs data for delete tests
         TASK_REPOSITORY_DELETE_ONE_PARAMETRIZED = Stream.of(TASK_REPOSITORY_FIND_ALL_COMMON)
-                .flatMap(Collection::stream).map(t -> new Task[]{t, null}).collect(Collectors.toList());
+                                                        .flatMap(Collection::stream)
+                                                        .map(t -> new Task[]{t, null})
+                                                        .collect(Collectors.toList());
 
         //constructs data for custom tests
         //TODO constructs data for custom tests
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<Task[]> getSaveOneTestData() {
         return TASK_REPOSITORY_SAVE_ONE_PARAMETRIZED;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<Task[]> getFindOneTestData() {
         return TASK_REPOSITORY_FIND_ONE_PARAMETRIZED;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<Task[]> getDeleteOneTestData() {
         return TASK_REPOSITORY_DELETE_ONE_PARAMETRIZED;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Task> getFindAllTestData() {
         return TASK_REPOSITORY_FIND_ALL_COMMON;

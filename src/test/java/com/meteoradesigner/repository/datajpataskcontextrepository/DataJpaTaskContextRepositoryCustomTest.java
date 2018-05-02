@@ -6,12 +6,11 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * This class @code{DataJpaTaskRepositoryCustomTest} runs custom tests for
- *
- * @code{DataJpaTaskContextRepository}'s custom methods.
+ * This class @code{DataJpaTaskRepositoryCustomTest} runs custom tests
+ * for @code{DataJpaTaskContextRepository}'s custom methods.
  */
 //TODO documentation.
-public class DataJpaTaskContextRepositoryCustomTest extends DataJpaRepositoryTestConfiguration{
+public class DataJpaTaskContextRepositoryCustomTest extends DataJpaRepositoryTestConfiguration {
 
     @Autowired
     private DataJpaTaskContextRepository dataJpaTaskContextRepository;

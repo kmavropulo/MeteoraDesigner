@@ -37,6 +37,9 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity {
         this.displayName = nameToSet;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return String.format("NamedEntity{%s(displayName=%s)}" + getClass().getName(), displayName);

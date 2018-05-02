@@ -1,4 +1,4 @@
-package com.meteoradesigner.util;
+package com.meteoradesigner.util.validator;
 
 
 import com.meteoradesigner.util.exception.NotFoundException;
@@ -33,5 +33,15 @@ public class ServiceValidatorUtil {
 
     public static <ID> boolean validateNotFoundWithIdBoolean(boolean conditionToCheck, ID id) {
         return validateNotFoundBoolean(conditionToCheck, "id=" + id);
+    }
+
+    public static Throwable getPrimeCause(Throwable throwable) {
+        Throwable cause = null;
+        Throwable result = throwable;
+
+        while (null != (cause = result.getCause()) && (result != cause)) {
+            result = cause;
+        }
+        return result;
     }
 }

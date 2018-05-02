@@ -24,21 +24,27 @@ import javax.persistence.MappedSuperclass;
 //Overriding id methods.
 @MappedSuperclass
 @Access(AccessType.FIELD)
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
 @Setter
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public abstract class AbstractBaseEntity implements HasId {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id = null;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return String.format("Entity{%s(id=%s)}", getClass().getName(), getId());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,6 +55,9 @@ public abstract class AbstractBaseEntity implements HasId {
         return getId() != null && getId().equals(that.getId());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return getId() != null ? getId().hashCode() : 0;

@@ -22,24 +22,36 @@ public class DataJpaTaskRepositoryCrudTest extends
         setTestCommon();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Test
     @Override
     public void saveOneTest() {
         super.saveOneTest();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Test
     @Override
     public void findOneTest() {
         super.findOneTest();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Test
     @Override
     public void deleteOneTest() {
         super.deleteOneTest();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Test
     @Override
     public void findAllTest() {
