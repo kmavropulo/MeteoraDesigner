@@ -12,9 +12,8 @@ import static com.meteoradesigner.model.Role.ROLE_USER;
 import static java.util.Arrays.asList;
 
 /**
- * This class @code{DataJpaUserRepositoryTestData} holds of saveOneTest data for
- *
- * @code{DataJpaUserRepository}.
+ * This class @code{DataJpaUserRepositoryTestData} holds of saveOneTest data
+ * for @code{DataJpaUserRepository}.
  */
 //TODO documentation.
 public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestData<User> {
@@ -44,25 +43,25 @@ public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestD
 
         //constructs data for common tests
         CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1 = new User(1,
-                "initializedBySqlScriptUser1DisplayName",
-                "initializedBySqlScriptUser1@email.com",
-                "initializedBySqlScriptUser1Password",
-                ROLE_USER);
+                                                      "initializedBySqlScriptUser1DisplayName",
+                                                      "initializedBySqlScriptUser1@email.com",
+                                                      "initializedBySqlScriptUser1Password",
+                                                      ROLE_USER);
         CONSTRUCTED_BY_H2SQL_SCRIPT_USER_2 = new User(2,
-                "initializedBySqlScriptUser2DisplayName",
-                "initializedBySqlScriptUser2@email.com",
-                "initializedBySqlScriptUser2Password",
-                ROLE_USER);
+                                                      "initializedBySqlScriptUser2DisplayName",
+                                                      "initializedBySqlScriptUser2@email.com",
+                                                      "initializedBySqlScriptUser2Password",
+                                                      ROLE_USER);
         CONSTRUCTED_BY_H2SQL_SCRIPT_USER_3 = new User(3,
-                "initializedBySqlScriptAdmin3DisplayName",
-                "initializedBySqlScriptAdmin3@email.com",
-                "initializedBySqlScriptAdmin3Password",
-                ROLE_ADMIN);
+                                                      "initializedBySqlScriptAdmin3DisplayName",
+                                                      "initializedBySqlScriptAdmin3@email.com",
+                                                      "initializedBySqlScriptAdmin3Password",
+                                                      ROLE_ADMIN);
         CONSTRUCTED_BY_H2SQL_SCRIPT_USER_4 = new User(4,
-                "initializedBySqlScriptUserAdmin4DisplayName",
-                "initializedBySqlScriptUserAdmin4@email.com",
-                "initializedBySqlScriptUserAdmin4Password",
-                ROLE_USER, ROLE_ADMIN);
+                                                      "initializedBySqlScriptUserAdmin4DisplayName",
+                                                      "initializedBySqlScriptUserAdmin4@email.com",
+                                                      "initializedBySqlScriptUserAdmin4Password",
+                                                      ROLE_USER, ROLE_ADMIN);
 
         USER_REPOSITORY_FIND_ALL_COMMON = asList(
                 CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1,
@@ -74,28 +73,28 @@ public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestD
         //TODO add tests/testData to check updating
         //constructs data for save/update tests
         USER_TO_SAVE_ONE_FIRST = new User(5,
-                "UserToSaveOneFirst",
-                "UserToSaveOneFirst@email.com",
-                "UserToSaveOneFirstPassword",
-                ROLE_USER);
+                                          "UserToSaveOneFirst",
+                                          "UserToSaveOneFirst@email.com",
+                                          "UserToSaveOneFirstPassword",
+                                          ROLE_USER);
 
         ADMIN_TO_SAVE_ONE_FIRST = new User(5,
-                "AdminToSaveOneFirst",
-                "AdminToSaveOneFirst@email.com",
-                "AdminToSaveOneFirstPassword",
-                ROLE_ADMIN);
+                                           "AdminToSaveOneFirst",
+                                           "AdminToSaveOneFirst@email.com",
+                                           "AdminToSaveOneFirstPassword",
+                                           ROLE_ADMIN);
 
         USER_ADMIN_TO_SAVE_ONE_SECOND = new User(5,
-                "UserAdminToSaveOneSecond",
-                "UserAdminToSaveOneSecond@email.com",
-                "UserAdminToSaveOneSecondPassword",
-                ROLE_ADMIN, ROLE_USER);
+                                                 "UserAdminToSaveOneSecond",
+                                                 "UserAdminToSaveOneSecond@email.com",
+                                                 "UserAdminToSaveOneSecondPassword",
+                                                 ROLE_ADMIN, ROLE_USER);
 
         USER_REPOSITORY_SAVE_ONE_PARAMETRIZED = asList(new User[][]{
                 {USER_TO_SAVE_ONE_FIRST, USER_TO_SAVE_ONE_FIRST},
                 {ADMIN_TO_SAVE_ONE_FIRST, ADMIN_TO_SAVE_ONE_FIRST},
                 {USER_ADMIN_TO_SAVE_ONE_SECOND, USER_ADMIN_TO_SAVE_ONE_SECOND},
-        });
+                });
 
         //constructs data for find tests
         USER_TO_FIND_ONE_FIRST_EXPECTED = CONSTRUCTED_BY_H2SQL_SCRIPT_USER_1;
@@ -104,11 +103,13 @@ public class DataJpaUserRepositoryTestData extends GenericDataJpaRepositoryTestD
         USER_REPOSITORY_FIND_ONE_PARAMETRIZED = asList(new User[][]{
                 {USER_TO_FIND_ONE_FIRST_EXPECTED, USER_TO_FIND_ONE_FIRST_EXPECTED},
                 {USER_ADMIN_TO_FIND_ONE_SECOND_EXPECTED, USER_ADMIN_TO_FIND_ONE_SECOND_EXPECTED},
-        });
+                });
 
         //constructs data for delete tests
         USER_REPOSITORY_DELETE_ONE_PARAMETRIZED = Stream.of(USER_REPOSITORY_FIND_ALL_COMMON)
-                .flatMap(Collection::stream).map(u -> new User[]{u, null}).collect(Collectors.toList());
+                                                        .flatMap(Collection::stream)
+                                                        .map(u -> new User[]{u, null})
+                                                        .collect(Collectors.toList());
 
         //constructs data for custom tests
         USER_REPOSITORY_MAIL_TO_FIND_BY_MAIL = "initializedBySqlScriptUserAdmin4@email.com";

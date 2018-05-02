@@ -1,19 +1,22 @@
 package com.meteoradesigner.service;
 
-import com.meteoradesigner.HasId;
+import com.meteoradesigner.dto.AbstractBaseDto;
+import com.meteoradesigner.model.AbstractBaseEntity;
 
 import java.io.Serializable;
 import java.util.List;
 
 //TODO doc
-public interface GenericService<E extends HasId, ID extends Serializable> {
-    E create(E toCreate);
+public interface GenericService
+        <E extends AbstractBaseEntity, D extends AbstractBaseDto, ID extends Serializable> {
 
-    void update(E toUpdate);
+    D create();
 
-    E find(ID toget);
+    void update(D toUpdate);
+
+    D find(ID toget);
 
     void delete(ID toDelete);
 
-    List<E> findAll();
+    List<D> findAll();
 }

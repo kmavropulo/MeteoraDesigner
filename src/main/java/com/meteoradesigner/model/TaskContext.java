@@ -25,11 +25,13 @@ import java.util.Set;
  */
 //TODO fix all the documentation, by using this class, -es and dots.
 @Entity
-@Table(name = "contexts", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id",
-        "display_name"}, name = "user_id_context_display_name")})
-@NoArgsConstructor
+@Table(name = "contexts", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id",
+                                         "display_name"},
+                          name = "user_id_context_display_name")})
 @Getter
 @Setter
+@NoArgsConstructor
 public class TaskContext extends AbstractNamedEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -42,28 +44,28 @@ public class TaskContext extends AbstractNamedEntity {
     private String description;
 
     @ManyToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "contexts")
+                cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+                mappedBy = "contexts")
     private Set<Task> tasks;
 
     @ManyToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "internalContexts")
+                cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+                mappedBy = "internalContexts")
     private Set<TaskContext> externalContexts;
 
     //TODO check save and delete
     //TODO table with columns?!
     @ManyToMany(fetch = FetchType.EAGER,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+                cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "external_contexts_internal_contexts",
-            joinColumns = {@JoinColumn(
-                    name = "external_context_id",
-                    referencedColumnName = "id",
-                    nullable = false)},
-            inverseJoinColumns = {@JoinColumn(
-                    name = "internal_context_id",
-                    referencedColumnName = "id",
-                    nullable = false)})
+               joinColumns = {@JoinColumn(
+                       name = "external_context_id",
+                       referencedColumnName = "id",
+                       nullable = false)},
+               inverseJoinColumns = {@JoinColumn(
+                       name = "internal_context_id",
+                       referencedColumnName = "id",
+                       nullable = false)})
     private Set<TaskContext> internalContexts;
 
     /**
@@ -74,24 +76,32 @@ public class TaskContext extends AbstractNamedEntity {
         TaskContext taskContextCopy = SerializationUtils.clone(taskContextToCopy);
         new TaskContext(taskContextCopy.getId(), taskContextCopy.getDisplayName(), taskContextCopy
                 .getUser(), taskContextCopy.getDescription(), taskContextCopy.getExternalContexts(),
-                taskContextCopy.getInternalContexts(), taskContextCopy.getTasks());
+                        taskContextCopy.getInternalContexts(), taskContextCopy.getTasks());
     }
 
     /**
      * The minimal parameters initializing constructor.
      */
-    public TaskContext(Integer idToSet, String nameToSet, @NotNull User user, @NotNull @Size(
-            min = 1, max = 6400) String description) {
+    public TaskContext(Integer idToSet,
+                       String nameToSet,
+                       @NotNull User user,
+                       @NotNull @Size(
+                               min = 1, max = 6400) String description) {
         this(idToSet, nameToSet, user, description, Collections.emptySet(), Collections.emptySet(),
-                Collections.emptySet());
+             Collections.emptySet());
     }
 
     /**
      * The all-args constructor.
      */
-    public TaskContext(Integer idToSet, String nameToSet, @NotNull User user, @NotNull @Size(
-            min = 1, max = 6400) String description, Set<TaskContext> externalContexts,
-                       Set<TaskContext> internalContexts, Set<Task> tasks) {
+    public TaskContext(Integer idToSet,
+                       String nameToSet,
+                       @NotNull User user,
+                       @NotNull @Size(
+                               min = 1, max = 6400) String description,
+                       Set<TaskContext> externalContexts,
+                       Set<TaskContext> internalContexts,
+                       Set<Task> tasks) {
         super(idToSet, nameToSet);
         this.user = user;
         this.description = description;
@@ -100,6 +110,9 @@ public class TaskContext extends AbstractNamedEntity {
         this.tasks = tasks;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "TaskContext{" +
