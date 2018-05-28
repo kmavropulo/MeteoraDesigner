@@ -1,6 +1,5 @@
 package com.meteoradesigner.util.statemachine;
 
-import com.meteoradesigner.model.SelfCompletionState;
 import com.meteoradesigner.model.SelfCompletionStateEvents;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,431 +36,431 @@ import static com.meteoradesigner.model.SelfCompletionState.SELF_COMPLETION_STAT
 @Configuration
 @EnableStateMachine
 public class TaskSelfCompletionStateMachine
-        extends StateMachineConfigurerAdapter<SelfCompletionState, SelfCompletionStateEvents> {
+        extends StateMachineConfigurerAdapter<String, String> {
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void configure(StateMachineStateConfigurer<SelfCompletionState, SelfCompletionStateEvents> states)
+    public void configure(StateMachineStateConfigurer<String, String> states)
             throws Exception {
         states.withStates()
-              .initial(SELF_COMPLETION_STATE_NEW)
-              .state(SELF_COMPLETION_STATE_DISABLED)
-              .state(SELF_COMPLETION_STATE_ENABLED)
-              .state(SELF_COMPLETION_STATE_FROZEN)
-              .state(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-              .state(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-              .state(SELF_COMPLETION_STATE_ACTIVE)
-              .state(SELF_COMPLETION_STATE_COMPLETED)
-              .state(SELF_COMPLETION_STATE_TENTATIVE);
+              .initial(SELF_COMPLETION_STATE_NEW.name())
+              .state(SELF_COMPLETION_STATE_DISABLED.name())
+              .state(SELF_COMPLETION_STATE_ENABLED.name())
+              .state(SELF_COMPLETION_STATE_FROZEN.name())
+              .state(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+              .state(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+              .state(SELF_COMPLETION_STATE_ACTIVE.name())
+              .state(SELF_COMPLETION_STATE_COMPLETED.name())
+              .state(SELF_COMPLETION_STATE_TENTATIVE.name());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void configure(StateMachineTransitionConfigurer<SelfCompletionState, SelfCompletionStateEvents> transitions)
+    public void configure(StateMachineTransitionConfigurer<String, String> transitions)
             throws Exception {
         transitions
 
                 //to Disabled
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_NEW)
-                .target(SELF_COMPLETION_STATE_DISABLED)
-                .event(SelfCompletionStateEvents.SET_DISABLED)
+                .source(SELF_COMPLETION_STATE_NEW.name())
+                .target(SELF_COMPLETION_STATE_DISABLED.name())
+                .event(SelfCompletionStateEvents.SET_DISABLED.name())
                 .action(fromNewToDisabledAction())
                 .guard(fromNewToDisabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_DISABLED)
-                .target(SELF_COMPLETION_STATE_DISABLED)
-                .event(SelfCompletionStateEvents.SET_DISABLED)
+                .source(SELF_COMPLETION_STATE_DISABLED.name())
+                .target(SELF_COMPLETION_STATE_DISABLED.name())
+                .event(SelfCompletionStateEvents.SET_DISABLED.name())
                 .action(fromDisabledToDisabledAction())
                 .guard(fromDisabledToDisabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN)
-                .target(SELF_COMPLETION_STATE_DISABLED)
-                .event(SelfCompletionStateEvents.SET_DISABLED)
+                .source(SELF_COMPLETION_STATE_FROZEN.name())
+                .target(SELF_COMPLETION_STATE_DISABLED.name())
+                .event(SelfCompletionStateEvents.SET_DISABLED.name())
                 .action(fromFrozenToDisabledAction())
                 .guard(fromFrozenToDisabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ACTIVE)
-                .target(SELF_COMPLETION_STATE_DISABLED)
-                .event(SelfCompletionStateEvents.SET_DISABLED)
+                .source(SELF_COMPLETION_STATE_ACTIVE.name())
+                .target(SELF_COMPLETION_STATE_DISABLED.name())
+                .event(SelfCompletionStateEvents.SET_DISABLED.name())
                 .action(fromActiveToDisabledAction())
                 .guard(fromActiveToDisabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ENABLED)
-                .target(SELF_COMPLETION_STATE_DISABLED)
-                .event(SelfCompletionStateEvents.SET_DISABLED)
+                .source(SELF_COMPLETION_STATE_ENABLED.name())
+                .target(SELF_COMPLETION_STATE_DISABLED.name())
+                .event(SelfCompletionStateEvents.SET_DISABLED.name())
                 .action(fromEnabledToDisabledAction())
                 .guard(fromEnabledToDisabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_COMPLETED)
-                .target(SELF_COMPLETION_STATE_DISABLED)
-                .event(SelfCompletionStateEvents.SET_DISABLED)
+                .source(SELF_COMPLETION_STATE_COMPLETED.name())
+                .target(SELF_COMPLETION_STATE_DISABLED.name())
+                .event(SelfCompletionStateEvents.SET_DISABLED.name())
                 .action(fromCompletedToDisabledAction())
                 .guard(fromCompletedToDisabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .target(SELF_COMPLETION_STATE_DISABLED)
-                .event(SelfCompletionStateEvents.SET_DISABLED)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .target(SELF_COMPLETION_STATE_DISABLED.name())
+                .event(SelfCompletionStateEvents.SET_DISABLED.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesToDisabledAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesToDisabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .target(SELF_COMPLETION_STATE_DISABLED)
-                .event(SelfCompletionStateEvents.SET_DISABLED)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .target(SELF_COMPLETION_STATE_DISABLED.name())
+                .event(SelfCompletionStateEvents.SET_DISABLED.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesByToDisabledAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesByToDisabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_TENTATIVE)
-                .target(SELF_COMPLETION_STATE_DISABLED)
-                .event(SelfCompletionStateEvents.SET_DISABLED)
+                .source(SELF_COMPLETION_STATE_TENTATIVE.name())
+                .target(SELF_COMPLETION_STATE_DISABLED.name())
+                .event(SelfCompletionStateEvents.SET_DISABLED.name())
                 .action(fromTentativeToDisabledAction())
                 .guard(fromTentativeToDisabledGuard())
                 .and()
 
                 //to Enabled
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_NEW)
-                .target(SELF_COMPLETION_STATE_ENABLED)
-                .event(SelfCompletionStateEvents.SET_ENABLED)
+                .source(SELF_COMPLETION_STATE_NEW.name())
+                .target(SELF_COMPLETION_STATE_ENABLED.name())
+                .event(SelfCompletionStateEvents.SET_ENABLED.name())
                 .action(fromNewToEnabledAction())
                 .guard(fromNewToEnabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_DISABLED)
-                .target(SELF_COMPLETION_STATE_ENABLED)
-                .event(SelfCompletionStateEvents.SET_ENABLED)
+                .source(SELF_COMPLETION_STATE_DISABLED.name())
+                .target(SELF_COMPLETION_STATE_ENABLED.name())
+                .event(SelfCompletionStateEvents.SET_ENABLED.name())
                 .action(fromDisabledToEnabledAction())
                 .guard(fromDisabledToEnabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_TENTATIVE)
-                .target(SELF_COMPLETION_STATE_ENABLED)
-                .event(SelfCompletionStateEvents.SET_ENABLED)
+                .source(SELF_COMPLETION_STATE_TENTATIVE.name())
+                .target(SELF_COMPLETION_STATE_ENABLED.name())
+                .event(SelfCompletionStateEvents.SET_ENABLED.name())
                 .action(fromTentativeToEnabledAction())
                 .guard(fromTentativeToEnabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN)
-                .target(SELF_COMPLETION_STATE_ENABLED)
-                .event(SelfCompletionStateEvents.SET_ENABLED)
+                .source(SELF_COMPLETION_STATE_FROZEN.name())
+                .target(SELF_COMPLETION_STATE_ENABLED.name())
+                .event(SelfCompletionStateEvents.SET_ENABLED.name())
                 .action(fromFrozenToEnabledAction())
                 .guard(fromFrozenToEnabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ACTIVE)
-                .target(SELF_COMPLETION_STATE_ENABLED)
-                .event(SelfCompletionStateEvents.SET_ENABLED)
+                .source(SELF_COMPLETION_STATE_ACTIVE.name())
+                .target(SELF_COMPLETION_STATE_ENABLED.name())
+                .event(SelfCompletionStateEvents.SET_ENABLED.name())
                 .action(fromActiveToEnabledAction())
                 .guard(fromActiveToEnabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_COMPLETED)
-                .target(SELF_COMPLETION_STATE_ENABLED)
-                .event(SelfCompletionStateEvents.SET_ENABLED)
+                .source(SELF_COMPLETION_STATE_COMPLETED.name())
+                .target(SELF_COMPLETION_STATE_ENABLED.name())
+                .event(SelfCompletionStateEvents.SET_ENABLED.name())
                 .action(fromCompletedToEnabledAction())
                 .guard(fromCompletedToEnabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ENABLED)
-                .target(SELF_COMPLETION_STATE_ENABLED)
-                .event(SelfCompletionStateEvents.SET_ENABLED)
+                .source(SELF_COMPLETION_STATE_ENABLED.name())
+                .target(SELF_COMPLETION_STATE_ENABLED.name())
+                .event(SelfCompletionStateEvents.SET_ENABLED.name())
                 .action(fromEnabledToEnabledAction())
                 .guard(fromEnabledToEnabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .target(SELF_COMPLETION_STATE_ENABLED)
-                .event(SelfCompletionStateEvents.SET_ENABLED)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .target(SELF_COMPLETION_STATE_ENABLED.name())
+                .event(SelfCompletionStateEvents.SET_ENABLED.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesByToEnabledAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesByToEnabledGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .target(SELF_COMPLETION_STATE_ENABLED)
-                .event(SelfCompletionStateEvents.SET_ENABLED)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .target(SELF_COMPLETION_STATE_ENABLED.name())
+                .event(SelfCompletionStateEvents.SET_ENABLED.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesToEnabledAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesToEnabledGuard())
                 .and()
 
                 //to Frozen
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN)
-                .target(SELF_COMPLETION_STATE_FROZEN)
-                .event(SelfCompletionStateEvents.SET_FROZEN)
+                .source(SELF_COMPLETION_STATE_FROZEN.name())
+                .target(SELF_COMPLETION_STATE_FROZEN.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN.name())
                 .action(fromFrozenToFrozenAction())
                 .guard(fromFrozenToFrozenGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ENABLED)
-                .target(SELF_COMPLETION_STATE_FROZEN)
-                .event(SelfCompletionStateEvents.SET_FROZEN)
+                .source(SELF_COMPLETION_STATE_ENABLED.name())
+                .target(SELF_COMPLETION_STATE_FROZEN.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN.name())
                 .action(fromEnabledToFrozenAction())
                 .guard(fromEnabledToFrozenGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .target(SELF_COMPLETION_STATE_FROZEN)
-                .event(SelfCompletionStateEvents.SET_FROZEN)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .target(SELF_COMPLETION_STATE_FROZEN.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesByToFrozenAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesByToFrozenGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .target(SELF_COMPLETION_STATE_FROZEN)
-                .event(SelfCompletionStateEvents.SET_FROZEN)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .target(SELF_COMPLETION_STATE_FROZEN.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesToFrozenAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesToFrozenGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ACTIVE)
-                .target(SELF_COMPLETION_STATE_FROZEN)
-                .event(SelfCompletionStateEvents.SET_FROZEN)
+                .source(SELF_COMPLETION_STATE_ACTIVE.name())
+                .target(SELF_COMPLETION_STATE_FROZEN.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN.name())
                 .action(fromActiveToFrozenAction())
                 .guard(fromActiveToFrozenGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_TENTATIVE)
-                .target(SELF_COMPLETION_STATE_FROZEN)
-                .event(SelfCompletionStateEvents.SET_FROZEN)
+                .source(SELF_COMPLETION_STATE_TENTATIVE.name())
+                .target(SELF_COMPLETION_STATE_FROZEN.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN.name())
                 .action(fromTentativeToFrozenAction())
                 .guard(fromTentativeToFrozenGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_COMPLETED)
-                .target(SELF_COMPLETION_STATE_FROZEN)
-                .event(SelfCompletionStateEvents.SET_FROZEN)
+                .source(SELF_COMPLETION_STATE_COMPLETED.name())
+                .target(SELF_COMPLETION_STATE_FROZEN.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN.name())
                 .action(fromCompletedToFrozenAction())
                 .guard(fromCompletedToFrozenGuard())
                 .and()
 
                 //to FrozenWithForciblyUnlockedRelativesBy
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesByToFrozenWithForciblyUnlockedRelativesByAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesByToFrozenWithForciblyUnlockedRelativesByGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ENABLED)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
+                .source(SELF_COMPLETION_STATE_ENABLED.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
                 .action(fromEnabledToFrozenWithForciblyUnlockedRelativesByAction())
                 .guard(fromEnabledToFrozenWithForciblyUnlockedRelativesByGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
+                .source(SELF_COMPLETION_STATE_FROZEN.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
                 .action(fromFrozenToFrozenWithForciblyUnlockedRelativesByAction())
                 .guard(fromFrozenToFrozenWithForciblyUnlockedRelativesByGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesToFrozenWithForciblyUnlockedRelativesByAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesToFrozenWithForciblyUnlockedRelativesByGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ACTIVE)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
+                .source(SELF_COMPLETION_STATE_ACTIVE.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
                 .action(fromActiveToFrozenWithForciblyUnlockedRelativesByAction())
                 .guard(fromActiveToFrozenWithForciblyUnlockedRelativesByGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_TENTATIVE)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
+                .source(SELF_COMPLETION_STATE_TENTATIVE.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
                 .action(fromTentativeToFrozenWithForciblyUnlockedRelativesByAction())
                 .guard(fromTentativeToFrozenWithForciblyUnlockedRelativesByGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_COMPLETED)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
+                .source(SELF_COMPLETION_STATE_COMPLETED.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
                 .action(fromCompletedToFrozenWithForciblyUnlockedRelativesByAction())
                 .guard(fromCompletedToFrozenWithForciblyUnlockedRelativesByGuard())
                 .and()
 
                 //to FrozenWithForciblyUnlockedRelatives
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesToFrozenWithForciblyUnlockedRelativesAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesToFrozenWithForciblyUnlockedRelativesGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ENABLED)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
+                .source(SELF_COMPLETION_STATE_ENABLED.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
                 .action(fromEnabledToFrozenWithForciblyUnlockedRelativesAction())
                 .guard(fromEnabledToFrozenWithForciblyUnlockedRelativesGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
+                .source(SELF_COMPLETION_STATE_FROZEN.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
                 .action(fromFrozenToFrozenWithForciblyUnlockedRelativesAction())
                 .guard(fromFrozenToFrozenWithForciblyUnlockedRelativesGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesByToFrozenWithForciblyUnlockedRelativesAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesByToFrozenWithForciblyUnlockedRelativesGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ACTIVE)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
+                .source(SELF_COMPLETION_STATE_ACTIVE.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
                 .action(fromActiveToFrozenWithForciblyUnlockedRelativesAction())
                 .guard(fromActiveToFrozenWithForciblyUnlockedRelativesGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_TENTATIVE)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
+                .source(SELF_COMPLETION_STATE_TENTATIVE.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
                 .action(fromTentativeToFrozenWithForciblyUnlockedRelativesAction())
                 .guard(fromTentativeToFrozenWithForciblyUnlockedRelativesGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_COMPLETED)
-                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
+                .source(SELF_COMPLETION_STATE_COMPLETED.name())
+                .target(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .event(SelfCompletionStateEvents.SET_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
                 .action(fromCompletedToFrozenWithForciblyUnlockedRelativesAction())
                 .guard(fromCompletedToFrozenWithForciblyUnlockedRelativesGuard())
                 .and()
 
                 //to Active
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ACTIVE)
-                .target(SELF_COMPLETION_STATE_ACTIVE)
-                .event(SelfCompletionStateEvents.SET_ACTIVE)
+                .source(SELF_COMPLETION_STATE_ACTIVE.name())
+                .target(SELF_COMPLETION_STATE_ACTIVE.name())
+                .event(SelfCompletionStateEvents.SET_ACTIVE.name())
                 .action(fromActiveToActiveAction())
                 .guard(fromActiveToActiveGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ENABLED)
-                .target(SELF_COMPLETION_STATE_ACTIVE)
-                .event(SelfCompletionStateEvents.SET_ACTIVE)
+                .source(SELF_COMPLETION_STATE_ENABLED.name())
+                .target(SELF_COMPLETION_STATE_ACTIVE.name())
+                .event(SelfCompletionStateEvents.SET_ACTIVE.name())
                 .action(fromEnabledToActiveAction())
                 .guard(fromEnabledToActiveGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN)
-                .target(SELF_COMPLETION_STATE_ACTIVE)
-                .event(SelfCompletionStateEvents.SET_ACTIVE)
+                .source(SELF_COMPLETION_STATE_FROZEN.name())
+                .target(SELF_COMPLETION_STATE_ACTIVE.name())
+                .event(SelfCompletionStateEvents.SET_ACTIVE.name())
                 .action(fromFrozenToActiveAction())
                 .guard(fromFrozenToActiveGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .target(SELF_COMPLETION_STATE_ACTIVE)
-                .event(SelfCompletionStateEvents.SET_ACTIVE)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .target(SELF_COMPLETION_STATE_ACTIVE.name())
+                .event(SelfCompletionStateEvents.SET_ACTIVE.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesByToActiveAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesByToActiveGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .target(SELF_COMPLETION_STATE_ACTIVE)
-                .event(SelfCompletionStateEvents.SET_ACTIVE)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .target(SELF_COMPLETION_STATE_ACTIVE.name())
+                .event(SelfCompletionStateEvents.SET_ACTIVE.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesToActiveAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesToActiveGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_TENTATIVE)
-                .target(SELF_COMPLETION_STATE_ACTIVE)
-                .event(SelfCompletionStateEvents.SET_ACTIVE)
+                .source(SELF_COMPLETION_STATE_TENTATIVE.name())
+                .target(SELF_COMPLETION_STATE_ACTIVE.name())
+                .event(SelfCompletionStateEvents.SET_ACTIVE.name())
                 .action(fromTentativeToActiveAction())
                 .guard(fromTentativeToActiveGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_COMPLETED)
-                .target(SELF_COMPLETION_STATE_ACTIVE)
-                .event(SelfCompletionStateEvents.SET_ACTIVE)
+                .source(SELF_COMPLETION_STATE_COMPLETED.name())
+                .target(SELF_COMPLETION_STATE_ACTIVE.name())
+                .event(SelfCompletionStateEvents.SET_ACTIVE.name())
                 .action(fromCompletedToActiveAction())
                 .guard(fromCompletedToActiveGuard())
                 .and()
 
                 //to Tentative
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_TENTATIVE)
-                .target(SELF_COMPLETION_STATE_TENTATIVE)
-                .event(SelfCompletionStateEvents.SET_TENTATIVE)
+                .source(SELF_COMPLETION_STATE_TENTATIVE.name())
+                .target(SELF_COMPLETION_STATE_TENTATIVE.name())
+                .event(SelfCompletionStateEvents.SET_TENTATIVE.name())
                 .action(fromTentativeToTentativeAction())
                 .guard(fromTentativeToTentativeGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_COMPLETED)
-                .target(SELF_COMPLETION_STATE_TENTATIVE)
-                .event(SelfCompletionStateEvents.SET_TENTATIVE)
+                .source(SELF_COMPLETION_STATE_COMPLETED.name())
+                .target(SELF_COMPLETION_STATE_TENTATIVE.name())
+                .event(SelfCompletionStateEvents.SET_TENTATIVE.name())
                 .action(fromCompletedToTentativeAction())
                 .guard(fromCompletedToTentativeGuard())
                 .and()
 
                 //to Completed
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_COMPLETED)
-                .target(SELF_COMPLETION_STATE_COMPLETED)
-                .event(SelfCompletionStateEvents.SET_COMPLETED)
+                .source(SELF_COMPLETION_STATE_COMPLETED.name())
+                .target(SELF_COMPLETION_STATE_COMPLETED.name())
+                .event(SelfCompletionStateEvents.SET_COMPLETED.name())
                 .action(fromCompletedToCompletedAction())
                 .guard(fromCompletedToCompletedGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ENABLED)
-                .target(SELF_COMPLETION_STATE_COMPLETED)
-                .event(SelfCompletionStateEvents.SET_COMPLETED)
+                .source(SELF_COMPLETION_STATE_ENABLED.name())
+                .target(SELF_COMPLETION_STATE_COMPLETED.name())
+                .event(SelfCompletionStateEvents.SET_COMPLETED.name())
                 .action(fromEnabledToCompletedAction())
                 .guard(fromEnabledToCompletedGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN)
-                .target(SELF_COMPLETION_STATE_COMPLETED)
-                .event(SelfCompletionStateEvents.SET_COMPLETED)
+                .source(SELF_COMPLETION_STATE_FROZEN.name())
+                .target(SELF_COMPLETION_STATE_COMPLETED.name())
+                .event(SelfCompletionStateEvents.SET_COMPLETED.name())
                 .action(fromFrozenToCompletedAction())
                 .guard(fromFrozenToCompletedGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY)
-                .target(SELF_COMPLETION_STATE_COMPLETED)
-                .event(SelfCompletionStateEvents.SET_COMPLETED)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES_BY.name())
+                .target(SELF_COMPLETION_STATE_COMPLETED.name())
+                .event(SelfCompletionStateEvents.SET_COMPLETED.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesByToCompletedAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesByToCompletedGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES)
-                .target(SELF_COMPLETION_STATE_COMPLETED)
-                .event(SelfCompletionStateEvents.SET_COMPLETED)
+                .source(SELF_COMPLETION_STATE_FROZEN_WITH_FORCIBLY_UNLOCKED_RELATIVES.name())
+                .target(SELF_COMPLETION_STATE_COMPLETED.name())
+                .event(SelfCompletionStateEvents.SET_COMPLETED.name())
                 .action(fromFrozenWithForciblyUnlockedRelativesToCompletedAction())
                 .guard(fromFrozenWithForciblyUnlockedRelativesToCompletedGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_ACTIVE)
-                .target(SELF_COMPLETION_STATE_COMPLETED)
-                .event(SelfCompletionStateEvents.SET_COMPLETED)
+                .source(SELF_COMPLETION_STATE_ACTIVE.name())
+                .target(SELF_COMPLETION_STATE_COMPLETED.name())
+                .event(SelfCompletionStateEvents.SET_COMPLETED.name())
                 .action(fromActiveToCompletedAction())
                 .guard(fromActiveToCompletedGuard())
                 .and()
                 .withLocal()
-                .source(SELF_COMPLETION_STATE_TENTATIVE)
-                .target(SELF_COMPLETION_STATE_COMPLETED)
-                .event(SelfCompletionStateEvents.SET_COMPLETED)
+                .source(SELF_COMPLETION_STATE_TENTATIVE.name())
+                .target(SELF_COMPLETION_STATE_COMPLETED.name())
+                .event(SelfCompletionStateEvents.SET_COMPLETED.name())
                 .action(fromTentativeToCompletedAction())
                 .guard(fromTentativeToCompletedGuard());
 
@@ -474,7 +473,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromNewToDisabledAction() {
+    public Action<String, String> fromNewToDisabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -482,7 +481,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromDisabledToDisabledAction() {
+    public Action<String, String> fromDisabledToDisabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -490,7 +489,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromFrozenToDisabledAction() {
+    public Action<String, String> fromFrozenToDisabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -498,7 +497,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromActiveToDisabledAction() {
+    public Action<String, String> fromActiveToDisabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -506,7 +505,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromEnabledToDisabledAction() {
+    public Action<String, String> fromEnabledToDisabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -514,7 +513,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToDisabledAction() {
+    public Action<String, String> fromCompletedToDisabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -522,7 +521,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToDisabledAction() {
         return (context) -> {/*add some action*/};
     }
@@ -531,7 +530,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesToDisabledAction() {
         return (context) -> {/*add some action*/};
     }
@@ -540,7 +539,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToDisabledAction() {
+    public Action<String, String> fromTentativeToDisabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -550,7 +549,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromNewToEnabledAction() {
+    public Action<String, String> fromNewToEnabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -558,7 +557,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromDisabledToEnabledAction() {
+    public Action<String, String> fromDisabledToEnabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -566,7 +565,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromEnabledToEnabledAction() {
+    public Action<String, String> fromEnabledToEnabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -574,7 +573,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromFrozenToEnabledAction() {
+    public Action<String, String> fromFrozenToEnabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -582,7 +581,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToEnabledAction() {
         return (context) -> {/*add some action*/};
     }
@@ -591,7 +590,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesToEnabledAction() {
         return (context) -> {/*add some action*/};
     }
@@ -600,7 +599,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromActiveToEnabledAction() {
+    public Action<String, String> fromActiveToEnabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -608,7 +607,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToEnabledAction() {
+    public Action<String, String> fromTentativeToEnabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -616,7 +615,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToEnabledAction() {
+    public Action<String, String> fromCompletedToEnabledAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -626,7 +625,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromFrozenToFrozenAction() {
+    public Action<String, String> fromFrozenToFrozenAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -634,7 +633,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromEnabledToFrozenAction() {
+    public Action<String, String> fromEnabledToFrozenAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -642,7 +641,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToFrozenAction() {
         return (context) -> {/*add some action*/};
     }
@@ -651,7 +650,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesToFrozenAction() {
         return (context) -> {/*add some action*/};
     }
@@ -660,7 +659,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromActiveToFrozenAction() {
+    public Action<String, String> fromActiveToFrozenAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -668,7 +667,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToFrozenAction() {
+    public Action<String, String> fromTentativeToFrozenAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -676,7 +675,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToFrozenAction() {
+    public Action<String, String> fromCompletedToFrozenAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -686,7 +685,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToFrozenWithForciblyUnlockedRelativesByAction() {
         return (context) -> {/*add some action*/};
     }
@@ -695,7 +694,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromEnabledToFrozenWithForciblyUnlockedRelativesByAction() {
         return (context) -> {/*add some action*/};
     }
@@ -704,7 +703,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenToFrozenWithForciblyUnlockedRelativesByAction() {
         return (context) -> {/*add some action*/};
     }
@@ -713,7 +712,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesToFrozenWithForciblyUnlockedRelativesByAction() {
         return (context) -> {/*add some action*/};
     }
@@ -722,7 +721,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromActiveToFrozenWithForciblyUnlockedRelativesByAction() {
         return (context) -> {/*add some action*/};
     }
@@ -731,7 +730,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromTentativeToFrozenWithForciblyUnlockedRelativesByAction() {
         return (context) -> {/*add some action*/};
     }
@@ -740,7 +739,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromCompletedToFrozenWithForciblyUnlockedRelativesByAction() {
         return (context) -> {/*add some action*/};
     }
@@ -751,7 +750,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesToFrozenWithForciblyUnlockedRelativesAction() {
         return (context) -> {/*add some action*/};
     }
@@ -760,7 +759,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromEnabledToFrozenWithForciblyUnlockedRelativesAction() {
         return (context) -> {/*add some action*/};
     }
@@ -769,7 +768,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenToFrozenWithForciblyUnlockedRelativesAction() {
         return (context) -> {/*add some action*/};
     }
@@ -778,7 +777,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToFrozenWithForciblyUnlockedRelativesAction() {
         return (context) -> {/*add some action*/};
     }
@@ -787,7 +786,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromActiveToFrozenWithForciblyUnlockedRelativesAction() {
         return (context) -> {/*add some action*/};
     }
@@ -796,7 +795,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromTentativeToFrozenWithForciblyUnlockedRelativesAction() {
         return (context) -> {/*add some action*/};
     }
@@ -805,7 +804,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromCompletedToFrozenWithForciblyUnlockedRelativesAction() {
         return (context) -> {/*add some action*/};
     }
@@ -816,7 +815,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromActiveToActiveAction() {
+    public Action<String, String> fromActiveToActiveAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -824,7 +823,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromEnabledToActiveAction() {
+    public Action<String, String> fromEnabledToActiveAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -832,7 +831,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromFrozenToActiveAction() {
+    public Action<String, String> fromFrozenToActiveAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -840,7 +839,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToActiveAction() {
         return (context) -> {/*add some action*/};
     }
@@ -849,7 +848,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesToActiveAction() {
         return (context) -> {/*add some action*/};
     }
@@ -858,7 +857,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToActiveAction() {
+    public Action<String, String> fromTentativeToActiveAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -866,7 +865,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToActiveAction() {
+    public Action<String, String> fromCompletedToActiveAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -876,7 +875,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToTentativeAction() {
+    public Action<String, String> fromTentativeToTentativeAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -884,7 +883,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToTentativeAction() {
+    public Action<String, String> fromCompletedToTentativeAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -894,7 +893,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToCompletedAction() {
+    public Action<String, String> fromCompletedToCompletedAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -902,7 +901,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromEnabledToCompletedAction() {
+    public Action<String, String> fromEnabledToCompletedAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -910,7 +909,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromFrozenToCompletedAction() {
+    public Action<String, String> fromFrozenToCompletedAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -918,7 +917,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToCompletedAction() {
         return (context) -> {/*add some action*/};
     }
@@ -927,7 +926,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents>
+    public Action<String, String>
     fromFrozenWithForciblyUnlockedRelativesToCompletedAction() {
         return (context) -> {/*add some action*/};
     }
@@ -936,7 +935,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromActiveToCompletedAction() {
+    public Action<String, String> fromActiveToCompletedAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -944,7 +943,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Action<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToCompletedAction() {
+    public Action<String, String> fromTentativeToCompletedAction() {
         return (context) -> {/*add some action*/};
     }
 
@@ -954,7 +953,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromNewToDisabledGuard() {
+    public Guard<String, String> fromNewToDisabledGuard() {
         return (context) -> {/*add some action*/ return false;};
     }
 
@@ -962,7 +961,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromDisabledToDisabledGuard() {
+    public Guard<String, String> fromDisabledToDisabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -970,7 +969,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromFrozenToDisabledGuard() {
+    public Guard<String, String> fromFrozenToDisabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -978,7 +977,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromActiveToDisabledGuard() {
+    public Guard<String, String> fromActiveToDisabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -986,7 +985,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromEnabledToDisabledGuard() {
+    public Guard<String, String> fromEnabledToDisabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -994,7 +993,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToDisabledGuard() {
+    public Guard<String, String> fromCompletedToDisabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1002,7 +1001,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToDisabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1011,7 +1010,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesToDisabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1020,7 +1019,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToDisabledGuard() {
+    public Guard<String, String> fromTentativeToDisabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1030,7 +1029,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromNewToEnabledGuard() {
+    public Guard<String, String> fromNewToEnabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1038,7 +1037,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromDisabledToEnabledGuard() {
+    public Guard<String, String> fromDisabledToEnabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1046,7 +1045,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromEnabledToEnabledGuard() {
+    public Guard<String, String> fromEnabledToEnabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1054,7 +1053,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromFrozenToEnabledGuard() {
+    public Guard<String, String> fromFrozenToEnabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1062,7 +1061,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToEnabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1071,7 +1070,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesToEnabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1080,7 +1079,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromActiveToEnabledGuard() {
+    public Guard<String, String> fromActiveToEnabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1088,7 +1087,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToEnabledGuard() {
+    public Guard<String, String> fromTentativeToEnabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1096,7 +1095,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToEnabledGuard() {
+    public Guard<String, String> fromCompletedToEnabledGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1106,7 +1105,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromFrozenToFrozenGuard() {
+    public Guard<String, String> fromFrozenToFrozenGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1114,7 +1113,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromEnabledToFrozenGuard() {
+    public Guard<String, String> fromEnabledToFrozenGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1122,7 +1121,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToFrozenGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1131,7 +1130,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesToFrozenGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1140,7 +1139,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromActiveToFrozenGuard() {
+    public Guard<String, String> fromActiveToFrozenGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1148,7 +1147,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToFrozenGuard() {
+    public Guard<String, String> fromTentativeToFrozenGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1156,7 +1155,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToFrozenGuard() {
+    public Guard<String, String> fromCompletedToFrozenGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1166,7 +1165,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToFrozenWithForciblyUnlockedRelativesByGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1175,7 +1174,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromEnabledToFrozenWithForciblyUnlockedRelativesByGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1184,7 +1183,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenToFrozenWithForciblyUnlockedRelativesByGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1193,7 +1192,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesToFrozenWithForciblyUnlockedRelativesByGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1202,7 +1201,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromActiveToFrozenWithForciblyUnlockedRelativesByGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1211,7 +1210,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromTentativeToFrozenWithForciblyUnlockedRelativesByGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1220,7 +1219,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromCompletedToFrozenWithForciblyUnlockedRelativesByGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1231,7 +1230,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesToFrozenWithForciblyUnlockedRelativesGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1240,7 +1239,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromEnabledToFrozenWithForciblyUnlockedRelativesGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1249,7 +1248,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenToFrozenWithForciblyUnlockedRelativesGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1258,7 +1257,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToFrozenWithForciblyUnlockedRelativesGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1267,7 +1266,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromActiveToFrozenWithForciblyUnlockedRelativesGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1276,7 +1275,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromTentativeToFrozenWithForciblyUnlockedRelativesGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1285,7 +1284,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromCompletedToFrozenWithForciblyUnlockedRelativesGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1296,7 +1295,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromActiveToActiveGuard() {
+    public Guard<String, String> fromActiveToActiveGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1304,7 +1303,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromEnabledToActiveGuard() {
+    public Guard<String, String> fromEnabledToActiveGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1312,7 +1311,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromFrozenToActiveGuard() {
+    public Guard<String, String> fromFrozenToActiveGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1320,7 +1319,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToActiveGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1329,7 +1328,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesToActiveGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1338,7 +1337,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToActiveGuard() {
+    public Guard<String, String> fromTentativeToActiveGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1346,7 +1345,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToActiveGuard() {
+    public Guard<String, String> fromCompletedToActiveGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1356,7 +1355,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToTentativeGuard() {
+    public Guard<String, String> fromTentativeToTentativeGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1364,7 +1363,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToTentativeGuard() {
+    public Guard<String, String> fromCompletedToTentativeGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1374,7 +1373,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromCompletedToCompletedGuard() {
+    public Guard<String, String> fromCompletedToCompletedGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1382,7 +1381,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromEnabledToCompletedGuard() {
+    public Guard<String, String> fromEnabledToCompletedGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1390,7 +1389,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromFrozenToCompletedGuard() {
+    public Guard<String, String> fromFrozenToCompletedGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1398,7 +1397,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesByToCompletedGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1407,7 +1406,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents>
+    public Guard<String, String>
     fromFrozenWithForciblyUnlockedRelativesToCompletedGuard() {
         return (context) -> {/*add some action*/return false;};
     }
@@ -1416,7 +1415,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromActiveToCompletedGuard() {
+    public Guard<String, String> fromActiveToCompletedGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 
@@ -1424,7 +1423,7 @@ public class TaskSelfCompletionStateMachine
      * {@inheritDoc}
      */
     @Bean
-    public Guard<SelfCompletionState, SelfCompletionStateEvents> fromTentativeToCompletedGuard() {
+    public Guard<String, String> fromTentativeToCompletedGuard() {
         return (context) -> {/*add some action*/return false;};
     }
 }
