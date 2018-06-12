@@ -7,8 +7,8 @@
     <artifactId>meteoradesigner</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
     <name>meteoradesigner</name>
+
     <!--?-->
     <url>https://github.com/meteoraprojects/meteoradesigner</url>
 
@@ -28,6 +28,12 @@
 
         <!--Db-->
         <h2.version>1.4.196</h2.version>
+
+        <!--Spring-->
+        <spring-statemachine.version>2.0.1.RELEASE</spring-statemachine.version>
+
+        <!--Test-->
+        <mockito-core.version>2.18.3</mockito-core.version>
 
         <!--Validation-->
         <javax-el.version>3.0.1-b08</javax-el.version>
@@ -51,7 +57,6 @@
         <version>2.0.1.RELEASE</version>
     </parent>
 
-
     <dependencies>
 
         <!--Basic-->
@@ -73,6 +78,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.statemachine</groupId>
+            <artifactId>spring-statemachine-recipes-common</artifactId>
         </dependency>
 
         <!--TODO: Explore-->
@@ -100,6 +115,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
+        </dependency>
+
+        <!--Test-->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito-core.version}</version>
         </dependency>
 
         <!-- Logging with SLF4J & LogBack -->
@@ -154,6 +176,18 @@
         </dependency>
 
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.statemachine</groupId>
+                <artifactId>spring-statemachine-bom</artifactId>
+                <version>${spring-statemachine.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <!--<Explicit-ParBOM-ImpBOM-Mediation, for future use of spring test>-->
     <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->

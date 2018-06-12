@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
 
-    <!-- To enable JMX Management -->
-    <jmxConfigurator/>
-    <property name="LOG_PATH" value="C:\Tools\Logs" />
+    <!--<<jmxConfigurator/>
+   <property name="LOG_PATH" value="\opt\" />
 
     <appender name="file" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_PATH}/MD.log</file>
@@ -23,7 +22,7 @@
     <logger name="data" level="warn"/>
 
     <root level="info">
-        <appender-ref ref="file"/>
+       <appender-ref ref="file"/>
         <appender-ref ref="console"/>
-    </root>
+    </root>>-->
 </configuration>
