@@ -51,10 +51,15 @@ public abstract class GenericAbstractCrudService
     @Override
     public D find(ID toGet) {
         //TODO validations 1,2
-        E e = validateNotFoundWithId(
-                getRepository().findById(toGet).orElse(null),
-                toGet);
+        E e = getEntity(toGet);
         return getEntityDtoMapper().entityToDto(e);
+    }
+
+    //TODO
+    protected E getEntity(ID toGet) {
+        return validateNotFoundWithId(
+                    getRepository().findById(toGet).orElse(null),
+                    toGet);
     }
 
     /**

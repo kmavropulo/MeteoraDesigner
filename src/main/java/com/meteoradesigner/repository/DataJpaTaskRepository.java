@@ -10,5 +10,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository
 public interface DataJpaTaskRepository extends JpaRepository<Task, Integer>,
-        GenericAbstractCrudRepository<Task, Integer> {
+                                               GenericAbstractCrudRepository<Task, Integer> {
 }
